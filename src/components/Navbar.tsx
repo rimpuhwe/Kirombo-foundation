@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -15,6 +16,11 @@ import { motion, AnimatePresence } from "framer-motion";
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActivePath = (path: string) => {
+    return location.pathname.startsWith(path);
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-soft">
@@ -43,7 +49,13 @@ const Navbar = () => {
               <NavigationMenuList className="space-x-2">
                 {/* Our Founder Dropdown */}
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent hover:bg-muted">
+                  <NavigationMenuTrigger
+                    className={`${
+                      isActivePath("/founder")
+                        ? "text-orange-500"
+                        : "text-foreground"
+                    } hover:text-orange-500`}
+                  >
                     Our Founder
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -85,55 +97,24 @@ const Navbar = () => {
                 {/* Who We Are Dropdown */}
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
-                    className="bg-transparent hover:bg-muted"
+                    className={`${
+                      isActivePath("/about")
+                        ? "text-orange-500"
+                        : "text-foreground"
+                    } hover:text-orange-500`}
                     onClick={() => navigate("/about#introduction")}
                   >
                     Who We Are
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[260px] gap-2 p-4 bg-card">
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/about#introduction"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
-                          >
-                            <div className="text-sm font-medium leading-none">
-                              About Us
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Our story and history
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
+                    <ul className="grid w-[260px] gap-2 p-2 bg-card">
                       <li>
                         <NavigationMenuLink asChild>
                           <Link
                             to="/about#vision"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
+                            className="block font-semibold select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-orange-500 hover:text-white"
                           >
-                            <div className="text-sm font-medium leading-none">
-                              Vision
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Where we aim to go
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/about#mission-values"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
-                          >
-                            <div className="text-sm font-medium leading-none">
-                              Mission & Values
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              What guides our work
-                            </p>
+                            Vision, Mission and Values
                           </Link>
                         </NavigationMenuLink>
                       </li>
@@ -141,14 +122,9 @@ const Navbar = () => {
                         <NavigationMenuLink asChild>
                           <Link
                             to="/about#board"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
+                            className="block font-semibold select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-orange-500 hover:text-white"
                           >
-                            <div className="text-sm font-medium leading-none">
-                              Board Members
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Meet our leaders
-                            </p>
+                            Board Members
                           </Link>
                         </NavigationMenuLink>
                       </li>
@@ -156,14 +132,9 @@ const Navbar = () => {
                         <NavigationMenuLink asChild>
                           <Link
                             to="/about#partners"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
+                            className="block font-semibold select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-orange-500 hover:text-white"
                           >
-                            <div className="text-sm font-medium leading-none">
-                              Implementing Partners
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Our collaborators
-                            </p>
+                            Core Partners
                           </Link>
                         </NavigationMenuLink>
                       </li>
@@ -173,7 +144,13 @@ const Navbar = () => {
 
                 {/* What We Do Dropdown */}
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent hover:bg-muted">
+                  <NavigationMenuTrigger
+                    className={`${
+                      isActivePath("/programs")
+                        ? "text-orange-500"
+                        : "text-foreground"
+                    } hover:text-orange-500`}
+                  >
                     What We Do
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -244,7 +221,13 @@ const Navbar = () => {
 
                 {/* Press Room Dropdown */}
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent hover:bg-muted">
+                  <NavigationMenuTrigger
+                    className={`${
+                      isActivePath("/press")
+                        ? "text-orange-500"
+                        : "text-foreground"
+                    } hover:text-orange-500`}
+                  >
                     Press Room
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -272,7 +255,11 @@ const Navbar = () => {
                 <NavigationMenuItem>
                   <Link
                     to="/impact"
-                    className="inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                    className={`inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+                      isActivePath("/impact")
+                        ? "text-orange-500"
+                        : "text-foreground"
+                    } hover:text-orange-500 focus:outline-none disabled:pointer-events-none disabled:opacity-50`}
                   >
                     Impact
                   </Link>
@@ -336,39 +323,25 @@ const Navbar = () => {
                   Who We Are
                 </div>
                 <Link
-                  to="/about#introduction"
-                  className="block py-2 pl-4 hover:text-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  About Us
-                </Link>
-                <Link
                   to="/about#vision"
-                  className="block py-2 pl-4 hover:text-primary transition-colors"
+                  className="block font-semibold py-2 pl-4 rounded-md hover:bg-orange-500 hover:text-white transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Vision
-                </Link>
-                <Link
-                  to="/about#mission-values"
-                  className="block py-2 pl-4 hover:text-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Mission & Values
+                  Vision, Mission & Values
                 </Link>
                 <Link
                   to="/about#board"
-                  className="block py-2 pl-4 hover:text-primary transition-colors"
+                  className="block font-semibold py-2 pl-4 rounded-md hover:bg-orange-500 hover:text-white transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Board Members
                 </Link>
                 <Link
                   to="/about#partners"
-                  className="block py-2 pl-4 hover:text-primary transition-colors"
+                  className="block font-semibold py-2 pl-4 rounded-md hover:bg-orange-500 hover:text-white transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Implementing Partners
+                  Implementing / Core Partners
                 </Link>
               </div>
               <div className="space-y-2">
