@@ -104,7 +104,7 @@ const About = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative h-[500px] mt-20">
+      <section id="hero" className="relative h-[500px] mt-20">
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&h=500&fit=crop"

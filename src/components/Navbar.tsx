@@ -93,8 +93,6 @@ const Navbar = () => {
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
-
-                {/* Who We Are Dropdown */}
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
                     className={`${
@@ -102,7 +100,7 @@ const Navbar = () => {
                         ? "text-orange-500"
                         : "text-foreground"
                     } hover:text-orange-500`}
-                    onClick={() => navigate("/about#introduction")}
+                    onClick={() => navigate("/about#hero")}
                   >
                     Who We Are
                   </NavigationMenuTrigger>
