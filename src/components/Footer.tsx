@@ -18,20 +18,17 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-gray-300 text-sm mb-4">
-              Supporting communities and transforming lives through sustainable development programs across East Africa.
+             Honoring Abdallah Kiromba's legacy through sustainable community initiatives
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-300 hover:text-secondary transition-colors">
+              <a href="https://www.facebook.com/profile.php?id=61573925694268" target="_blank" className="text-gray-300 hover:text-secondary transition-colors">
                 <Facebook size={20} />
               </a>
-              <a href="#" className="text-gray-300 hover:text-secondary transition-colors">
+              <a href="https://x.com/AbdallahKiromba" target="_blank" className="text-gray-300 hover:text-secondary transition-colors">
                 <Twitter size={20} />
               </a>
               <a href="#" className="text-gray-300 hover:text-secondary transition-colors">
                 <Instagram size={20} />
-              </a>
-              <a href="#" className="text-gray-300 hover:text-secondary transition-colors">
-                <Linkedin size={20} />
               </a>
             </div>
           </div>
@@ -102,17 +99,16 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <MapPin size={18} className="text-secondary mt-1 flex-shrink-0" />
                 <span className="text-gray-300 text-sm">
-                  Plot 123, Kampala Road<br />
-                  Kampala, Uganda
+                  Kigali , Rwanda
                 </span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone size={18} className="text-secondary flex-shrink-0" />
-                <span className="text-gray-300 text-sm">+256 700 123 456</span>
+                <span className="text-gray-300 text-sm">+250 788 304 820</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail size={18} className="text-secondary flex-shrink-0" />
-                <span className="text-gray-300 text-sm">info@akfoundation.org</span>
+                <span className="text-gray-300 text-sm">abdallahkirombafoundation@gmail.com</span>
               </li>
             </ul>
           </div>
