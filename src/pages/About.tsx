@@ -34,13 +34,7 @@ const About = () => {
   // Track active section on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const sections = [
-        "introduction",
-        "vision",
-        "mission-values",
-        "board",
-        "partners",
-      ];
+      const sections = ["introduction", "vision", "board", "partners"];
       const scrollPosition = window.scrollY + 250;
 
       for (const section of sections) {
@@ -78,38 +72,31 @@ const About = () => {
     {
       name: "Haji Higiro Issa",
       title: "Guardian of the foundation",
-      
     },
     {
       name: "Niyonsaba Donat",
       title: "President & Legal Representative",
-      
     },
     {
       name: "Haji Bbale Bwanika",
       title: "First Vice President ",
-      
     },
     {
       name: "Kabanda Joy",
       title: "Executive Secretary",
-      
     },
     {
       name: "Nyirabahizi Hawa",
       title: "Monitoring and Evaluations Officer ",
-      
     },
     {
       name: "Bazizane Harrida",
       title: "Administrator Officer",
-     
     },
     {
       name: "Steven Nsamaza",
       title: "Communication Consultant",
-     
-    }
+    },
   ];
 
   return (
@@ -147,7 +134,7 @@ const About = () => {
             {[
               { id: "introduction", label: "INTRODUCTION" },
               { id: "vision", label: "VISION" },
-              { id: "mission-values", label: "MISSION & VALUES" },
+              { id: "mission", label: "MISSION & VALUES" },
               { id: "board", label: "BOARD MEMBERS" },
               { id: "partners", label: "CORE PARTNERS" },
             ].map((item) => (
@@ -156,7 +143,7 @@ const About = () => {
                 onClick={() => scrollToSection(item.id)}
                 className={`px-6 py-4 text-sm font-semibold whitespace-nowrap transition-colors ${
                   activeSection === item.id
-                    ? "text-secondary border-b-2 border-secondary"
+                    ? "text-orange-500 border-b-2 border-orange-500"
                     : "text-white/80 hover:text-white"
                 }`}
               >
@@ -195,24 +182,31 @@ const About = () => {
               </h2>
               <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
                 <p>
-                 The Abdallah Kiromba Foundation was officially established in 2024 as a common
-                 benefit foundation to primarily continue the legacy of our late father, Abdallah
-                 Kiromba, through social work as a way of his <span className="text-secondary"><b>“Sadaqah Jariyah”</b></span> by supporting communities
-                 in various capacities around Rwanda, as well as the region
+                  The Abdallah Kiromba Foundation was officially established in
+                  2024 as a common benefit foundation to primarily continue the
+                  legacy of our late father, Abdallah Kiromba, through social
+                  work as a way of his{" "}
+                  <span className="text-secondary">
+                    <b>“Sadaqah Jariyah”</b>
+                  </span>{" "}
+                  by supporting communities in various capacities around Rwanda,
+                  as well as the region
                 </p>
                 <p>
-                  Our main goals are to enhance {" "}
+                  Our main goals are to enhance{" "}
                   <strong className="text-foreground">
-                    Social and economic development programs, health and well-being, 
-                    Education, Orphan care, Islamic sessional giving, Water, Livelihood, 
-                    and other related initiatives.
+                    Social and economic development programs, health and
+                    well-being, Education, Orphan care, Islamic sessional
+                    giving, Water, Livelihood, and other related initiatives.
                   </strong>
                 </p>
                 <p>
-                  By carrying forward Abdallah Kiromba’s legacy of generosity, we aim not only to respond 
-                  to immediate needs but also to foster long-term growth, dignity, and resilience 
-                  across communities. Through every project and initiative, we remain committed to uplifting 
-                  lives and building a brighter future for generations to come.
+                  By carrying forward Abdallah Kiromba’s legacy of generosity,
+                  we aim not only to respond to immediate needs but also to
+                  foster long-term growth, dignity, and resilience across
+                  communities. Through every project and initiative, we remain
+                  committed to uplifting lives and building a brighter future
+                  for generations to come.
                 </p>
               </div>
             </motion.div>
@@ -271,7 +265,7 @@ const About = () => {
       <section id="vision" className="py-20 bg-background scroll-mt-40">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-12 mb-16">
+            <div id="vision" className="grid md:grid-cols-3 gap-12 mb-16">
               {[
                 {
                   title: "Vision",
