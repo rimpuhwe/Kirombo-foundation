@@ -81,6 +81,19 @@ const Navbar = () => {
                       <li>
                         <NavigationMenuLink asChild>
                           <Link
+                            to="/about/our-story"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
+                          >
+                            <div className="text-sm font-medium leading-none">About Us</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Our story and history
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
                             to="/about/vision-mission"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
                           >
@@ -121,6 +134,69 @@ const Navbar = () => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
+                {/* What We Do Dropdown */}
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="bg-transparent hover:bg-muted">
+                    What We Do
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[250px] gap-2 p-4 bg-card">
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/programs/education"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
+                          >
+                            <div className="text-sm font-medium leading-none">Education Programs</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Empowering through learning
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/programs/healthcare"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
+                          >
+                            <div className="text-sm font-medium leading-none">Healthcare Programs</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Promoting health & wellness
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/programs/youth-empowerment"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
+                          >
+                            <div className="text-sm font-medium leading-none">Youth Empowerment</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Building futures together
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/programs"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
+                          >
+                            <div className="text-sm font-medium leading-none">All Programs</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              View complete overview
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
                 {/* Press Room Dropdown */}
                 <NavigationMenuItem>
                   <NavigationMenuTrigger className="bg-transparent hover:bg-muted">
@@ -146,11 +222,6 @@ const Navbar = () => {
                 </NavigationMenuItem>
 
                 {/* Standard Links */}
-                <NavigationMenuItem>
-                  <Link to="/programs" className="inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
-                    Programs
-                  </Link>
-                </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link to="/impact" className="inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
                     Impact
@@ -211,6 +282,13 @@ const Navbar = () => {
               <div className="space-y-2">
                 <div className="font-semibold text-sm text-muted-foreground">Who We Are</div>
                 <Link
+                  to="/about/our-story"
+                  className="block py-2 pl-4 hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  About Us
+                </Link>
+                <Link
                   to="/about/vision-mission"
                   className="block py-2 pl-4 hover:text-primary transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
@@ -232,19 +310,43 @@ const Navbar = () => {
                   Partners
                 </Link>
               </div>
+              <div className="space-y-2">
+                <div className="font-semibold text-sm text-muted-foreground">What We Do</div>
+                <Link
+                  to="/programs/education"
+                  className="block py-2 pl-4 hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Education Programs
+                </Link>
+                <Link
+                  to="/programs/healthcare"
+                  className="block py-2 pl-4 hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Healthcare Programs
+                </Link>
+                <Link
+                  to="/programs/youth-empowerment"
+                  className="block py-2 pl-4 hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Youth Empowerment
+                </Link>
+                <Link
+                  to="/programs"
+                  className="block py-2 pl-4 hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  All Programs
+                </Link>
+              </div>
               <Link
                 to="/press"
                 className="block py-2 hover:text-primary transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Press Room
-              </Link>
-              <Link
-                to="/programs"
-                className="block py-2 hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Programs
               </Link>
               <Link
                 to="/impact"

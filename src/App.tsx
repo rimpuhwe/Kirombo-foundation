@@ -6,11 +6,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Biography from "./pages/Biography";
 import Speeches from "./pages/Speeches";
+import OurStory from "./pages/OurStory";
 import VisionMission from "./pages/VisionMission";
 import Team from "./pages/Team";
 import Partners from "./pages/Partners";
 import Press from "./pages/Press";
 import Programs from "./pages/Programs";
+import EducationPrograms from "./pages/EducationPrograms";
+import HealthcarePrograms from "./pages/HealthcarePrograms";
+import YouthEmpowerment from "./pages/YouthEmpowerment";
 import Donate from "./pages/Donate";
 import NotFound from "./pages/NotFound";
 
@@ -26,11 +30,15 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/founder/biography" element={<Biography />} />
           <Route path="/founder/speeches" element={<Speeches />} />
+          <Route path="/about/our-story" element={<OurStory />} />
           <Route path="/about/vision-mission" element={<VisionMission />} />
           <Route path="/about/team" element={<Team />} />
           <Route path="/about/partners" element={<Partners />} />
           <Route path="/press" element={<Press />} />
           <Route path="/programs" element={<Programs />} />
+          <Route path="/programs/education" element={<EducationPrograms />} />
+          <Route path="/programs/healthcare" element={<HealthcarePrograms />} />
+          <Route path="/programs/youth-empowerment" element={<YouthEmpowerment />} />
           <Route path="/donate" element={<Donate />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

@@ -7,11 +7,12 @@ interface ProgramCardProps {
   title: string;
   description: string;
   image: string;
-  link: string;
-  index: number;
+  link?: string;
+  index?: number;
+  icon?: React.ReactNode;
 }
 
-const ProgramCard = ({ title, description, image, link, index }: ProgramCardProps) => {
+const ProgramCard = ({ title, description, image, link, index = 0, icon }: ProgramCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -27,6 +28,11 @@ const ProgramCard = ({ title, description, image, link, index }: ProgramCardProp
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-forest-dark/80 to-transparent" />
+        {icon && (
+          <div className="absolute top-6 right-6 w-14 h-14 bg-primary/90 backdrop-blur-sm rounded-full flex items-center justify-center text-primary-foreground">
+            {icon}
+          </div>
+        )}
       </div>
       <div className="p-6">
         <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
@@ -35,19 +41,21 @@ const ProgramCard = ({ title, description, image, link, index }: ProgramCardProp
         <p className="text-muted-foreground mb-6 line-clamp-3">
           {description}
         </p>
-        <Button
-          asChild
-          variant="ghost"
-          className="text-primary hover:text-secondary p-0 h-auto font-semibold group/button"
-        >
-          <Link to={link}>
-            Learn More
-            <ArrowRight
-              size={18}
-              className="ml-2 group-hover/button:translate-x-1 transition-transform"
-            />
-          </Link>
-        </Button>
+        {link && (
+          <Button
+            asChild
+            variant="ghost"
+            className="text-primary hover:text-secondary p-0 h-auto font-semibold group/button"
+          >
+            <Link to={link}>
+              Learn More
+              <ArrowRight
+                size={18}
+                className="ml-2 group-hover/button:translate-x-1 transition-transform"
+              />
+            </Link>
+          </Button>
+        )}
       </div>
     </motion.div>
   );
