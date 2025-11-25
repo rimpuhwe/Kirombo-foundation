@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-soft">
@@ -22,11 +23,17 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xl">AKF</span>
+              <span className="text-primary-foreground font-bold text-xl">
+                AKF
+              </span>
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-lg text-foreground leading-tight">Abdallah Kiromba</span>
-              <span className="text-sm text-muted-foreground leading-tight">Foundation</span>
+              <span className="font-bold text-lg text-foreground leading-tight">
+                Abdallah Kiromba
+              </span>
+              <span className="text-sm text-muted-foreground leading-tight">
+                Foundation
+              </span>
             </div>
           </Link>
 
@@ -47,7 +54,9 @@ const Navbar = () => {
                             to="/founder/biography"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
                           >
-                            <div className="text-sm font-medium leading-none">Biography</div>
+                            <div className="text-sm font-medium leading-none">
+                              Biography
+                            </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Life and legacy
                             </p>
@@ -60,7 +69,9 @@ const Navbar = () => {
                             to="/founder/speeches"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
                           >
-                            <div className="text-sm font-medium leading-none">Speeches</div>
+                            <div className="text-sm font-medium leading-none">
+                              Speeches
+                            </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Public addresses
                             </p>
@@ -73,18 +84,23 @@ const Navbar = () => {
 
                 {/* Who We Are Dropdown */}
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-transparent hover:bg-muted">
+                  <NavigationMenuTrigger
+                    className="bg-transparent hover:bg-muted"
+                    onClick={() => navigate("/about#introduction")}
+                  >
                     Who We Are
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[250px] gap-2 p-4 bg-card">
+                    <ul className="grid w-[260px] gap-2 p-4 bg-card">
                       <li>
                         <NavigationMenuLink asChild>
                           <Link
-                            to="/about/our-story"
+                            to="/about#introduction"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
                           >
-                            <div className="text-sm font-medium leading-none">About Us</div>
+                            <div className="text-sm font-medium leading-none">
+                              About Us
+                            </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Our story and history
                             </p>
@@ -94,12 +110,14 @@ const Navbar = () => {
                       <li>
                         <NavigationMenuLink asChild>
                           <Link
-                            to="/about/vision-mission"
+                            to="/about#vision"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
                           >
-                            <div className="text-sm font-medium leading-none">Vision, Mission & Values</div>
+                            <div className="text-sm font-medium leading-none">
+                              Vision
+                            </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Our guiding principles
+                              Where we aim to go
                             </p>
                           </Link>
                         </NavigationMenuLink>
@@ -107,10 +125,27 @@ const Navbar = () => {
                       <li>
                         <NavigationMenuLink asChild>
                           <Link
-                            to="/about/team"
+                            to="/about#mission-values"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
                           >
-                            <div className="text-sm font-medium leading-none">Management Team</div>
+                            <div className="text-sm font-medium leading-none">
+                              Mission & Values
+                            </div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              What guides our work
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/about#board"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
+                          >
+                            <div className="text-sm font-medium leading-none">
+                              Board Members
+                            </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Meet our leaders
                             </p>
@@ -120,10 +155,12 @@ const Navbar = () => {
                       <li>
                         <NavigationMenuLink asChild>
                           <Link
-                            to="/about/partners"
+                            to="/about#partners"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
                           >
-                            <div className="text-sm font-medium leading-none">Partners</div>
+                            <div className="text-sm font-medium leading-none">
+                              Implementing Partners
+                            </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Our collaborators
                             </p>
@@ -147,7 +184,9 @@ const Navbar = () => {
                             to="/programs/education"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
                           >
-                            <div className="text-sm font-medium leading-none">Education Programs</div>
+                            <div className="text-sm font-medium leading-none">
+                              Education Programs
+                            </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Empowering through learning
                             </p>
@@ -160,7 +199,9 @@ const Navbar = () => {
                             to="/programs/healthcare"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
                           >
-                            <div className="text-sm font-medium leading-none">Healthcare Programs</div>
+                            <div className="text-sm font-medium leading-none">
+                              Healthcare Programs
+                            </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Promoting health & wellness
                             </p>
@@ -173,7 +214,9 @@ const Navbar = () => {
                             to="/programs/youth-empowerment"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
                           >
-                            <div className="text-sm font-medium leading-none">Youth Empowerment</div>
+                            <div className="text-sm font-medium leading-none">
+                              Youth Empowerment
+                            </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Building futures together
                             </p>
@@ -186,7 +229,9 @@ const Navbar = () => {
                             to="/programs"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
                           >
-                            <div className="text-sm font-medium leading-none">All Programs</div>
+                            <div className="text-sm font-medium leading-none">
+                              All Programs
+                            </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               View complete overview
                             </p>
@@ -210,7 +255,9 @@ const Navbar = () => {
                             to="/press"
                             className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
                           >
-                            <div className="text-sm font-medium leading-none">News & Activities</div>
+                            <div className="text-sm font-medium leading-none">
+                              News & Activities
+                            </div>
                             <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                               Latest updates
                             </p>
@@ -223,7 +270,10 @@ const Navbar = () => {
 
                 {/* Standard Links */}
                 <NavigationMenuItem>
-                  <Link to="/impact" className="inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
+                  <Link
+                    to="/impact"
+                    className="inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+                  >
                     Impact
                   </Link>
                 </NavigationMenuItem>
@@ -263,7 +313,9 @@ const Navbar = () => {
                 Home
               </Link>
               <div className="space-y-2">
-                <div className="font-semibold text-sm text-muted-foreground">Our Founder</div>
+                <div className="font-semibold text-sm text-muted-foreground">
+                  Our Founder
+                </div>
                 <Link
                   to="/founder/biography"
                   className="block py-2 pl-4 hover:text-primary transition-colors"
@@ -280,38 +332,49 @@ const Navbar = () => {
                 </Link>
               </div>
               <div className="space-y-2">
-                <div className="font-semibold text-sm text-muted-foreground">Who We Are</div>
+                <div className="font-semibold text-sm text-muted-foreground">
+                  Who We Are
+                </div>
                 <Link
-                  to="/about/our-story"
+                  to="/about#introduction"
                   className="block py-2 pl-4 hover:text-primary transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   About Us
                 </Link>
                 <Link
-                  to="/about/vision-mission"
+                  to="/about#vision"
                   className="block py-2 pl-4 hover:text-primary transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Vision, Mission & Values
+                  Vision
                 </Link>
                 <Link
-                  to="/about/team"
+                  to="/about#mission-values"
                   className="block py-2 pl-4 hover:text-primary transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Management Team
+                  Mission & Values
                 </Link>
                 <Link
-                  to="/about/partners"
+                  to="/about#board"
                   className="block py-2 pl-4 hover:text-primary transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Partners
+                  Board Members
+                </Link>
+                <Link
+                  to="/about#partners"
+                  className="block py-2 pl-4 hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Implementing Partners
                 </Link>
               </div>
               <div className="space-y-2">
-                <div className="font-semibold text-sm text-muted-foreground">What We Do</div>
+                <div className="font-semibold text-sm text-muted-foreground">
+                  What We Do
+                </div>
                 <Link
                   to="/programs/education"
                   className="block py-2 pl-4 hover:text-primary transition-colors"
@@ -355,7 +418,10 @@ const Navbar = () => {
               >
                 Impact
               </Link>
-              <Button asChild className="w-full bg-secondary hover:bg-secondary/90">
+              <Button
+                asChild
+                className="w-full bg-secondary hover:bg-secondary/90"
+              >
                 <Link to="/donate" onClick={() => setMobileMenuOpen(false)}>
                   Donate Now
                 </Link>
