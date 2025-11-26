@@ -61,16 +61,22 @@ const Index = () => {
                   centered={false}
                 />
                 <p className="text-lg text-muted-foreground mb-6">
-                  The Abdallah Kiromba Foundation is dedicated to transforming lives through
-                  comprehensive community development programs. Founded on the principles of
-                  compassion, integrity, and sustainable impact, we work tirelessly to create
-                  opportunities for those who need them most.
+                  The Abdallah Kiromba Foundation is dedicated to transforming
+                  lives through comprehensive community development programs.
+                  Founded on the principles of compassion, integrity, and
+                  sustainable impact, we work tirelessly to create opportunities
+                  for those who need them most.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8">
-                  Our approach combines education, healthcare, and economic empowerment to address
-                  the root causes of poverty and create lasting change in East African communities.
+                  Our approach combines education, healthcare, and economic
+                  empowerment to address the root causes of poverty and create
+                  lasting change in East African communities.
                 </p>
-                <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90"
+                >
                   <Link to="/about/vision-mission">
                     Learn About Our Mission
                     <ArrowRight className="ml-2" size={20} />
@@ -118,47 +124,6 @@ const Index = () => {
                 <ProgramCard key={index} {...program} index={index} />
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Call to Action */}
-        <section className="py-20 bg-gradient-to-br from-primary to-deep-green text-white">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="max-w-4xl mx-auto text-center"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Join Us in Making a Difference
-              </h2>
-              <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-                Your support can transform lives and build stronger communities. Together, we can
-                create lasting change and give hope to those who need it most.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-secondary hover:bg-secondary/90 text-white text-lg px-8 py-6 h-auto shadow-strong"
-                >
-                  <Link to="/donate">
-                    Make a Donation
-                    <ArrowRight className="ml-2" size={20} />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-6 h-auto border-0"
-                >
-                  <Link to="/volunteer">Become a Volunteer</Link>
-                </Button>
-              </div>
-            </motion.div>
           </div>
         </section>
       </main>
