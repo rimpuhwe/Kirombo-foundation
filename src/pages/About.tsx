@@ -107,11 +107,11 @@ const About = () => {
       <section id="hero" className="relative h-[500px] mt-20">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&h=500&fit=crop"
-            alt="Community gathering"
+            src="https://live.staticflickr.com/65535/54924254124_d01799935a_z.jpg"
+            alt="Kirombo foundation community gathering"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-forest-dark/80 to-forest-dark/40" />
+          <div className="absolute inset-0 bg-black/40" />
         </div>
         <div className="relative container mx-auto px-4 h-full flex flex-col justify-center">
           <motion.div
@@ -165,8 +165,8 @@ const About = () => {
               transition={{ duration: 0.6 }}
             >
               <img
-                src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?w=600&h=700&fit=crop"
-                alt="Community work"
+                src="https://live.staticflickr.com/65535/54362667675_b318505cd9_z.jpg"
+                alt="Group of muslim community"
                 className="rounded-lg shadow-elegant w-full h-[500px] object-cover"
               />
             </motion.div>
