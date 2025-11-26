@@ -140,126 +140,31 @@ const Navbar = () => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
-                {/* What We Do Dropdown */}
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger
-                    className={`${
-                      isActivePath("/programs")
-                        ? "text-orange-500"
-                        : "text-foreground"
-                    } hover:text-orange-500`}
-                  >
-                    What We Do
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[250px] gap-2 p-4 bg-card">
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/programs/education"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
-                          >
-                            <div className="text-sm font-medium leading-none">
-                              Education Programs
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Empowering through learning
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/programs/healthcare"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
-                          >
-                            <div className="text-sm font-medium leading-none">
-                              Healthcare Programs
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Promoting health & wellness
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/programs/youth-empowerment"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
-                          >
-                            <div className="text-sm font-medium leading-none">
-                              Youth Empowerment
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Building futures together
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/programs"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
-                          >
-                            <div className="text-sm font-medium leading-none">
-                              All Programs
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              View complete overview
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                {/* Press Room Dropdown */}
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger
-                    className={`${
-                      isActivePath("/press")
-                        ? "text-orange-500"
-                        : "text-foreground"
-                    } hover:text-orange-500`}
-                  >
-                    Press Room
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[200px] gap-2 p-4 bg-card">
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/press"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
-                          >
-                            <div className="text-sm font-medium leading-none">
-                              News & Activities
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Latest updates
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                {/* Standard Links */}
+                {/* What We Do (single link, no dropdown) */}
                 <NavigationMenuItem>
                   <Link
-                    to="/impact"
+                    to="/programs"
                     className={`inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-                      isActivePath("/impact")
+                      isActivePath("/programs")
                         ? "text-orange-500"
                         : "text-foreground"
                     } hover:text-orange-500 focus:outline-none disabled:pointer-events-none disabled:opacity-50`}
                   >
-                    Impact
+                    What We Do
+                  </Link>
+                </NavigationMenuItem>
+
+                {/* Press Room (single link, no dropdown) */}
+                <NavigationMenuItem>
+                  <Link
+                    to="/press"
+                    className={`inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+                      isActivePath("/press")
+                        ? "text-orange-500"
+                        : "text-foreground"
+                    } hover:text-orange-500 focus:outline-none disabled:pointer-events-none disabled:opacity-50`}
+                  >
+                    Press Room
                   </Link>
                 </NavigationMenuItem>
               </NavigationMenuList>
@@ -381,13 +286,6 @@ const Navbar = () => {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Press Room
-              </Link>
-              <Link
-                to="/impact"
-                className="block py-2 hover:text-primary transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Impact
               </Link>
               <Button
                 asChild
