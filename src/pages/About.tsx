@@ -135,7 +135,7 @@ const About = () => {
               { id: "introduction", label: "INTRODUCTION" },
               { id: "vision", label: "VISION" },
               { id: "mission", label: "MISSION & VALUES" },
-              { id: "board", label: "BOARD MEMBERS" },
+              { id: "board", label: "MANAGEMENT TEAM" },
               { id: "partners", label: "CORE PARTNERS" },
             ].map((item) => (
               <button
@@ -315,7 +315,7 @@ const About = () => {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center">
-                Board Members
+                Management Team
               </h2>
               <p className="text-center text-muted-foreground text-lg mb-12 max-w-3xl mx-auto">
                 Meet the dedicated leaders guiding our foundation towards
