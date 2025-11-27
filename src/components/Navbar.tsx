@@ -42,7 +42,7 @@ const Navbar = () => {
                 {/* Our Founder Dropdown */}
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
-                    className={`${
+                    className={`font-bold ${
                       isActivePath("/founder")
                         ? "text-orange-500"
                         : "text-foreground"
@@ -87,7 +87,7 @@ const Navbar = () => {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
-                    className={`${
+                    className={`font-bold ${
                       isActivePath("/about")
                         ? "text-orange-500"
                         : "text-foreground"
@@ -136,7 +136,7 @@ const Navbar = () => {
                 <NavigationMenuItem>
                   <Link
                     to="/programs"
-                    className={`inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+                    className={`inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-bold transition-colors ${
                       isActivePath("/programs")
                         ? "text-orange-500"
                         : "text-foreground"
@@ -150,7 +150,7 @@ const Navbar = () => {
                 <NavigationMenuItem>
                   <Link
                     to="/press"
-                    className={`inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+                    className={`inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-bold transition-colors ${
                       isActivePath("/press")
                         ? "text-orange-500"
                         : "text-foreground"
@@ -195,7 +195,7 @@ const Navbar = () => {
                 Home
               </Link>
               <div className="space-y-2">
-                <div className="font-semibold text-sm text-muted-foreground">
+                <div className="font-bold text-sm text-muted-foreground">
                   Our Founder
                 </div>
                 <Link
@@ -214,26 +214,26 @@ const Navbar = () => {
                 </Link>
               </div>
               <div className="space-y-2">
-                <div className="font-semibold text-sm text-muted-foreground">
+                <div className="font-bold text-sm text-muted-foreground">
                   Who We Are
                 </div>
                 <Link
                   to="/about#vision"
-                  className="block font-semibold py-2 pl-4 rounded-md hover:bg-orange-500 hover:text-white transition-colors"
+                  className="block font-bold py-2 pl-4 rounded-md hover:bg-orange-500 hover:text-white transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Vision, Mission & Values
                 </Link>
                 <Link
                   to="/about#board"
-                  className="block font-semibold py-2 pl-4 rounded-md hover:bg-orange-500 hover:text-white transition-colors"
+                  className="block font-bold py-2 pl-4 rounded-md hover:bg-orange-500 hover:text-white transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Board Members
                 </Link>
                 <Link
                   to="/about#partners"
-                  className="block font-semibold py-2 pl-4 rounded-md hover:bg-orange-500 hover:text-white transition-colors"
+                  className="block font-bold py-2 pl-4 rounded-md hover:bg-orange-500 hover:text-white transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Implementing / Core Partners
