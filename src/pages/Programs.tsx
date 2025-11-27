@@ -1,244 +1,224 @@
+import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import SectionHeader from "@/components/SectionHeader";
-import { motion } from "framer-motion";
-import { GraduationCap, Heart, Sprout, Users } from "lucide-react";
-import educationImg from "@/assets/education-program.jpg";
-import healthcareImg from "@/assets/healthcare-program.jpg";
-import sustainableImg from "@/assets/sustainable-development.jpg";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  GraduationCap,
+  Heart,
+  Droplet,
+  Zap,
+  Building2,
+  PawPrint,
+  ChevronRight,
+  ChevronLeft,
+} from "lucide-react";
 
 const Programs = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const carouselImages = [
+    "https://live.staticflickr.com/65535/54362647690_d3ffcb6ecb_z.jpg",
+    "https://live.staticflickr.com/65535/54924308785_c2b923f7df_z.jpg",
+    "https://live.staticflickr.com/65535/54595667203_d2183881a8_z.jpg",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handlePrevSlide = () => {
+    setCurrentSlide((prev) =>
+      prev === 0 ? carouselImages.length - 1 : prev - 1
+    );
+  };
+
+  const handleNextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+  };
+
+  const programs = [
+    {
+      id: "education",
+      title: "Education",
+      icon: GraduationCap,
+      description:
+        "Providing quality education, scholarships, and learning materials to empower students and build a brighter future.",
+      image:
+        "https://images.unsplash.com/photo-1427504494785-cdbb6a78b15b?w=600&h=400&fit=crop",
+    },
+    {
+      id: "orphan-care",
+      title: "Orphan Care",
+      icon: Heart,
+      description:
+        "Supporting orphans with shelter, healthcare, education, and emotional care to ensure their wellbeing and development.",
+      image:
+        "https://images.unsplash.com/photo-1488747807830-63789f68bb65?w=600&h=400&fit=crop",
+    },
+    {
+      id: "sadaqah-jariyah",
+      title: "Sadaqah Jariyah",
+      icon: Building2,
+      description:
+        "Engaging in continuous charitable giving that benefits communities long-term, following Islamic principles of generosity.",
+      image:
+        "https://images.unsplash.com/photo-1559828481-7a6be7e3e5d9?w=600&h=400&fit=crop",
+    },
+    {
+      id: "islamic-giving",
+      title: "Islamic Sessional Giving",
+      icon: Zap,
+      description:
+        "Supporting Islamic teachings and community values through seasonal charitable giving and religious education programs.",
+      image:
+        "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=400&fit=crop",
+    },
+    {
+      id: "livelihood",
+      title: "Livelihood",
+      icon: PawPrint,
+      description:
+        "Empowering communities through economic development, vocational training, and income-generating opportunities.",
+      image:
+        "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
+    },
+    {
+      id: "water",
+      title: "Water & Sanitation",
+      icon: Droplet,
+      description:
+        "Providing access to clean water and sanitation infrastructure for improved health and dignity.",
+      image:
+        "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&h=400&fit=crop",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <main className="pt-24">
-        {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-primary to-deep-green text-white">
-          <div className="container mx-auto px-4">
+      <main>
+        {/* Hero Carousel Section */}
+        <section className="relative h-[500px] overflow-hidden">
+          <AnimatePresence>
+            <motion.div
+              key={currentSlide}
+              initial={{ x: 1000 }}
+              animate={{ x: 0 }}
+              exit={{ x: -1000 }}
+              transition={{ duration: 0.8 }}
+              className="absolute inset-0"
+            >
+              <img
+                src={carouselImages[currentSlide]}
+                alt={`Carousel slide ${currentSlide + 1}`}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40" />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Carousel Content */}
+          <div className="relative container mx-auto px-4 h-full flex flex-col justify-center z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="max-w-4xl mx-auto text-center"
+              transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">Our Programs</h1>
-              <p className="text-2xl text-white/90">
-                Comprehensive initiatives designed to create lasting community impact
-              </p>
+              <p className="text-white/90 text-lg mb-4 font-medium">Our Work</p>
+              <h1 className="text-5xl md:text-6xl font-bold text-white">
+                WHAT WE DO
+              </h1>
             </motion.div>
           </div>
-        </section>
 
-        {/* Education Programs */}
-        <section id="education" className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="max-w-7xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-                <motion.div
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="order-2 md:order-1"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <GraduationCap size={28} className="text-primary" />
-                    </div>
-                    <span className="text-secondary font-semibold uppercase tracking-wider text-sm">
-                      Education Programs
-                    </span>
-                  </div>
-                  <h2 className="text-4xl font-bold mb-6 text-foreground">
-                    Building Futures Through Education
-                  </h2>
-                  <p className="text-lg text-muted-foreground mb-6">
-                    Education is the foundation for sustainable development and breaking the cycle of
-                    poverty. Our education programs provide comprehensive support to ensure children
-                    and youth have access to quality learning opportunities.
-                  </p>
-                  <ul className="space-y-3 text-muted-foreground">
-                    <li className="flex items-start">
-                      <span className="text-secondary mr-2">✓</span>
-                      <span>Full scholarships for students from underserved communities</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-secondary mr-2">✓</span>
-                      <span>School construction and infrastructure development</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-secondary mr-2">✓</span>
-                      <span>Teacher training and professional development programs</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-secondary mr-2">✓</span>
-                      <span>Learning materials, textbooks, and digital resources</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-secondary mr-2">✓</span>
-                      <span>Mentorship programs connecting students with professionals</span>
-                    </li>
-                  </ul>
-                </motion.div>
+          {/* Carousel Navigation */}
+          <button
+            onClick={handlePrevSlide}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 transition-colors rounded-full p-2"
+          >
+            <ChevronLeft size={32} className="text-white" />
+          </button>
 
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="order-1 md:order-2"
-                >
-                  <div className="rounded-2xl overflow-hidden shadow-strong">
-                    <img
-                      src={educationImg}
-                      alt="Education programs"
-                      className="w-full h-[500px] object-cover"
-                    />
-                  </div>
-                </motion.div>
-              </div>
-            </div>
+          <button
+            onClick={handleNextSlide}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 transition-colors rounded-full p-2"
+          >
+            <ChevronRight size={32} className="text-white" />
+          </button>
+
+          {/* Carousel Indicators */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+            {carouselImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`h-2 rounded-full transition-all ${
+                  index === currentSlide
+                    ? "bg-white w-8"
+                    : "bg-white/50 w-2 hover:bg-white/70"
+                }`}
+              />
+            ))}
           </div>
         </section>
 
-        {/* Healthcare Programs */}
-        <section id="healthcare" className="py-20 bg-muted/30">
+        {/* Programs Grid */}
+        <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-7xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-                <motion.div
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <div className="rounded-2xl overflow-hidden shadow-strong">
-                    <img
-                      src={healthcareImg}
-                      alt="Healthcare programs"
-                      className="w-full h-[500px] object-cover"
-                    />
-                  </div>
-                </motion.div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {programs.map((program, index) => {
+                  const IconComponent = program.icon;
+                  return (
+                    <motion.div
+                      key={program.id}
+                      id={program.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      className="bg-card rounded-lg overflow-hidden shadow-soft hover:shadow-medium transition-all group"
+                    >
+                      {/* Card Image */}
+                      <div className="relative w-full h-64 overflow-hidden bg-gray-200">
+                        <img
+                          src={program.image}
+                          alt={program.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
 
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center">
-                      <Heart size={28} className="text-secondary" />
-                    </div>
-                    <span className="text-primary font-semibold uppercase tracking-wider text-sm">
-                      Healthcare Initiatives
-                    </span>
-                  </div>
-                  <h2 className="text-4xl font-bold mb-6 text-foreground">
-                    Delivering Essential Healthcare Services
-                  </h2>
-                  <p className="text-lg text-muted-foreground mb-6">
-                    Access to quality healthcare is a fundamental right. Our healthcare programs
-                    bring medical services to underserved communities, improving health outcomes and
-                    saving lives.
-                  </p>
-                  <ul className="space-y-3 text-muted-foreground">
-                    <li className="flex items-start">
-                      <span className="text-primary mr-2">✓</span>
-                      <span>Mobile health clinics serving remote rural areas</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-primary mr-2">✓</span>
-                      <span>Free medical consultations and diagnostic services</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-primary mr-2">✓</span>
-                      <span>Essential medicines and medical supplies distribution</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-primary mr-2">✓</span>
-                      <span>Maternal and child health programs</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-primary mr-2">✓</span>
-                      <span>Health education and disease prevention campaigns</span>
-                    </li>
-                  </ul>
-                </motion.div>
-              </div>
-            </div>
-          </div>
-        </section>
+                      {/* Card Body */}
+                      <div className="p-6">
+                        <div className="flex items-start gap-3 mb-4">
+                          <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                            <IconComponent size={24} className="text-white" />
+                          </div>
+                          <h3 className="text-2xl font-bold text-foreground pt-1">
+                            {program.title}
+                          </h3>
+                        </div>
 
-        {/* Sustainable Development */}
-        <section id="sustainable" className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="max-w-7xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                <motion.div
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="order-2 md:order-1"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <Sprout size={28} className="text-primary" />
-                    </div>
-                    <span className="text-secondary font-semibold uppercase tracking-wider text-sm">
-                      Sustainable Development
-                    </span>
-                  </div>
-                  <h2 className="text-4xl font-bold mb-6 text-foreground">
-                    Empowering Economic Self-Sufficiency
-                  </h2>
-                  <p className="text-lg text-muted-foreground mb-6">
-                    True development creates opportunities for communities to thrive independently.
-                    Our sustainable development programs focus on economic empowerment and
-                    environmental sustainability.
-                  </p>
-                  <ul className="space-y-3 text-muted-foreground">
-                    <li className="flex items-start">
-                      <span className="text-secondary mr-2">✓</span>
-                      <span>Modern agricultural training and sustainable farming techniques</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-secondary mr-2">✓</span>
-                      <span>Small business development and microfinance support</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-secondary mr-2">✓</span>
-                      <span>Clean water and sanitation infrastructure projects</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-secondary mr-2">✓</span>
-                      <span>Vocational training and skills development programs</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-secondary mr-2">✓</span>
-                      <span>Renewable energy initiatives for sustainable communities</span>
-                    </li>
-                  </ul>
-                </motion.div>
+                        <p className="text-muted-foreground mb-6 leading-relaxed">
+                          {program.description}
+                        </p>
 
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="order-1 md:order-2"
-                >
-                  <div className="rounded-2xl overflow-hidden shadow-strong">
-                    <img
-                      src={sustainableImg}
-                      alt="Sustainable development programs"
-                      className="w-full h-[500px] object-cover"
-                    />
-                  </div>
-                </motion.div>
+                        {/* Read More CTA */}
+                        <button className="inline-flex items-center gap-2 text-secondary font-semibold hover:gap-3 transition-all group/cta">
+                          <span>Read More</span>
+                          <ChevronRight
+                            size={20}
+                            className="group-hover/cta:translate-x-1 transition-transform"
+                          />
+                        </button>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
           </div>
