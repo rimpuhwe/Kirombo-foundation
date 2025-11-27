@@ -27,20 +27,12 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xl">
-                AKF
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-lg text-foreground leading-tight">
-                Abdallah Kiromba
-              </span>
-              <span className="text-sm text-muted-foreground leading-tight">
-                Foundation
-              </span>
-            </div>
+          <Link to="/" className="flex items-center">
+            <img
+              src="https://res.cloudinary.com/dcgmi6w24/image/upload/v1764223037/AKF_logo_1_zsspqo.png"
+              alt="AKF logo"
+              className="h-20 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -122,7 +114,7 @@ const Navbar = () => {
                             to="/about#board"
                             className="block font-semibold select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-orange-500 hover:text-white"
                           >
-                            Board Members
+                            Management Team
                           </Link>
                         </NavigationMenuLink>
                       </li>
