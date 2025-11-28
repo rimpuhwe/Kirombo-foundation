@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 interface TeamMember {
   name: string;
   title: string;
+  image: string;
 }
 
 const About = () => {
@@ -72,30 +73,41 @@ const About = () => {
     {
       name: "Haji Higiro Issa",
       title: "Guardian of the foundation",
+      image: "https://live.staticflickr.com/65535/54924254124_d01799935a_z.jpg",
     },
     {
       name: "Niyonsaba Donat",
       title: "President & Legal Representative",
+      image:
+        "https://res.cloudinary.com/dfsbfiprb/image/upload/v1764344910/WhatsApp_Image_2025-11-26_at_7.34.34_PM_yvzwxk.jpg",
     },
     {
       name: "Haji Bbale Bwanika",
       title: "First Vice President ",
+      image:
+        "https://res.cloudinary.com/dfsbfiprb/image/upload/v1764344938/WhatsApp_Image_2025-11-26_at_8.14.16_PM_t43zh1.jpg",
     },
     {
       name: "Kabanda Joy",
       title: "Executive Secretary",
+      image:
+        "https://res.cloudinary.com/dfsbfiprb/image/upload/v1764344924/WhatsApp_Image_2025-11-26_at_8.25.52_PM_dz9nqv.jpg",
     },
     {
       name: "Nyirabahizi Hawa",
       title: "Monitoring and Evaluations Officer ",
+      image:
+        "https://res.cloudinary.com/dfsbfiprb/image/upload/v1764344953/WhatsApp_Image_2025-11-27_at_2.11.06_PM_jkezyw.jpg",
     },
     {
       name: "Bazizane Harrida",
       title: "Administrator Officer",
+      image: "https://live.staticflickr.com/65535/54924254124_d01799935a_z.jpg",
     },
     {
       name: "Steven Nsamaza",
       title: "Communication Consultant",
+      image: "https://live.staticflickr.com/65535/54362469544_bfc6d29807_z.jpg",
     },
   ];
 
@@ -333,16 +345,33 @@ const About = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="bg-card rounded-lg overflow-hidden shadow-soft hover:shadow-medium transition-all border border-border"
                 >
-                  <div className="h-64 bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center">
-                    <div className="text-center text-white">
-                      <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Users size={48} />
-                      </div>
-                      <p className="font-semibold">
-                        {member.name.split(" ")[0]}
-                      </p>
+                  {member.image ? (
+                    <div className="h-64 w-full bg-black flex items-center justify-center">
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                        style={{ background: "rgba(0,0,0,0.03)" }}
+                      />
                     </div>
-                  </div>
+                  ) : (
+                    <div className="h-64 bg-gradient-to-br from-primary to-primary/60 flex flex-col items-center justify-center">
+                      <div className="text-center text-white">
+                        <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                          <img
+                            src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
+                              member.name
+                            )}&background=random&size=96`}
+                            alt={member.name}
+                            className="w-24 h-24 object-cover rounded-full"
+                          />
+                        </div>
+                        <p className="font-semibold">
+                          {member.name.split(" ")[0]}
+                        </p>
+                      </div>
+                    </div>
+                  )}
                   <div className="p-6">
                     <h3 className="text-xl font-bold text-foreground mb-2">
                       {member.name}
