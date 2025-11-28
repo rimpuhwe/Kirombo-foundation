@@ -34,7 +34,7 @@ export default function ProgramReader({ work }: { work: any }) {
     relatedWorks = [works[works.length - 1], works[1]];
   } else if (selectedIndex === works.length - 1) {
     // Last: show index 1 and 2
-    relatedWorks = [works[1], works[2]];
+    relatedWorks = [works[0], works[1]];
   } else {
     relatedWorks = works.slice(selectedIndex + 1, selectedIndex + 3);
   }
