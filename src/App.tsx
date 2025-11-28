@@ -10,8 +10,7 @@ import About from "./pages/About";
 import Team from "./pages/Team";
 import Partners from "./pages/Partners";
 import Press from "./pages/Press";
-import Programs from "./pages/Programs";
-import EducationPrograms from "./pages/EducationPrograms";
+import Programs from "./pages/Program/Programs";
 import HealthcarePrograms from "./pages/HealthcarePrograms";
 import YouthEmpowerment from "./pages/YouthEmpowerment";
 import Donate from "./pages/Donate";
@@ -34,7 +33,6 @@ const App = () => (
           <Route path="/about/partners" element={<Partners />} />
           <Route path="/press" element={<Press />} />
           <Route path="/programs" element={<Programs />} />
-          <Route path="/programs/education" element={<EducationPrograms />} />
           <Route path="/programs/healthcare" element={<HealthcarePrograms />} />
           <Route
             path="/programs/youth-empowerment"
