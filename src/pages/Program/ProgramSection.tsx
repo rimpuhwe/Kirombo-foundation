@@ -78,9 +78,7 @@ export default function ProgramSection() {
     show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
-  const heading = "Acts of Charity That Live Beyond Us".split(
-    " "
-  );
+  const heading = "Acts of Charity That Live Beyond Us".split(" ");
   const paragraph =
     "Explore our initiatives rooted in compassion, Sadaqah Jariyah, and community care. See how your support helps educate, empower, and transform lives.".split(
       " "
@@ -97,54 +95,32 @@ export default function ProgramSection() {
       >
         <section className="bg-gray-50">
           {/* Hero Section */}
-          <div className="relative bg-gray-900 min-h-[30vh] py-24 mb-20">
+          <section id="hero" className="relative h-[500px] mt-20">
             <div className="absolute inset-0">
               <img
                 src="https://live.staticflickr.com/65535/54362469544_bfc6d29807_z.jpg"
-                alt="Blog Background"
-                className="object-cover w-full h-full"
+                alt="Kirombo foundation community gathering"
+                className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-black opacity-60"></div>
+              <div className="absolute inset-0 bg-black/40" />
             </div>
-            <div className="relative z-10 flex flex-col items-center justify-center text-center h-full px-4 py-16">
-              <motion.h1
-                className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white drop-shadow-lg leading-tight"
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: false, amount: 0.3 }}
+            <div className="relative container mx-auto px-4 h-full flex flex-col justify-center">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
               >
-                {heading.map((word, index) => (
-                  <motion.span
-                    key={index}
-                    variants={wordVariants}
-                    className="inline-block mr-2"
-                  >
-                    {word}
-                  </motion.span>
-                ))}
-              </motion.h1>
-
-              <motion.p
-                className="mt-4 text-lg md:text-xl text-gray-200 max-w-xl"
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: false, amount: 0.3 }}
-              >
-                {paragraph.map((word, index) => (
-                  <motion.span
-                    key={index}
-                    variants={wordVariants}
-                    className="inline-block mr-1"
-                  >
-                    {word}
-                  </motion.span>
-                ))}
-              </motion.p>
+                <p className="text-white/90 text-lg mb-4 font-medium">
+                  Our Work
+                </p>
+                <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+                  WHAT WE DO
+                </h1>
+              </motion.div>
             </div>
-          </div>
-
+          </section>
+          {/* Add margin after hero section */}
+          <div className="mb-12" />
           {/* Section Intro */}
           <motion.div
             className="w-full max-w-7xl mx-auto px-4 text-center"
@@ -158,23 +134,20 @@ export default function ProgramSection() {
                 Legacy
               </Badge>
             </motion.div>
-
             <motion.h2
               className="text-3xl md:text-4xl font-bold text-gray-900 mb-6"
               variants={itemVariants}
             >
               Acts of Charity That Live Beyond Us
             </motion.h2>
-
             <motion.p
               className="text-gray-600 max-w-2xl mx-auto mb-12 text-lg"
               variants={itemVariants}
             >
-              Your support helps us bring opportunity, protection, and lasting hope to the 
-              most vulnerable among us.
+              Your support helps us bring opportunity, protection, and lasting
+              hope to the most vulnerable among us.
             </motion.p>
           </motion.div>
-
           {/* Blog Cards */}
           <div className="w-full max-w-7xl mx-auto px-4 py-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -191,9 +164,7 @@ export default function ProgramSection() {
                       className="object-cover w-full h-full"
                     />
                   </div>
-
                   {/* Category removed as requested */}
-
                   <div className="p-5">
                     <h3 className="text-2xl font-extrabold text-orange mb-2 line-clamp-2">
                       {blog.title}
@@ -201,7 +172,6 @@ export default function ProgramSection() {
                     <p className="text-base text-muted-foreground mb-6 line-clamp-3">
                       {blog.content}
                     </p>
-
                     <div className="flex justify-end">
                       <Link to={`/program/${blog.slug}`}>
                         <Button
@@ -217,7 +187,6 @@ export default function ProgramSection() {
                 </motion.div>
               ))}
             </div>
-
             {/* Pagination */}
             <div className="flex justify-center mt-12">
               <div className="flex items-center gap-2 rounded-full px-6 py-3">
@@ -230,7 +199,6 @@ export default function ProgramSection() {
                 >
                   <ChevronLeft className="w-10 h-10" />
                 </Button>
-
                 {getPageNumbers().map((page, index) =>
                   page === "..." ? (
                     <span key={index} className="text-gray-500 px-2">
@@ -250,7 +218,6 @@ export default function ProgramSection() {
                     </button>
                   )
                 )}
-
                 <Button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
