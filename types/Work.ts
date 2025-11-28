@@ -554,5 +554,3 @@ Their engagement was truly remarkable. They didn't just observe; they actively p
 }
 
 ];
-
-export default works;
