@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
@@ -46,8 +47,7 @@ const Programs = () => {
       icon: GraduationCap,
       description:
         "Providing quality education, scholarships, and learning materials to empower students and build a brighter future.",
-      image:
-        "https://images.unsplash.com/photo-1427504494785-cdbb6a78b15b?w=600&h=400&fit=crop",
+      image: "https://live.staticflickr.com/65535/54593246553_e3500da9c0_z.jpg",
     },
     {
       id: "orphan-care",
@@ -55,8 +55,7 @@ const Programs = () => {
       icon: Heart,
       description:
         "Supporting orphans with shelter, healthcare, education, and emotional care to ensure their wellbeing and development.",
-      image:
-        "https://images.unsplash.com/photo-1488747807830-63789f68bb65?w=600&h=400&fit=crop",
+      image: "https://live.staticflickr.com/65535/54924308785_c2b923f7df_z.jpg",
     },
     {
       id: "sadaqah-jariyah",
@@ -64,8 +63,7 @@ const Programs = () => {
       icon: Building2,
       description:
         "Engaging in continuous charitable giving that benefits communities long-term, following Islamic principles of generosity.",
-      image:
-        "https://images.unsplash.com/photo-1559828481-7a6be7e3e5d9?w=600&h=400&fit=crop",
+      image: "https://live.staticflickr.com/65535/54596511683_7229f1fef6_z.jpg",
     },
     {
       id: "islamic-giving",
@@ -73,8 +71,7 @@ const Programs = () => {
       icon: Zap,
       description:
         "Supporting Islamic teachings and community values through seasonal charitable giving and religious education programs.",
-      image:
-        "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=400&fit=crop",
+      image: "https://live.staticflickr.com/65535/54415358731_f4f6178459_z.jpg",
     },
     {
       id: "livelihood",
@@ -82,8 +79,7 @@ const Programs = () => {
       icon: PawPrint,
       description:
         "Empowering communities through economic development, vocational training, and income-generating opportunities.",
-      image:
-        "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop",
+      image: "https://live.staticflickr.com/65535/54595667203_d2183881a8_z.jpg",
     },
     {
       id: "water",
@@ -91,10 +87,11 @@ const Programs = () => {
       icon: Droplet,
       description:
         "Providing access to clean water and sanitation infrastructure for improved health and dignity.",
-      image:
-        "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=600&h=400&fit=crop",
+      image: "https://live.staticflickr.com/65535/54595423347_7553d77087_z.jpg",
     },
   ];
+
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-background">
@@ -180,35 +177,39 @@ const Programs = () => {
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className="bg-card rounded-lg overflow-hidden shadow-soft hover:shadow-medium transition-all group"
+                      whileHover={{
+                        scale: 1.04,
+                        zIndex: 10,
+                        boxShadow: "0 8px 32px rgba(0,0,0,0.16)",
+                      }}
+                      transition={{ duration: 0.12, delay: index * 0.05 }}
+                      className="bg-card rounded-lg overflow-hidden shadow-soft transition-all group cursor-pointer"
+                      style={{ padding: 0 }}
+                      onClick={() => navigate(`/programs/${program.id}`)}
                     >
                       {/* Card Image */}
                       <div className="relative w-full h-64 overflow-hidden bg-gray-200">
                         <img
                           src={program.image}
                           alt={program.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover rounded-none"
                         />
                       </div>
-
                       {/* Card Body */}
-                      <div className="p-6">
-                        <div className="flex items-start gap-3 mb-4">
-                          <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
-                            <IconComponent size={24} className="text-white" />
-                          </div>
-                          <h3 className="text-2xl font-bold text-foreground pt-1">
-                            {program.title}
-                          </h3>
-                        </div>
-
-                        <p className="text-muted-foreground mb-6 leading-relaxed">
+                      <div className="p-6 pt-10 flex flex-col items-center">
+                        <h3 className="text-xl font-bold text-center mb-2">
+                          {program.title}
+                        </h3>
+                        <p className="text-muted-foreground mb-6 leading-relaxed text-center">
                           {program.description}
                         </p>
-
-                        {/* Read More CTA */}
-                        <button className="inline-flex items-center gap-2 text-secondary font-semibold hover:gap-3 transition-all group/cta">
+                        <button
+                          className="inline-flex items-center gap-2 text-secondary font-semibold hover:gap-3 transition-all group/cta"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/programs/${program.id}`);
+                          }}
+                        >
                           <span>Read More</span>
                           <ChevronRight
                             size={20}
