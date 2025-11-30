@@ -27,7 +27,13 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
+          <Link
+            to="/"
+            className="flex items-center"
+            onClick={() => {
+              document.title = "Abdallah Kiromba Foundation";
+            }}
+          >
             <img
               src="https://res.cloudinary.com/dcgmi6w24/image/upload/v1764223037/AKF_logo_1_zsspqo.png"
               alt="AKF logo"

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Heart, GraduationCap, Users } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useTitle } from "@/hooks/useTitle";
 
 interface TeamMember {
   name: string;
@@ -14,6 +15,7 @@ interface TeamMember {
 const About = () => {
   const [activeSection, setActiveSection] = useState("introduction");
   const location = useLocation();
+  useTitle("About Us | Abdallah Kiromba Foundation");
 
   // Handle hash navigation
   useEffect(() => {

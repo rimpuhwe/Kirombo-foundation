@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useTitle } from "@/hooks/useTitle";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroVideo from "@/components/HeroVideo";
@@ -37,6 +38,7 @@ const Index = () => {
     },
   ];
 
+  useTitle("Abdallah Kiromba Foundation");
   return (
     <div className="min-h-screen bg-background">
       <Navbar />

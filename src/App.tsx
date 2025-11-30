@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import Biography from "./pages/Biography";
-import Speeches from "./pages/Speeches";
 import About from "./pages/About";
 
 
@@ -29,7 +28,6 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/founder/biography" element={<Biography />} />
-          <Route path="/founder/speeches" element={<Speeches />} />
           <Route path="/about" element={<About />} />
           <Route path="/press" element={<Press />} />
           <Route path="/programs" element={<ProgramPage />} />

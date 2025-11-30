@@ -1,68 +1,54 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import SectionHeader from "@/components/SectionHeader";
 import { motion } from "framer-motion";
 import { Calendar, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import educationImg from "@/assets/education-program.jpg";
-import healthcareImg from "@/assets/healthcare-program.jpg";
-import sustainableImg from "@/assets/sustainable-development.jpg";
+
+import { useTitle } from "@/hooks/useTitle";
+import { link } from "fs";
 
 const Press = () => {
+  useTitle("Latest News | Abdallah Kiromba Foundation");
   const newsItems = [
     {
-      title: "AKF Launches New Education Initiative in Rural Uganda",
-      date: "March 22, 2024",
-      category: "Education",
-      image: educationImg,
+      title:
+        "Over 100 Orphan Students Receive School Support from Abdallah Kiromba Foundation and Zakat Foundation",
+      date: "September 09, 2025",
+      category: "National",
+      image: "https://live.staticflickr.com/65535/54592154662_6d9c4f5b2e_z.jpg",
       description:
-        "The Abdallah Kiromba Foundation announced a major new scholarship program providing full educational support to 500 students across 10 rural communities.",
-      link: "#",
+        "More than 100 orphan students across Rwanda have received school fees and essential school supplies through an initiative led by the Abdallah Kiromba Foundation (AKF) in partnership with the Zakat Foundation of America.",
+      link: "https://rwandadispatch.com/over-100-students-receive-school-support-from-abdallah-kiromba-and-zakat-foundations/",
     },
     {
-      title: "Healthcare Mobile Clinics Reach 10,000 Patients",
-      date: "February 15, 2024",
-      category: "Healthcare",
-      image: healthcareImg,
+      title:
+        "Muslim families in Kigali, Gisenyi and Musanze receive food packages during Ramadan",
+      date: "March 15, 2025",
+      category: "Social",
+      image: "https://live.staticflickr.com/65535/54595422912_766f4e5f3a_z.jpg",
       description:
-        "Our mobile healthcare units have successfully provided medical services to over 10,000 patients in remote areas, offering free consultations and medicines.",
-      link: "#",
+        "As the holy month of Ramadan unfolds, bringing with it a spirit of generosity and unity, the Abdallah Kiromba Foundation in partnership with Zakat Foundation of America, have continued to support vulnerable",
+      link: "https://rwandadispatch.com/muslim-families-in-kigali-gisenyi-and-musanze-receive-food-packages-during-ramadan/",
     },
     {
-      title: "Sustainable Farming Program Shows Remarkable Results",
-      date: "January 8, 2024",
-      category: "Sustainable Development",
-      image: sustainableImg,
+      title:
+        "AKF, ZF foundations support Orphans across Rwanda with basic education supplies",
+      date: "September 21, 2024",
+      category: "Social",
+      image: "https://live.staticflickr.com/65535/54593034206_1c95fe45e8_z.jpg",
       description:
-        "Farmers participating in AKF's sustainable agriculture training program have reported a 40% increase in crop yields and improved food security.",
-      link: "#",
+        "When the new school term approaches, many students across Rwanda prepare to return to the classroom, but for orphans and vulnerable children, this season often brings more anxiety than excitement. ",
+      link: "https://rwandadispatch.com/zakat-foundation-of-america-zf-in-partnership-with-abdullah-kiromba-foundation-akf-extends-lifeline-to-orphans-across-rwanda/",
     },
     {
-      title: "Partnership Announcement with Major International NGO",
-      date: "December 12, 2023",
-      category: "Partnership",
-      image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&h=500&fit=crop",
+      title:
+        "From Struggles to Sustainability: Goat Gifts Change Livelihoods in Gatoki Village",
+      date: "May 13, 2025",
+      category: "Social",
+      image: "https://live.staticflickr.com/65535/54595667438_03c1eedc42_z.jpg",
       description:
-        "AKF signs strategic partnership agreement to expand community development programs across East Africa with support from global development organization.",
-      link: "#",
-    },
-    {
-      title: "Annual Community Impact Report Released",
-      date: "November 20, 2023",
-      category: "Impact",
-      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=500&fit=crop",
-      description:
-        "Foundation releases comprehensive report showing 50,000+ lives directly impacted through education, healthcare, and economic empowerment programs in 2023.",
-      link: "#",
-    },
-    {
-      title: "New Community Center Opens in Kampala Region",
-      date: "October 5, 2023",
-      category: "Infrastructure",
-      image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=500&fit=crop",
-      description:
-        "State-of-the-art community center provides education, healthcare, and vocational training facilities to serve over 5,000 community members.",
-      link: "#",
+        "As the rooster crows loudly in the early morning, Moses Mugisha wakes his wife to begin the day’s work. ",
+      link: "https://rwandadispatch.com/from-struggles-to-sustainability-goat-gifts-change-livelihoods-in-gatoki-village/",
     },
   ];
 
@@ -80,9 +66,12 @@ const Press = () => {
               transition={{ duration: 0.6 }}
               className="max-w-4xl mx-auto text-center"
             >
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">Press Room</h1>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                Press Room
+              </h1>
               <p className="text-2xl text-white/90">
-                Latest news, activities, and updates from the Abdallah Kiromba Foundation
+                Latest news, activities, and updates from the Abdallah Kiromba
+                Foundation
               </p>
             </motion.div>
           </div>
@@ -91,93 +80,58 @@ const Press = () => {
         {/* News Grid */}
         <section className="py-20">
           <div className="container mx-auto px-4">
-            <div className="max-w-7xl mx-auto">
-              <SectionHeader
-                subtitle="Latest Updates"
-                title="News & Activities"
-                description="Stay informed about our programs, partnerships, and the communities we serve."
-              />
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {newsItems.map((item, index) => (
-                  <motion.article
+            <div className="max-w-6xl mx-auto">
+              <div className="grid gap-8">
+                {newsItems.map((news, index) => (
+                  <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-medium transition-all group"
+                    className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-medium transition-all border border-border"
                   >
-                    <div className="relative h-56 overflow-hidden">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute top-4 left-4">
-                        <span className="bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">
-                          {item.category}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="p-6">
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-                        <Calendar size={16} className="text-secondary" />
-                        <time dateTime={item.date}>{item.date}</time>
+                    <div className="grid md:grid-cols-3 gap-6 p-6">
+                      {/* Video Thumbnail */}
+                      <div className="md:col-span-1">
+                        <div className="relative aspect-video bg-muted rounded-xl overflow-hidden group cursor-pointer">
+                          <div className="absolute inset-0 bg-primary/80 flex items-center justify-center group-hover:bg-primary/70 transition-colors">
+                            <img src={news.image} alt={news.title} />
+                          </div>
+                        </div>
                       </div>
 
-                      <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                        {item.title}
-                      </h3>
+                      {/* Speech Details */}
+                      <div className="md:col-span-2">
+                        <h3 className="text-2xl font-bold mb-3 text-foreground  transition-colors">
+                          {news.title}
+                        </h3>
 
-                      <p className="text-muted-foreground mb-6 line-clamp-3">
-                        {item.description}
-                      </p>
+                        <div className="flex flex-wrap gap-4 mb-4 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-2">
+                            <Calendar size={16} className="text-primary" />
+                            <span>{news.date}</span>
+                          </div>
+                        </div>
 
-                      <Button
-                        variant="ghost"
-                        className="text-primary hover:text-secondary p-0 h-auto font-semibold group/button"
-                      >
-                        Read Full Story
-                        <ArrowRight
-                          size={18}
-                          className="ml-2 group-hover/button:translate-x-1 transition-transform"
-                        />
-                      </Button>
+                        <p className="text-muted-foreground mb-6">
+                          {news.description}
+                        </p>
+
+                        <a
+                          href={news.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-secondary transition-colors duration-200 cursor-pointer font-semibold hover:underline"
+                        >
+                          Read Full Story <ArrowRight className="w-4 h-4" />
+                        </a>
+                      </div>
                     </div>
-                  </motion.article>
+                  </motion.div>
                 ))}
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Media Contact */}
-        <section className="py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="max-w-4xl mx-auto text-center"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-                Media Inquiries
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                For press inquiries, interview requests, or additional information, please contact our communications team.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-primary hover:bg-primary/90">
-                  <a href="mailto:press@akfoundation.org">Email Press Team</a>
-                </Button>
-                <Button size="lg" variant="outline">
-                  Download Press Kit
-                </Button>
-              </div>
-            </motion.div>
           </div>
         </section>
       </main>
