@@ -8,12 +8,12 @@ import Index from "./pages/Index";
 import Biography from "./pages/Biography";
 import Speeches from "./pages/Speeches";
 import About from "./pages/About";
-import Team from "./pages/Team";
-import Partners from "./pages/Partners";
+
+
 import Press from "./pages/Press";
 import ProgramPage from "./pages/Program/page";
-import HealthcarePrograms from "./pages/HealthcarePrograms";
-import YouthEmpowerment from "./pages/YouthEmpowerment";
+
+
 import Donate from "./pages/Donate";
 import NotFound from "./pages/NotFound";
 
@@ -31,16 +31,9 @@ const App = () => (
           <Route path="/founder/biography" element={<Biography />} />
           <Route path="/founder/speeches" element={<Speeches />} />
           <Route path="/about" element={<About />} />
-          <Route path="/about/team" element={<Team />} />
-          <Route path="/about/partners" element={<Partners />} />
           <Route path="/press" element={<Press />} />
           <Route path="/programs" element={<ProgramPage />} />
           <Route path="/programs/:slug" element={<ProgramPage />} />
-          <Route path="/programs/healthcare" element={<HealthcarePrograms />} />
-          <Route
-            path="/programs/youth-empowerment"
-            element={<YouthEmpowerment />}
-          />
           <Route path="/donate" element={<Donate />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
