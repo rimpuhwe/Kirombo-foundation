@@ -45,51 +45,18 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center space-x-8">
             <NavigationMenu>
               <NavigationMenuList className="space-x-2">
-                {/* Our Founder Dropdown */}
+                {/* Our Founder Single Link */}
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger
-                    className={`font-bold ${
+                  <Link
+                    to="/founder/biography"
+                    className={`inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-bold transition-colors ${
                       isActivePath("/founder")
                         ? "text-orange-500"
                         : "text-foreground"
-                    } hover:text-orange-500`}
+                    } hover:text-orange-500 focus:outline-none disabled:pointer-events-none disabled:opacity-50`}
                   >
                     Our Founder
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[200px] gap-2 p-4 bg-card">
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/founder/biography"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
-                          >
-                            <div className="text-sm font-medium leading-none">
-                              Biography
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Life and legacy
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/founder/speeches"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-muted hover:text-accent-foreground focus:bg-muted focus:text-accent-foreground"
-                          >
-                            <div className="text-sm font-medium leading-none">
-                              Speeches
-                            </div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Public addresses
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
+                  </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger
@@ -201,22 +168,12 @@ const Navbar = () => {
                 Home
               </Link>
               <div className="space-y-2">
-                <div className="font-bold text-sm text-muted-foreground">
-                  Our Founder
-                </div>
                 <Link
                   to="/founder/biography"
-                  className="block py-2 pl-4 hover:text-primary transition-colors"
+                  className="block font-bold py-2 pl-0 hover:text-primary transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Biography
-                </Link>
-                <Link
-                  to="/founder/speeches"
-                  className="block py-2 pl-4 hover:text-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Speeches
+                  Our Founder
                 </Link>
               </div>
               <div className="space-y-2">
