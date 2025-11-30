@@ -16,27 +16,21 @@ export default function Page({ slug }) {
   const workUrl = `https://www.igirerwanda.org/program/${work.slug}`;
   const imageUrl = work.img.startsWith("http")
     ? work.img
-    : `https://www.igirerwanda.org${work.img}`;
+    : `https://www.abdallahKirombafoundation.com${work.img}`;
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: work.title,
     image: [imageUrl],
-    author: work.author
-      ? { "@type": "Organization", name: work.author }
-      : undefined,
     publisher: {
-      "@type": "Organization",
-      name: "IGiRE Rwanda",
+      "@type": "Foundation",
+      name: "Abdallah Kiromba Foundation",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.igirerwanda.org/logo.png",
+        url: "https://www.abdallahKirombafoundation.com/logo.png",
       },
     },
-    datePublished: work.date
-      ? parseBlogDate(work.date).toISOString()
-      : undefined,
     description: work.seo?.metaDescription || work.content.slice(0, 160),
     keywords: work.seo?.keywords,
     mainEntityOfPage: {
