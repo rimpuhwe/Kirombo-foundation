@@ -40,9 +40,9 @@ export default function ProgramSection() {
   }, [slug]);
 
   const totalPages = Math.ceil(works.length / WorkPerPage);
-  const indexOfLastBlog = currentPage * WorkPerPage;
-  const indexOfFirstBlog = indexOfLastBlog - WorkPerPage;
-  const currentBlogs = works.slice(indexOfFirstBlog, indexOfLastBlog);
+  const indexOfLastWork = currentPage * WorkPerPage;
+  const indexOfFirstWork = indexOfLastWork - WorkPerPage;
+  const currentWork = works.slice(indexOfFirstWork, indexOfLastWork);
   // Animation variants for framer-motion
   const containerVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -87,9 +87,9 @@ export default function ProgramSection() {
     return pages;
   };
 
-  const handleReadMore = (blog) => {
-    setSelectedWork(blog);
-    navigate(`/programs/${blog.slug}`, { replace: false });
+  const handleReadMore = (works : any) => {
+    setSelectedWork(works);
+    navigate(`/programs/${works.slug}`, { replace: false });
   };
 
   const handleBack = () => {
@@ -174,33 +174,33 @@ export default function ProgramSection() {
               {/* Blog Cards and Pagination */}
               <div className="w-full max-w-7xl mx-auto px-4 py-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {currentBlogs.map((blog) => (
+                  {currentWork.map((work) => (
                     <motion.div
-                      key={blog.slug}
+                      key={work.slug}
                       variants={itemVariants}
                       className="relative bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
                     >
                       <div className="relative w-full h-56">
                         <img
-                          src={blog.img ?? "/images/default.jpg"}
-                          alt={blog.title}
+                          src={work.img ?? "/images/default.jpg"}
+                          alt={work.title}
                           className="object-cover w-full h-full"
                         />
                       </div>
                       {/* Category removed as requested */}
                       <div className="p-5">
                         <h3 className="text-2xl font-extrabold text-orange mb-2 line-clamp-2">
-                          {blog.title}
+                          {work.title}
                         </h3>
                         <p className="text-base text-muted-foreground mb-6 line-clamp-3">
-                          {blog.content}
+                          {work.content}
                         </p>
                         <div className="flex justify-end">
                           <Button
                             size="sm"
                             variant="link"
                             className="flex items-center gap-1 text-primary hover:text-orange-500 transition-colors duration-200 cursor-pointer"
-                            onClick={() => handleReadMore(blog)}
+                            onClick={() => handleReadMore(work)}
                           >
                             Read More <ArrowRight className="w-4 h-4" />
                           </Button>
@@ -208,48 +208,6 @@ export default function ProgramSection() {
                       </div>
                     </motion.div>
                   ))}
-                </div>
-                {/* Pagination */}
-                <div className="flex justify-center mt-12">
-                  <div className="flex items-center gap-2 rounded-full px-6 py-3">
-                    <Button
-                      onClick={() => handlePageChange(currentPage - 1)}
-                      disabled={currentPage === 1}
-                      variant="link"
-                      size="icon"
-                      className="rounded-full hover:bg-gray-100"
-                    >
-                      <ChevronLeft className="w-10 h-10" />
-                    </Button>
-                    {getPageNumbers().map((page, index) =>
-                      page === "..." ? (
-                        <span key={index} className="text-gray-500 px-2">
-                          ...
-                        </span>
-                      ) : (
-                        <button
-                          key={index}
-                          onClick={() => handlePageChange(Number(page))}
-                          className={`w-9 h-9 flex items-center justify-center rounded-full text-sm font-medium transition-all ${
-                            page === currentPage
-                              ? "bg-orange text-white shadow-md"
-                              : "text-gray-700 hover:bg-gray-100"
-                          }`}
-                        >
-                          {page}
-                        </button>
-                      )
-                    )}
-                    <Button
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      disabled={currentPage === totalPages}
-                      variant="link"
-                      size="icon"
-                      className="rounded-full hover:bg-gray-100"
-                    >
-                      <ChevronRight className="w-10 h-10" />
-                    </Button>
-                  </div>
                 </div>
               </div>
             </section>
