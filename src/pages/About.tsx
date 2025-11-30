@@ -75,7 +75,7 @@ const About = () => {
     {
       name: "Haji Higiro Issa",
       title: "Guardian of the foundation",
-      image: "https://live.staticflickr.com/65535/54924254124_d01799935a_z.jpg",
+      image: "https://res.cloudinary.com/dfsbfiprb/image/upload/v1764497208/Issa_profile_pic_okli8l.jpg",
     },
     {
       name: "Niyonsaba Donat",
