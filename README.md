@@ -1,9 +1,9 @@
-### Abdallah Kiromba Foundation – Website
+## Abdallah Kiromba Foundation – Website
 
 The official website for the Abdallah Kiromba Foundation, a non-profit organization dedicated to supporting vulnerable children, orphans, and underserved communities across Rwanda.
 This platform showcases the Foundation’s mission, programs, impact stories, and opportunities for donors and partners to get involved.
 
-### About the Foundation
+## About the Foundation
 
 The Abdallah Kiromba Foundation was established to continue the legacy of Abdallah Kiromba through impactful community programs grounded in compassion, education, and sustainable charity.
 Our work spans more than 14 districts, serving orphans, vulnerable children, and families in need through:
@@ -16,7 +16,7 @@ Our work spans more than 14 districts, serving orphans, vulnerable children, and
 
 - Community Development Projects
 
-### Features
+## Features
 
 1. Hero sections with custom tag, title, and descriptions
 
@@ -30,7 +30,7 @@ Our work spans more than 14 districts, serving orphans, vulnerable children, and
 
 6. Clean code structure for scalability
 
-### Tech Stack
+## Tech Stack
 
  - Vite/React 
 
@@ -40,31 +40,31 @@ Our work spans more than 14 districts, serving orphans, vulnerable children, and
 
  - Cloudinary 
 
-### Setup Instructions
+## Setup Instructions
 
-## Clone the repository:
+### Clone the repository:
 
 git clone https://github.com/rimpuhwe/Kirombo-foundation.git
 cd Kirombo-foundation
 
 
-## Install dependencies:
+### Install dependencies:
 
 npm install
 
 
-## Run the development server:
+### Run the development server:
 
 npm run dev
 
 
-## Build for production:
+### Build for production:
 
 npm run build
 
 
 
-### Contact
+## Contact
 
 For inquiries or collaboration:
 
@@ -72,7 +72,7 @@ Email: abdallahkiromba.foundation@gmail.com
 
 Location: Rwanda
 
-### Acknowledgments
+## Acknowledgments
 
 We honor the legacy of Abdallah Kiromba, whose compassion and dedication continue to inspire our mission.
 Thank you to all contributors, volunteers, and supporters who make this work possible.
