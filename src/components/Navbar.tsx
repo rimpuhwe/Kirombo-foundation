@@ -167,77 +167,30 @@ const Navbar = () => {
               >
                 Home
               </Link>
-              <div className="space-y-2">
-                <Link
-                  to="/founder/biography"
-                  className="block font-bold py-2 pl-0 hover:text-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Our Founder
-                </Link>
-              </div>
-              <div className="space-y-2">
-                <div className="font-bold text-sm text-muted-foreground">
-                  Who We Are
-                </div>
-                <Link
-                  to="/about#vision"
-                  className="block font-bold py-2 pl-4 rounded-md hover:bg-orange-500 hover:text-white transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Vision, Mission & Values
-                </Link>
-                <Link
-                  to="/about#board"
-                  className="block font-bold py-2 pl-4 rounded-md hover:bg-orange-500 hover:text-white transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Board Members
-                </Link>
-                <Link
-                  to="/about#partners"
-                  className="block font-bold py-2 pl-4 rounded-md hover:bg-orange-500 hover:text-white transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Implementing / Core Partners
-                </Link>
-              </div>
-              <div className="space-y-2">
-                <div className="font-semibold text-sm text-muted-foreground">
-                  What We Do
-                </div>
-                <Link
-                  to="/programs/education"
-                  className="block py-2 pl-4 hover:text-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Education Programs
-                </Link>
-                <Link
-                  to="/programs/healthcare"
-                  className="block py-2 pl-4 hover:text-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Healthcare Programs
-                </Link>
-                <Link
-                  to="/programs/youth-empowerment"
-                  className="block py-2 pl-4 hover:text-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Youth Empowerment
-                </Link>
-                <Link
-                  to="/programs"
-                  className="block py-2 pl-4 hover:text-primary transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  All Programs
-                </Link>
-              </div>
+              <Link
+                to="/founder/biography"
+                className="block py-2 hover:text-primary transition-colors font-bold"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Our Founder
+              </Link>
+              <Link
+                to="/about"
+                className="block py-2 hover:text-primary transition-colors font-bold"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Who We Are
+              </Link>
+              <Link
+                to="/programs"
+                className="block py-2 hover:text-primary transition-colors font-bold"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                What We Do
+              </Link>
               <Link
                 to="/press"
-                className="block py-2 hover:text-primary transition-colors"
+                className="block py-2 hover:text-primary transition-colors font-bold"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Press Room
