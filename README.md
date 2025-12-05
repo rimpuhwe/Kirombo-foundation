@@ -1,73 +1,78 @@
-# Welcome to your Lovable project
+### Abdallah Kiromba Foundation – Website
 
-## Project info
+The official website for the Abdallah Kiromba Foundation, a non-profit organization dedicated to supporting vulnerable children, orphans, and underserved communities across Rwanda.
+This platform showcases the Foundation’s mission, programs, impact stories, and opportunities for donors and partners to get involved.
 
-**URL**: https://lovable.dev/projects/3a699a05-015e-4317-8a2f-5250916215f2
+### About the Foundation
 
-## How can I edit this code?
+The Abdallah Kiromba Foundation was established to continue the legacy of Abdallah Kiromba through impactful community programs grounded in compassion, education, and sustainable charity.
+Our work spans more than 14 districts, serving orphans, vulnerable children, and families in need through:
 
-There are several ways of editing your application.
+- Education Support Programs
 
-**Use Lovable**
+- Orphan Care & Child Protection
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3a699a05-015e-4317-8a2f-5250916215f2) and start prompting.
+- Sadaqah Jariyah & Islamic Charity Initiatives
 
-Changes made via Lovable will be committed automatically to this repo.
+- Community Development Projects
 
-**Use your preferred IDE**
+### Features
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. Hero sections with custom tag, title, and descriptions
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+2. Dynamic "What We Do" page featuring all program pillars
 
-Follow these steps:
+3. Blog-style content for each initiative
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+4. Reusable components for cards, sections, and buttons
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+5. Fully responsive design
 
-# Step 3: Install the necessary dependencies.
-npm i
+6. Clean code structure for scalability
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Tech Stack
+
+ - Vite/React 
+
+ - TypeScript
+
+ - Tailwind CSS 
+
+ - Cloudinary 
+
+### Setup Instructions
+
+## Clone the repository:
+
+git clone https://github.com/rimpuhwe/Kirombo-foundation.git
+cd Kirombo-foundation
+
+
+## Install dependencies:
+
+npm install
+
+
+## Run the development server:
+
 npm run dev
-```
 
-**Edit a file directly in GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Build for production:
 
-**Use GitHub Codespaces**
+npm run build
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## What technologies are used for this project?
 
-This project is built with:
+### Contact
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+For inquiries or collaboration:
 
-## How can I deploy this project?
+Email: abdallahkiromba.foundation@gmail.com
 
-Simply open [Lovable](https://lovable.dev/projects/3a699a05-015e-4317-8a2f-5250916215f2) and click on Share -> Publish.
+Location: Rwanda
 
-## Can I connect a custom domain to my Lovable project?
+### Acknowledgments
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+We honor the legacy of Abdallah Kiromba, whose compassion and dedication continue to inspire our mission.
+Thank you to all contributors, volunteers, and supporters who make this work possible.
