@@ -75,7 +75,8 @@ const About = () => {
     {
       name: "Haji Higiro Issa",
       title: "Guardian of the foundation",
-      image: "https://res.cloudinary.com/dfsbfiprb/image/upload/v1764497208/Issa_profile_pic_okli8l.jpg",
+      image:
+        "https://res.cloudinary.com/dfsbfiprb/image/upload/v1764497208/Issa_profile_pic_okli8l.jpg",
     },
     {
       name: "Niyonsaba Donat",
@@ -141,8 +142,8 @@ const About = () => {
         </div>
       </section>
 
-      {/* Sticky Sub Navigation (Who We Are sublinks) */}
-      <div className="sticky top-20 z-40 bg-forest-dark shadow-lg">
+      {/* Sticky Sub Navigation (Who We Are sublinks) - Only show on desktop */}
+      <div className="hidden md:block sticky top-20 z-40 bg-forest-dark shadow-lg">
         <div className="container mx-auto px-4">
           <nav className="flex overflow-x-auto">
             {[
@@ -345,43 +346,26 @@ const About = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-card rounded-lg overflow-hidden shadow-soft hover:shadow-medium transition-all border border-border"
+                  className="flex flex-col items-center justify-center text-center"
                 >
-                  {member.image ? (
-                    <div className="h-64 w-full bg-black flex items-center justify-center">
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className="w-full h-full object-cover"
-                        style={{ background: "rgba(0,0,0,0.03)" }}
-                      />
-                    </div>
-                  ) : (
-                    <div className="h-64 bg-gradient-to-br from-primary to-primary/60 flex flex-col items-center justify-center">
-                      <div className="text-center text-white">
-                        <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
-                          <img
-                            src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
-                              member.name
-                            )}&background=random&size=96`}
-                            alt={member.name}
-                            className="w-24 h-24 object-cover rounded-full"
-                          />
-                        </div>
-                        <p className="font-semibold">
-                          {member.name.split(" ")[0]}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-foreground mb-2">
-                      {member.name}
-                    </h3>
-                    <p className="text-secondary font-semibold text-sm mb-4">
-                      {member.title}
-                    </p>
+                  <div className="relative mb-4">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-40 h-40 object-cover rounded-full border-4"
+                      style={{
+                        borderColor: "rgba(0,0,0,0.08)",
+                        borderStyle: "solid",
+                        background: "rgba(0,0,0,0.01)",
+                      }}
+                    />
                   </div>
+                  <h3 className="text-xl font-bold text-foreground mb-2">
+                    {member.name}
+                  </h3>
+                  <p className="text-secondary font-semibold text-sm mb-4">
+                    {member.title}
+                  </p>
                 </motion.div>
               ))}
             </div>
