@@ -199,8 +199,8 @@ const Navbar = () => {
                 asChild
                 className="w-full bg-secondary hover:bg-secondary/90"
               >
-                <Link to="/donate" onClick={() => setMobileMenuOpen(false)}>
-                  Donate Now
+                <Link to="/Join-the-Mission" onClick={() => setMobileMenuOpen(false)}>
+                  Join the Mission
                 </Link>
               </Button>
             </div>
