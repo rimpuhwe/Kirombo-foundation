@@ -21,7 +21,7 @@ export default function ProgramSection() {
 
   useEffect(() => {
     const updatePerPage = () => {
-      if (window.innerWidth < 768) setWorkPerPage(3);
+      if (window.innerWidth < 768) setWorkPerPage(6);
       else setWorkPerPage(6);
     };
     updatePerPage();
@@ -87,7 +87,7 @@ export default function ProgramSection() {
     return pages;
   };
 
-  const handleReadMore = (works : any) => {
+  const handleReadMore = (works: any) => {
     setSelectedWork(works);
     navigate(`/programs/${works.slug}`, { replace: false });
   };
