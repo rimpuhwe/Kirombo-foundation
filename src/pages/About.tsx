@@ -110,7 +110,7 @@ const About = () => {
     {
       name: "Steven Nsamaza",
       title: "Communication Consultant",
-      image: "https://live.staticflickr.com/65535/54362469544_bfc6d29807_z.jpg",
+      image: "https://lh3.googleusercontent.com/a-/ALV-UjWiD3dBGaXm2SuaHwqZbwOlA8997iVHmms_aJ6HWjKgmFlSV6V9=s324-p-k-rw-no",
     },
   ];
 
