@@ -39,7 +39,6 @@ const Index = () => {
   useTitle("Abdallah Kiromba Foundation");
   return (
     <div className="min-h-screen bg-background">
-
       <main>
         {/* Hero Section */}
         <HeroVideo />
@@ -126,7 +125,6 @@ const Index = () => {
           </div>
         </section>
       </main>
-
     </div>
   );
 };

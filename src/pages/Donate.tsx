@@ -8,7 +8,8 @@ const Donate = () => {
     {
       amount: "$50",
       title: "Education Supporter",
-      description: "Provides school supplies and textbooks for 5 students for one semester",
+      description:
+        "Provides school supplies and textbooks for 5 students for one semester",
       benefits: [
         "Monthly impact newsletter",
         "Digital thank-you certificate",
@@ -18,7 +19,8 @@ const Donate = () => {
     {
       amount: "$150",
       title: "Healthcare Champion",
-      description: "Funds medical supplies for a mobile clinic serving 50 patients",
+      description:
+        "Funds medical supplies for a mobile clinic serving 50 patients",
       benefits: [
         "Quarterly program updates",
         "Recognition on donor wall",
@@ -30,7 +32,8 @@ const Donate = () => {
     {
       amount: "$500",
       title: "Community Builder",
-      description: "Supports vocational training programs for 10 community members",
+      description:
+        "Supports vocational training programs for 10 community members",
       benefits: [
         "VIP facility tour opportunity",
         "Direct updates from program directors",
@@ -43,7 +46,6 @@ const Donate = () => {
 
   return (
     <div className="min-h-screen bg-background">
-
       <main className="pt-24">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-primary to-deep-green text-white">
@@ -55,7 +57,9 @@ const Donate = () => {
               className="max-w-4xl mx-auto text-center"
             >
               <Heart size={64} className="mx-auto mb-6 text-secondary" />
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">Make a Difference Today</h1>
+              <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                Make a Difference Today
+              </h1>
               <p className="text-2xl text-white/90">
                 Your generosity transforms lives and builds stronger communities
               </p>
@@ -85,7 +89,8 @@ const Donate = () => {
                 </div>
                 <h3 className="text-xl font-bold mb-2">Programs</h3>
                 <p className="text-muted-foreground">
-                  Directly funds education, healthcare, and development initiatives
+                  Directly funds education, healthcare, and development
+                  initiatives
                 </p>
               </motion.div>
 
@@ -142,7 +147,9 @@ const Donate = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className={`bg-card rounded-2xl p-8 shadow-soft hover:shadow-medium transition-all ${
-                    level.featured ? "ring-2 ring-secondary transform md:scale-105" : ""
+                    level.featured
+                      ? "ring-2 ring-secondary transform md:scale-105"
+                      : ""
                   }`}
                 >
                   {level.featured && (
@@ -150,15 +157,26 @@ const Donate = () => {
                       Most Popular
                     </div>
                   )}
-                  <div className="text-5xl font-bold text-primary mb-2">{level.amount}</div>
-                  <h3 className="text-2xl font-bold mb-3 text-foreground">{level.title}</h3>
-                  <p className="text-muted-foreground mb-6">{level.description}</p>
+                  <div className="text-5xl font-bold text-primary mb-2">
+                    {level.amount}
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3 text-foreground">
+                    {level.title}
+                  </h3>
+                  <p className="text-muted-foreground mb-6">
+                    {level.description}
+                  </p>
 
                   <div className="space-y-3 mb-8">
                     {level.benefits.map((benefit, i) => (
                       <div key={i} className="flex items-start gap-2">
-                        <Check size={20} className="text-secondary flex-shrink-0 mt-0.5" />
-                        <span className="text-sm text-muted-foreground">{benefit}</span>
+                        <Check
+                          size={20}
+                          className="text-secondary flex-shrink-0 mt-0.5"
+                        />
+                        <span className="text-sm text-muted-foreground">
+                          {benefit}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -205,10 +223,22 @@ const Donate = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
               {[
-                { title: "Corporate Matching", desc: "Double your impact through employer matching" },
-                { title: "Legacy Giving", desc: "Include AKF in your estate planning" },
-                { title: "In-Kind Donations", desc: "Contribute goods and services" },
-                { title: "Fundraise for Us", desc: "Start your own fundraising campaign" },
+                {
+                  title: "Corporate Matching",
+                  desc: "Double your impact through employer matching",
+                },
+                {
+                  title: "Legacy Giving",
+                  desc: "Include AKF in your estate planning",
+                },
+                {
+                  title: "In-Kind Donations",
+                  desc: "Contribute goods and services",
+                },
+                {
+                  title: "Fundraise for Us",
+                  desc: "Start your own fundraising campaign",
+                },
               ].map((option, index) => (
                 <motion.div
                   key={index}
@@ -218,8 +248,12 @@ const Donate = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="bg-card p-6 rounded-xl shadow-soft hover:shadow-medium transition-all text-center"
                 >
-                  <h3 className="font-bold text-lg mb-2 text-foreground">{option.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">{option.desc}</p>
+                  <h3 className="font-bold text-lg mb-2 text-foreground">
+                    {option.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    {option.desc}
+                  </p>
                   <Button variant="ghost" size="sm" className="text-primary">
                     Learn More
                   </Button>
@@ -229,7 +263,6 @@ const Donate = () => {
           </div>
         </section>
       </main>
-
     </div>
   );
 };

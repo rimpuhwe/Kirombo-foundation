@@ -52,7 +52,6 @@ const Press = () => {
 
   return (
     <div className="min-h-screen bg-background">
-
       <main className="pt-20">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-primary to-deep-green text-white">
@@ -132,7 +131,6 @@ const Press = () => {
           </div>
         </section>
       </main>
-
     </div>
   );
 };

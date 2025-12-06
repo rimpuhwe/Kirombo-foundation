@@ -108,13 +108,13 @@ const About = () => {
     {
       name: "Steven Nsamaza",
       title: "Communication Consultant",
-      image: "https://lh3.googleusercontent.com/a-/ALV-UjWiD3dBGaXm2SuaHwqZbwOlA8997iVHmms_aJ6HWjKgmFlSV6V9=s324-p-k-rw-no",
+      image:
+        "https://lh3.googleusercontent.com/a-/ALV-UjWiD3dBGaXm2SuaHwqZbwOlA8997iVHmms_aJ6HWjKgmFlSV6V9=s324-p-k-rw-no",
     },
   ];
 
   return (
     <div className="min-h-screen bg-background">
-
       {/* Hero Section */}
       <section id="hero" className="relative h-[500px] mt-20">
         <div className="absolute inset-0">
@@ -409,7 +409,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
     </div>
   );
 };
