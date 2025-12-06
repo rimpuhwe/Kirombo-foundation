@@ -11,10 +11,6 @@ export default function SupportContinue() {
           for details.
         </p>
         <div className="bg-muted/40 rounded p-4 text-foreground text-base mb-2">
-          <div className="mb-2 italic">
-            “And whatever good you send forward for yourselves, you will find it
-            with Allah — Qur’an 2:110”
-          </div>
           <div className="italic">
             “The most beloved deeds to Allah are those done consistently, even
             if small.”
