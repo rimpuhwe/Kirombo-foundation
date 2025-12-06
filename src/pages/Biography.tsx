@@ -1,5 +1,3 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import SectionHeader from "@/components/SectionHeader";
 import { motion } from "framer-motion";
 import founderPortrait from "@/assets/founder-portrait.jpg";
@@ -7,7 +5,6 @@ import founderPortrait from "@/assets/founder-portrait.jpg";
 const Biography = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
 
       <main className="pt-20">
         {/* Hero Section */}
@@ -190,7 +187,6 @@ const Biography = () => {
         </section>
       </main>
 
-      <Footer />
     </div>
   );
 };

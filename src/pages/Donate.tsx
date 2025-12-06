@@ -1,5 +1,3 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import SectionHeader from "@/components/SectionHeader";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -45,7 +43,6 @@ const Donate = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
 
       <main className="pt-24">
         {/* Hero Section */}
@@ -233,7 +230,6 @@ const Donate = () => {
         </section>
       </main>
 
-      <Footer />
     </div>
   );
 };

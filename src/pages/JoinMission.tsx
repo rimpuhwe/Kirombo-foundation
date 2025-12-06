@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useEmailSubmission } from "@/hooks/useEmailSubmission";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 import { Input } from "@/components/ui/input";
 import {
@@ -35,9 +33,7 @@ export default function JoinMission() {
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="min-h-screen flex items-center justify-center bg-background px-4 pt-24 pb-12">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4 pt-24 pb-12">
         <div className="max-w-4xl w-full bg-white rounded-xl shadow-lg p-8 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
           {success ? (
             <>
@@ -123,7 +119,6 @@ export default function JoinMission() {
           )}
         </div>
       </div>
-      <Footer />
-    </>
+    
   );
 }

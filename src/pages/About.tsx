@@ -1,5 +1,3 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Heart, GraduationCap, Users } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -116,7 +114,6 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar />
 
       {/* Hero Section */}
       <section id="hero" className="relative h-[500px] mt-20">
@@ -413,7 +410,6 @@ const About = () => {
         </div>
       </section>
 
-      <Footer />
     </div>
   );
 };
