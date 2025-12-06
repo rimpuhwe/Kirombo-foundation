@@ -1,39 +1,30 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
 
   const isActivePath = (path: string) => {
     return location.pathname.startsWith(path);
   };
 
+  // Navigation links stored here once
+  const navLinks = [
+    { name: "Our Founder", path: "/founder/biography" },
+    { name: "Who We Are", path: "/about" },
+    { name: "What We Do", path: "/programs" },
+    { name: "Press Room", path: "/press" },
+  ];
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-md border-b border-border shadow-soft">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link
-            to="/"
-            className="flex items-center"
-            onClick={() => {
-              document.title = "Abdallah Kiromba Foundation";
-            }}
-          >
+          <Link to="/" className="flex items-center">
             <img
               src="https://res.cloudinary.com/dcgmi6w24/image/upload/v1764223037/AKF_logo_1_zsspqo.png"
               alt="AKF logo"
@@ -41,172 +32,75 @@ const Navbar = () => {
             />
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-8">
-            <NavigationMenu>
-              <NavigationMenuList className="space-x-2">
-                {/* Our Founder Single Link */}
-                <NavigationMenuItem>
-                  <Link
-                    to="/founder/biography"
-                    className={`inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-bold transition-colors ${
-                      isActivePath("/founder")
-                        ? "text-orange-500"
-                        : "text-foreground"
-                    } hover:text-orange-500 focus:outline-none disabled:pointer-events-none disabled:opacity-50`}
-                  >
-                    Our Founder
-                  </Link>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger
-                    className={`font-bold ${
-                      isActivePath("/about")
-                        ? "text-orange-500"
-                        : "text-foreground"
-                    } hover:text-orange-500`}
-                    onClick={() => navigate("/about#hero")}
-                  >
-                    Who We Are
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[260px] gap-2 p-2 bg-card">
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/about#vision"
-                            className="block font-semibold select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-orange-500 hover:text-white"
-                          >
-                            Vision, Mission and Values
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/about#board"
-                            className="block font-semibold select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-orange-500 hover:text-white"
-                          >
-                            Management Team
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            to="/about#partners"
-                            className="block font-semibold select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-orange-500 hover:text-white"
-                          >
-                            Core Partners
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
+            <div className="flex items-center space-between">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`font-bold  px-3 py-2 rounded transition-colors ${
+                    isActivePath(link.path)
+                      ? "text-orange-500"
+                      : "text-foreground"
+                  } hover:text-orange-500`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
 
-                {/* What We Do (single link, no dropdown) */}
-                <NavigationMenuItem>
-                  <Link
-                    to="/programs"
-                    className={`inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-bold transition-colors ${
-                      isActivePath("/programs")
-                        ? "text-orange-500"
-                        : "text-foreground"
-                    } hover:text-orange-500 focus:outline-none disabled:pointer-events-none disabled:opacity-50`}
-                  >
-                    What We Do
-                  </Link>
-                </NavigationMenuItem>
-
-                {/* Press Room (single link, no dropdown) */}
-                <NavigationMenuItem>
-                  <Link
-                    to="/press"
-                    className={`inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-bold transition-colors ${
-                      isActivePath("/press")
-                        ? "text-orange-500"
-                        : "text-foreground"
-                    } hover:text-orange-500 focus:outline-none disabled:pointer-events-none disabled:opacity-50`}
-                  >
-                    Press Room
-                  </Link>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-
-            <Button asChild className="bg-secondary hover:bg-secondary/90">
-              <Link to="/donate">Donate Now</Link>
+            <Button asChild className="bg-secondary hover:bg-transparent hover:text-secondary border border-secondary">
+              <Link to="/join-the-mission">Join the Mission</Link>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 hover:bg-muted rounded-lg transition-colors"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="lg:hidden">
+            <button
+              className="p-2 hover:bg-muted rounded-lg transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-card border-t border-border"
-          >
-            <div className="container mx-auto px-4 py-6 space-y-4">
+      {mobileMenuOpen && (
+        <div className="bg-card border-t border-border lg:hidden">
+          <div className="container mx-auto px-4 py-6 space-y-2 flex flex-col">
+            <Link
+              to="/"
+              className="py-2 font-bold hover:text-secondary"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Home
+            </Link>
+
+            {navLinks.map((link) => (
               <Link
-                to="/"
-                className="block py-2 hover:text-primary transition-colors"
+                key={link.path}
+                to={link.path}
+                className="py-2 font-bold hover:text-secondary"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Home
+                {link.name}
               </Link>
-              <Link
-                to="/founder/biography"
-                className="block py-2 hover:text-primary transition-colors font-bold"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Our Founder
+            ))}
+
+            <Button
+              asChild
+              className="w-full bg-secondary hover:bg-secondary/90"
+            >
+              <Link to="/donate" onClick={() => setMobileMenuOpen(false)}>
+                Join the Mission
               </Link>
-              <Link
-                to="/about"
-                className="block py-2 hover:text-primary transition-colors font-bold"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Who We Are
-              </Link>
-              <Link
-                to="/programs"
-                className="block py-2 hover:text-primary transition-colors font-bold"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                What We Do
-              </Link>
-              <Link
-                to="/press"
-                className="block py-2 hover:text-primary transition-colors font-bold"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Press Room
-              </Link>
-              <Button
-                asChild
-                className="w-full bg-secondary hover:bg-secondary/90"
-              >
-                <Link to="/Join-the-Mission" onClick={() => setMobileMenuOpen(false)}>
-                  Join the Mission
-                </Link>
-              </Button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </Button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
