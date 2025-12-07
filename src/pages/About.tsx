@@ -41,7 +41,13 @@ const About = () => {
   // Track active section on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["introduction", "vision", "board", "partners"];
+      // Section IDs must match those used in the sticky nav and page
+      const sections = [
+        "introduction",
+        "vision-mission-values",
+        "board",
+        "partners",
+      ];
       const scrollPosition = window.scrollY + 250;
 
       for (const section of sections) {
