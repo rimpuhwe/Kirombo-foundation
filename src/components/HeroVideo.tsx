@@ -43,7 +43,8 @@ const HeroVideo = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="text-xl md:text-2xl mb-10 text-gray-100 max-w-2xl mx-auto"
             >
-              Empowering East African communities through education, healthcare, and sustainable development programs.
+              Empowering East African communities through education, healthcare,
+              and sustainable development programs.
             </motion.p>
 
             <motion.div
@@ -68,9 +69,7 @@ const HeroVideo = () => {
                 variant="outline"
                 className="bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-sm text-lg px-8 py-6 h-auto"
               >
-                <Link to="/about/vision-mission">
-                  Learn More
-                </Link>
+                <Link to="/about/vision-mission">Learn More</Link>
               </Button>
             </motion.div>
           </motion.div>
