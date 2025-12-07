@@ -128,7 +128,7 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section id="hero" className="relative h-[500px]">
+      <section id="hero" className="relative h-[500px] mt-20">
         <div className="absolute inset-0">
           <img
             src="https://live.staticflickr.com/65535/54924254124_d01799935a_z.jpg"

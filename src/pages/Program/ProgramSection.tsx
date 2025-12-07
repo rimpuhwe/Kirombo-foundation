@@ -99,7 +99,7 @@ export default function ProgramSection() {
 
   return (
     <>
-      <Navbar />
+      
       {selectedWork ? (
         <div className="w-full max-w-7xl mx-auto px-4 py-8">
           <Button onClick={handleBack} className="mb-6" variant="outline">
@@ -214,7 +214,7 @@ export default function ProgramSection() {
           </motion.div>
         </>
       )}
-      <Footer />
+      
     </>
   );
 }
