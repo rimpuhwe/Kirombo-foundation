@@ -62,10 +62,10 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/about/vision-mission"
+                  to="/about#vision-mission-values"
                   className="text-gray-300 hover:text-secondary transition-colors text-sm"
                 >
-                  Vision & Mission
+                  Vision, Mission & Values
                 </Link>
               </li>
               <li>
@@ -78,18 +78,10 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/impact"
+                  to="/about#board"
                   className="text-gray-300 hover:text-secondary transition-colors text-sm"
                 >
-                  Impact Stories
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/about/team"
-                  className="text-gray-300 hover:text-secondary transition-colors text-sm"
-                >
-                  Our Team
+                 Meet Our Team
                 </Link>
               </li>
               <li>
@@ -97,7 +89,7 @@ const Footer = () => {
                   to="/press"
                   className="text-gray-300 hover:text-secondary transition-colors text-sm"
                 >
-                  News & Updates
+                  News & Latest Updates
                 </Link>
               </li>
             </ul>
@@ -109,34 +101,10 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="#"
+                  to="/join-the-mission"
                   className="text-gray-300 hover:text-secondary transition-colors text-sm"
                 >
-                  Make a Donation
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/volunteer"
-                  className="text-gray-300 hover:text-secondary transition-colors text-sm"
-                >
-                  Volunteer
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/about/partners"
-                  className="text-gray-300 hover:text-secondary transition-colors text-sm"
-                >
-                  Partner With Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/founder/speeches"
-                  className="text-gray-300 hover:text-secondary transition-colors text-sm"
-                >
-                  Resources
+                  Support Us
                 </Link>
               </li>
             </ul>
