@@ -41,6 +41,7 @@ export function useEmailSubmission(): UseEmailSubmissionResult {
           name: data.name,
           email: data.email,
           work: data.work,
+          selected_work: data.work,
           from_email: "abdallahkirombafoundation@gmail.com",
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
