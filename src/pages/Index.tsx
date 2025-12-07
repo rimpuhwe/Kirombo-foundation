@@ -7,34 +7,16 @@ import ImpactStats from "@/components/ImpactStats";
 import ProgramCard from "@/components/ProgramCard";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import educationImg from "@/assets/education-program.jpg";
-import healthcareImg from "@/assets/healthcare-program.jpg";
-import sustainableImg from "@/assets/sustainable-development.jpg";
+import { works } from "../../types/Work";
 
 const Index = () => {
-  const programs = [
-    {
-      title: "Education Programs",
-      description:
-        "Providing quality education, scholarships, and learning materials to underserved communities. We believe education is the foundation for lasting change.",
-      image: educationImg,
-      link: "/programs#education",
-    },
-    {
-      title: "Healthcare Initiatives",
-      description:
-        "Delivering essential healthcare services, medical supplies, and health education to improve community wellbeing and save lives.",
-      image: healthcareImg,
-      link: "/programs#healthcare",
-    },
-    {
-      title: "Sustainable Development",
-      description:
-        "Empowering communities through agriculture, clean water projects, and economic development programs for long-term sustainability.",
-      image: sustainableImg,
-      link: "/programs#sustainable",
-    },
-  ];
+  // Show first 3 works from What We Do
+  const programs = works.slice(0, 3).map((work) => ({
+    title: work.title,
+    description: work.content,
+    image: work.img,
+    link: `/programs/${work.slug}`,
+  }));
 
   useTitle("Abdallah Kiromba Foundation");
   return (
@@ -58,25 +40,35 @@ const Index = () => {
                   title="Building a Better Tomorrow"
                   centered={false}
                 />
-                <p className="text-lg text-muted-foreground mb-6">
-                  The Abdallah Kiromba Foundation is dedicated to transforming
-                  lives through comprehensive community development programs.
-                  Founded on the principles of compassion, integrity, and
-                  sustainable impact, we work tirelessly to create opportunities
-                  for those who need them most.
+                <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                  <strong className="text-foreground">
+                    The Abdallah Kiromba Foundation
+                  </strong>{" "}
+                  is an international charity based in Rwanda, dedicated to
+                  supporting orphaned children and vulnerable communities by
+                  providing essential services such as education, healthcare,
+                  food, and clean water. The foundation actively works across
+                  more than{" "}
+                  <strong className="text-foreground">15 districts</strong>,
+                  including Kigali, Gatsibo, Rubavu, and Musanze. Its key
+                  activities include providing health insurance to households,
+                  running tailoring training programs for teenage mothers and
+                  young men in Gatsibo District, and distributing food packages
+                  and humanitarian aid, especially during the month of Ramadan.
                 </p>
-                <p className="text-lg text-muted-foreground mb-8">
-                  Our approach combines education, healthcare, and economic
-                  empowerment to address the root causes of poverty and create
-                  lasting change in East African communities.
+                <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+                  Foundation officially established in 2024, honors the legacy
+                  of our late father{" "}
+                  <strong className="text-foreground">Abdallah Kiromba</strong>,
+                  by continuing his passion for social work
                 </p>
                 <Button
                   asChild
                   size="lg"
-                  className="bg-primary hover:bg-primary/90"
+                  className="bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-white"
                 >
-                  <Link to="/about/vision-mission">
-                    Learn About Our Mission
+                  <Link to="/about#vision-mission-values">
+                    Learn More About Our Mission
                     <ArrowRight className="ml-2" size={20} />
                   </Link>
                 </Button>
@@ -91,14 +83,10 @@ const Index = () => {
               >
                 <div className="rounded-2xl overflow-hidden shadow-strong">
                   <img
-                    src={educationImg}
+                    src="https://live.staticflickr.com/65535/54362268936_088d7927fc_z.jpg"
                     alt="Community education"
                     className="w-full h-[500px] object-cover"
                   />
-                </div>
-                <div className="absolute -bottom-8 -left-8 bg-secondary text-white p-6 rounded-2xl shadow-strong max-w-xs">
-                  <p className="text-3xl font-bold mb-1">15+ Years</p>
-                  <p className="text-lg">of Community Impact</p>
                 </div>
               </motion.div>
             </div>
@@ -117,10 +105,21 @@ const Index = () => {
               description="Comprehensive programs designed to address the most pressing needs in our communities."
             />
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {programs.map((program, index) => (
-                <ProgramCard key={index} {...program} index={index} />
-              ))}
+            <div className="flex flex-col items-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 -mx-2 w-full justify-center">
+                {programs.map((program, index) => (
+                  <ProgramCard key={index} {...program} index={index} />
+                ))}
+              </div>
+              <div className="flex justify-center mt-8 w-full">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-white w-full max-w-md"
+                >
+                  <Link to="/programs">View More</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </section>

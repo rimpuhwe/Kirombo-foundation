@@ -12,14 +12,21 @@ interface ProgramCardProps {
   icon?: React.ReactNode;
 }
 
-const ProgramCard = ({ title, description, image, link, index = 0, icon }: ProgramCardProps) => {
+const ProgramCard = ({
+  title,
+  description,
+  image,
+  link,
+  index = 0,
+  icon,
+}: ProgramCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-strong transition-all duration-300"
+      className="group bg-card rounded-2xl overflow-hidden shadow-soft transition-all duration-300 mx-auto w-full max-w-xs hover:shadow-lg hover:scale-[1.03]"
     >
       <div className="relative h-64 overflow-hidden">
         <img
@@ -35,23 +42,23 @@ const ProgramCard = ({ title, description, image, link, index = 0, icon }: Progr
         )}
       </div>
       <div className="p-6">
-        <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
+        <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-secondary transition-colors">
           {title}
         </h3>
-        <p className="text-muted-foreground mb-6 line-clamp-3">
-          {description}
-        </p>
+        <p className="text-muted-foreground mb-6 line-clamp-3">{description}</p>
         {link && (
           <Button
             asChild
             variant="ghost"
-            className="text-primary hover:text-secondary p-0 h-auto font-semibold group/button"
+            className="text-primary p-0 h-auto font-semibold group/button"
           >
-            <Link to={link}>
-              Learn More
+            <Link to={link} className=" text-primary hover:text-secondary">
+             
+                Learn More
+              
               <ArrowRight
                 size={18}
-                className="ml-2 group-hover/button:translate-x-1 transition-transform"
+                className="ml-2  transition-transform"
               />
             </Link>
           </Button>
