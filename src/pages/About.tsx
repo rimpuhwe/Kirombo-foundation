@@ -122,7 +122,7 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section id="hero" className="relative h-[500px] mt-20">
+      <section id="hero" className="relative h-[500px]">
         <div className="absolute inset-0">
           <img
             src="https://live.staticflickr.com/65535/54924254124_d01799935a_z.jpg"
@@ -175,7 +175,10 @@ const About = () => {
       </div>
 
       {/* Introduction Section */}
-      <section id="introduction" className="py-20 bg-background scroll-mt-40">
+      <section
+        id="introduction"
+        className="min-h-screen flex items-center bg-transparent scroll-mt-[64px] px-6 md:px-12 py-8"
+      >
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             <motion.div
@@ -234,57 +237,10 @@ const About = () => {
         </div>
       </section>
 
-      {/* Three Pillars Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
-            {[
-              {
-                icon: Heart,
-                title: "ENGAGE",
-                description:
-                  "Building strong relationships with communities to understand their needs and create sustainable solutions together.",
-              },
-              {
-                icon: GraduationCap,
-                title: "EDUCATE",
-                description:
-                  "Providing access to quality education and skills development to empower individuals and transform lives.",
-              },
-              {
-                icon: Users,
-                title: "EMPOWER",
-                description:
-                  "Creating opportunities for economic growth and self-reliance, enabling communities to thrive independently.",
-              },
-            ].map((pillar, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="text-center"
-              >
-                <div className="w-20 h-20 mx-auto mb-6 bg-primary rounded-full flex items-center justify-center">
-                  <pillar.icon className="w-10 h-10 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-foreground mb-4">
-                  {pillar.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {pillar.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Vision, Mission, Values Section */}
       <section
         id="vision-mission-values"
-        className="w-full bg-teal text-black px-6 md:px-16 py-16 md:py-32"
+        className="w-full min-h-screen flex items-center bg-[#f5f5f5a8] text-black scroll-mt-[64px] px-6 md:px-12 py-8 "
       >
         <div className="flex flex-col md:flex-row items-start justify-between gap-12 max-w-7xl mx-auto">
           {/* Left Side - Image */}
@@ -301,53 +257,58 @@ const About = () => {
           {/* Right Side - Text & Accordion */}
           <div className="w-full md:w-1/2 mt-20">
             <h2 className="text-3xl md:text-4xl font-bold text-orange mb-6">
-              Empowering Through Purpose
+              Empowering Communities Through Purpose
             </h2>
-            <p className="mb-6 text-md md:text-lg text-teal-800">
-              Discover how our initiatives inspire individuals and communities
-              to achieve meaningful impact. By aligning goals with purpose, we
-              create opportunities for growth, innovation, and positive change,
-              enabling everyone to harness their potential and make a
-              difference.
+            <p className="mb-6 text-md md:text-lg text-muted-foreground leading-relaxed">
+              Discover how the Abdallah Kiromba Foundation transforms lives
+              through education, healthcare, orphan care, and sustainable
+              livelihoods. Guided by the spirit of Sadaqah Jariyah, we support
+              orphaned children and vulnerable families across Rwanda, creating
+              lasting opportunities for self-reliance, dignity, and positive
+              social change.
             </p>
 
             <Accordion type="multiple" className="w-full ">
               <AccordionItem value="Our Mission">
-                <AccordionTrigger className="text-primary font-semibold font-sans text-base md:text-lg cursor-pointer">
+                <AccordionTrigger className="text-primary font-semibold font-sans text-sm md:text-base cursor-pointer transition-colors hover:text-secondary data-[state=open]:text-secondary">
                   Our Mission
                 </AccordionTrigger>
-                <AccordionContent className="text-foreground font-sans text-base md:text-lg">
-                  To promote family livelihoods, unity, and socio-economic transformation by providing education, 
-                  healthcare, orphan care, clean water, and sustainable livelihood support to orphaned children 
-                  and vulnerable communities across Rwanda and beyond, as a lasting act of Sadaqah Jariyah in honor 
-                  of the legacy of <i>Abdallah Kiromba</i>.
+                <AccordionContent className="text-muted-foreground leading-relaxed text-sm md:text-base">
+                  To promote family livelihoods, unity, and socio-economic
+                  transformation by providing education, healthcare, orphan
+                  care, clean water, and sustainable livelihood support to
+                  orphaned children and vulnerable communities across Rwanda and
+                  beyond, as a lasting act of Sadaqah Jariyah in honor of the
+                  legacy of <i>Abdallah Kiromba</i>.
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="Our Vision">
-                <AccordionTrigger className="text-primary font-semibold font-sans text-base md:text-lg cursor-pointer">
+                <AccordionTrigger className="text-primary font-semibold font-sans text-sm md:text-base cursor-pointer transition-colors hover:text-secondary data-[state=open]:text-secondary">
                   Our Vision
                 </AccordionTrigger>
-                <AccordionContent className="text-foreground font-sans text-base md:text-lg">
-                  A transformed society where orphaned children, vulnerable youth, and families across Rwanda live with dignity, 
-                  self-reliance, good health, education, food security, and access to clean water empowered to build sustainable livelihoods 
-                  and a brighter future for generations to come.
+                <AccordionContent className="text-muted-foreground leading-relaxed text-sm md:text-base">
+                  A transformed society where orphaned children, vulnerable
+                  youth, and families across Rwanda live with dignity,
+                  self-reliance, good health, education, food security, and
+                  access to clean water empowered to build sustainable
+                  livelihoods and a brighter future for generations to come.
                 </AccordionContent>
               </AccordionItem>
 
               <AccordionItem value="Our Values">
-                <AccordionTrigger className="text-primary font-semibold font-sans text-base md:text-lg cursor-pointer">
+                <AccordionTrigger className="text-primary font-semibold font-sans text-sm md:text-base cursor-pointer transition-colors hover:text-secondary data-[state=open]:text-secondary">
                   Our Values
                 </AccordionTrigger>
-                <AccordionContent className="text-foreground font-sans text-sm md:text-lg">
+                <AccordionContent className="text-foreground font-sans text-sm md:text-base">
                   <ul className="list-disc pl-6 space-y-2">
                     <li>
                       <span className="font-semibold text-foreground">
                         EDUCATE:
                       </span>
                       <span className="ml-2 text-muted-foreground leading-relaxed">
-                       Providing access to quality education and skills development 
-                       to empower individuals and transform lives.
+                        Providing access to quality education and skills
+                        development to empower individuals and transform lives.
                       </span>
                     </li>
                     <li>
@@ -355,8 +316,9 @@ const About = () => {
                         ENGAGE:
                       </span>
                       <span className="ml-2 text-muted-foreground leading-relaxed">
-                        Building strong relationships with communities to understand 
-                        their needs and create sustainable solutions together.
+                        Building strong relationships with communities to
+                        understand their needs and create sustainable solutions
+                        together.
                       </span>
                     </li>
                     <li>
@@ -364,8 +326,9 @@ const About = () => {
                         EMPOWER:
                       </span>
                       <span className="ml-2 text-muted-foreground leading-relaxed">
-                        Creating opportunities for economic growth and self-reliance, 
-                        enabling communities to thrive independently.
+                        Creating opportunities for economic growth and
+                        self-reliance, enabling communities to thrive
+                        independently.
                       </span>
                     </li>
                     <li>
@@ -395,7 +358,10 @@ const About = () => {
       </section>
 
       {/* Board Members Section */}
-      <section id="board" className="py-20 bg-muted/30 scroll-mt-40">
+      <section
+        id="board"
+        className="min-h-screen flex items-center bg-transparent scroll-mt-[64px] px-6 md:px-12 py-8"
+      >
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <motion.div
@@ -449,7 +415,10 @@ const About = () => {
       </section>
 
       {/* Partners Section (Implementing Partners) */}
-      <section id="partners" className="py-20 bg-muted/30 scroll-mt-40">
+      <section
+        id="partners"
+        className="min-h-screen flex items-center bg-[#f5f5f5a8] scroll-mt-[64px] px-6 md:px-12 py-8"
+      >
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <motion.div
