@@ -13,7 +13,6 @@ import ProgramPage from "./pages/Program/page";
 
 import JoinMission from "./pages/JoinMission";
 import SupportContinue from "./pages/SupportContinue";
-import Donate from "./pages/Donate";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 
@@ -34,7 +33,6 @@ const App = () => (
             <Route path="/press" element={<Press />} />
             <Route path="/programs" element={<ProgramPage />} />
             <Route path="/programs/:slug" element={<ProgramPage />} />
-            <Route path="/donate" element={<Donate />} />
             <Route path="/join-the-mission" element={<JoinMission />} />
             <Route path="/support-continue" element={<SupportContinue />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

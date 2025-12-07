@@ -57,7 +57,7 @@ const HeroVideo = () => {
                 size="lg"
                 className="bg-secondary hover:bg-secondary/90 text-white text-lg px-8 py-6 h-auto shadow-strong"
               >
-                <Link to="/donate">
+                <Link to="#">
                   Donate Now
                   <ArrowRight className="ml-2" size={20} />
                 </Link>

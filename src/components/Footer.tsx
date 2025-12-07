@@ -109,7 +109,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/donate"
+                  to="#"
                   className="text-gray-300 hover:text-secondary transition-colors text-sm"
                 >
                   Make a Donation

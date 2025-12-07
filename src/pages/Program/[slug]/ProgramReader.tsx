@@ -18,7 +18,9 @@ export default function ProgramReader({ work }: { work: any }) {
   const navigate = useNavigate();
   // Find initial index by slug
   const initialIndex = works.findIndex((w) => w.slug === work.slug);
-  const [selectedIndex, setSelectedIndex] = useState(initialIndex >= 0 ? initialIndex : 0);
+  const [selectedIndex, setSelectedIndex] = useState(
+    initialIndex >= 0 ? initialIndex : 0
+  );
 
   // Keep selectedIndex in sync with prop changes (e.g., navigation)
   useEffect(() => {
@@ -42,17 +44,18 @@ export default function ProgramReader({ work }: { work: any }) {
   return (
     <section className="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
       {/* Hero Section */}
-      <div className="relative bg-gray-900 h-[80vh] sm:h-[80vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
+      <div className="relative bg-gray-900 h-[80vh] flex items-center justify-center overflow-hidden">
         <img
           src={mainWork.img}
           alt={mainWork.title}
-          className="object-cover opacity-50 scale-105 transition-transform duration-700 w-full h-full"
+          className="object-cover opacity-50 scale-105 transition-transform duration-700 w-full h-full p-0 m-0"
+          style={{ padding: 0, margin: 0 }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-8 sm:py-12">
         <div className="lg:grid lg:grid-cols-12 lg:gap-8">
           {/* Sidebar (Left) - Only for large screens */}
           <aside className="hidden lg:flex lg:flex-col lg:items-center lg:space-y-4 lg:sticky lg:top-36 lg:self-start"></aside>
