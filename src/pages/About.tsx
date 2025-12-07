@@ -2,6 +2,12 @@ import { motion } from "framer-motion";
 import { Heart, GraduationCap, Users } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion";
 import { useTitle } from "@/hooks/useTitle";
 
 interface TeamMember {
@@ -145,8 +151,10 @@ const About = () => {
           <nav className="flex overflow-x-auto">
             {[
               { id: "introduction", label: "INTRODUCTION" },
-              { id: "vision", label: "VISION" },
-              { id: "mission", label: "MISSION & VALUES" },
+              {
+                id: "vision-mission-values",
+                label: "VISION ,MISSION & VALUES",
+              },
               { id: "board", label: "MANAGEMENT TEAM" },
               { id: "partners", label: "CORE PARTNERS" },
             ].map((item) => (
@@ -274,44 +282,114 @@ const About = () => {
       </section>
 
       {/* Vision, Mission, Values Section */}
-      <section id="vision" className="py-20 bg-background scroll-mt-40">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div id="vision" className="grid md:grid-cols-3 gap-12 mb-16">
-              {[
-                {
-                  title: "Vision",
-                  content:
-                    "A nation of empowered and dignified Ugandans living in thriving, sustainable communities.",
-                },
-                {
-                  title: "Mission",
-                  content:
-                    "To support the development of healthy, educated and prosperous communities through sustainable programs and partnerships.",
-                },
-                {
-                  title: "Values",
-                  content:
-                    "Excellence, Integrity, Innovation, Solidarity and Commitment.",
-                },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-card p-8 rounded-lg border border-border shadow-soft"
-                >
-                  <h3 className="text-2xl font-bold text-primary mb-4">
-                    {item.title}
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {item.content}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+      <section
+        id="vision-mission-values"
+        className="w-full bg-teal text-black px-6 md:px-16 py-16 md:py-32"
+      >
+        <div className="flex flex-col md:flex-row items-start justify-between gap-12 max-w-7xl mx-auto">
+          {/* Left Side - Image */}
+          <div className="w-full md:w-1/2 flex justify-center md:justify-start mt-4">
+            <img
+              src="https://res.cloudinary.com/dcgmi6w24/image/upload/v1764227923/logo_fbe3pg.png"
+              alt="Abdallah Kiromba Foundation Logo"
+              width={400}
+              height={400}
+              className="max-w-full h-auto object-contain"
+            />
+          </div>
+
+          {/* Right Side - Text & Accordion */}
+          <div className="w-full md:w-1/2 mt-20">
+            <h2 className="text-3xl md:text-4xl font-bold text-orange mb-6">
+              Empowering Through Purpose
+            </h2>
+            <p className="mb-6 text-md md:text-lg text-teal-800">
+              Discover how our initiatives inspire individuals and communities
+              to achieve meaningful impact. By aligning goals with purpose, we
+              create opportunities for growth, innovation, and positive change,
+              enabling everyone to harness their potential and make a
+              difference.
+            </p>
+
+            <Accordion type="multiple" className="w-full ">
+              <AccordionItem value="Our Mission">
+                <AccordionTrigger className="text-primary font-semibold font-sans text-base md:text-lg cursor-pointer">
+                  Our Mission
+                </AccordionTrigger>
+                <AccordionContent className="text-foreground font-sans text-base md:text-lg">
+                  To promote family livelihoods, unity, and socio-economic transformation by providing education, 
+                  healthcare, orphan care, clean water, and sustainable livelihood support to orphaned children 
+                  and vulnerable communities across Rwanda and beyond, as a lasting act of Sadaqah Jariyah in honor 
+                  of the legacy of <i>Abdallah Kiromba</i>.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="Our Vision">
+                <AccordionTrigger className="text-primary font-semibold font-sans text-base md:text-lg cursor-pointer">
+                  Our Vision
+                </AccordionTrigger>
+                <AccordionContent className="text-foreground font-sans text-base md:text-lg">
+                  A transformed society where orphaned children, vulnerable youth, and families across Rwanda live with dignity, 
+                  self-reliance, good health, education, food security, and access to clean water empowered to build sustainable livelihoods 
+                  and a brighter future for generations to come.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="Our Values">
+                <AccordionTrigger className="text-primary font-semibold font-sans text-base md:text-lg cursor-pointer">
+                  Our Values
+                </AccordionTrigger>
+                <AccordionContent className="text-foreground font-sans text-sm md:text-lg">
+                  <ul className="list-disc pl-6 space-y-2">
+                    <li>
+                      <span className="font-semibold text-foreground">
+                        EDUCATE:
+                      </span>
+                      <span className="ml-2 text-muted-foreground leading-relaxed">
+                       Providing access to quality education and skills development 
+                       to empower individuals and transform lives.
+                      </span>
+                    </li>
+                    <li>
+                      <span className="font-semibold text-foreground">
+                        ENGAGE:
+                      </span>
+                      <span className="ml-2 text-muted-foreground leading-relaxed">
+                        Building strong relationships with communities to understand 
+                        their needs and create sustainable solutions together.
+                      </span>
+                    </li>
+                    <li>
+                      <span className="font-semibold text-foreground">
+                        EMPOWER:
+                      </span>
+                      <span className="ml-2 text-muted-foreground leading-relaxed">
+                        Creating opportunities for economic growth and self-reliance, 
+                        enabling communities to thrive independently.
+                      </span>
+                    </li>
+                    <li>
+                      <span className="font-semibold text-foreground">
+                        COLLABORATE
+                      </span>
+                      <span className="ml-2 text-muted-foreground leading-relaxed">
+                        Building strong partnerships to maximize impact and
+                        create opportunities for the community.
+                      </span>
+                    </li>
+                    <li>
+                      <span className="font-semibold text-foreground">
+                        INTEGRITY
+                      </span>
+                      <span className="ml-2 text-muted-foreground leading-relaxed">
+                        Upholding transparency, accountability, and ethical
+                        practices in all our actions.
+                      </span>
+                    </li>
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>
