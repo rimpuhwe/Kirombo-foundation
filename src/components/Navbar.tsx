@@ -50,7 +50,10 @@ const Navbar = () => {
               ))}
             </div>
 
-            <Button asChild className="bg-secondary hover:bg-transparent hover:text-secondary border border-secondary">
+            <Button
+              asChild
+              className="bg-secondary hover:bg-transparent hover:text-secondary border border-secondary"
+            >
               <Link to="/join-the-mission">Join the Mission</Link>
             </Button>
           </div>
@@ -90,8 +93,14 @@ const Navbar = () => {
               </Link>
             ))}
 
-            <Button asChild className="w-full bg-secondary hover:bg-secondary/90">
-              <Link to="/join-the-mission" onClick={() => setMobileMenuOpen(false)}>
+            <Button
+              asChild
+              className="w-full bg-secondary hover:bg-secondary/90"
+            >
+              <Link
+                to="/join-the-mission"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 Join the Mission
               </Link>
             </Button>
