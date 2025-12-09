@@ -44,28 +44,32 @@ const Index = () => {
                   <strong className="text-foreground">
                     The Abdallah Kiromba Foundation
                   </strong>{" "}
-                  is an international charity based in Rwanda, dedicated to
-                  supporting orphaned children and vulnerable communities by
-                  providing essential services such as education, healthcare,
-                  food, and clean water. The foundation actively works across
-                  more than{" "}
+                  is a Rwanda based charity aiming at regional and international
+                  level, dedicated to supporting orphaned children and
+                  vulnerable communities by providing essential services such as
+                  education and orphan care, healthcare, livelihood, skills
+                  training, Seasonal giving as well as clean water. The
+                  foundation actively works across more than{" "}
                   <strong className="text-foreground">15 districts</strong>,
                   including Kigali, Gatsibo, Rubavu, and Musanze. Its key
-                  activities include providing health insurance to households,
-                  running tailoring training programs for teenage mothers and
-                  young men in Gatsibo District, and distributing food packages
-                  and humanitarian aid, especially during the month of Ramadan.
+                  activities include providing scholastic materials and tuitions
+                  to orphans, health insurance to households, running tailoring
+                  training programs for teenage mothers and young men in Gatsibo
+                  District, and distributing food packages and humanitarian aid,
+                  especially during the holy month of Ramadan and Eid Udihiya.
                 </p>
                 <p className="text-muted-foreground text-lg leading-relaxed mb-8">
                   Foundation officially established in 2024, honors the legacy
                   of our late father{" "}
                   <strong className="text-foreground">Abdallah Kiromba</strong>,
-                  by continuing his passion for social work
+                  As his{" "}
+                  <strong className="text-foreground">Sadaqah Jariyah</strong>{" "}
+                  means of "continuous charity".
                 </p>
                 <Button
                   asChild
                   size="lg"
-                  className="bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-white"
+                  className="bg-transparent border-2 border-secondary text-secondary hover:bg-secondary hover:text-white"
                 >
                   <Link to="/about#vision-mission-values">
                     Learn More About Our Mission

@@ -211,7 +211,7 @@ export const works = [
   {
     slug: "livelihood-program-empowering-communities-for-self-reliance",
     title: "Livelihood",
-    img: "https://live.staticflickr.com/65535/54595667203_d2183881a8_z.jpg",
+    img: "https://res.cloudinary.com/dcgmi6w24/image/upload/v1765296581/aaaabbb_ytzlok.jpg",
 
     content:
       "Empowering communities through sustainable livelihood initiatives that promote self-reliance and economic growth.",

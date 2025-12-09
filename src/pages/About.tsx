@@ -90,7 +90,7 @@ const About = () => {
     },
     {
       name: "Niyonsaba Donat",
-      title: "President & Legal Representative",
+      title: "President",
       image:
         "https://res.cloudinary.com/dfsbfiprb/image/upload/v1764344910/WhatsApp_Image_2025-11-26_at_7.34.34_PM_yvzwxk.jpg",
     },
@@ -108,12 +108,12 @@ const About = () => {
     },
     {
       name: "Nyirabahizi Hawa",
-      title: "Monitoring and Evaluations Officer ",
+      title: "Orphan care Program Coordinator",
       image:
         "https://res.cloudinary.com/dfsbfiprb/image/upload/v1764344953/WhatsApp_Image_2025-11-27_at_2.11.06_PM_jkezyw.jpg",
     },
     {
-      name: "Bazizane Harrida",
+      name: "Bazizane Farida",
       title: "Administrator Officer",
       image: "https://live.staticflickr.com/65535/54924254124_d01799935a_z.jpg",
     },
@@ -214,9 +214,10 @@ const About = () => {
                   <p>
                     Our main goals are to enhance{" "}
                     <strong className="text-foreground">
-                      Social and economic development programs, health and
-                      well-being, Education, Orphan care, Islamic sessional
-                      giving, Water, Livelihood, and other related initiatives.
+                      Social economic development (SED) programs,
+                      health and well-being, Education and Orphan care, Islamic sessional giving,
+                      Water wells, Livelihood, tailoring skills, life skill trainings, and other related
+                      initiatives.
                     </strong>
                   </p>
                   <p>
