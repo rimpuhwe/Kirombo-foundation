@@ -26,43 +26,33 @@ const ProgramCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group bg-card rounded-2xl overflow-hidden shadow-soft transition-all duration-300 mx-auto w-full max-w-xs hover:shadow-lg hover:scale-[1.03]"
+      className="group bg-card rounded-2xl border border-gray-300 shadow-soft transition-all duration-300 mx-auto w-full max-w-sm px-4 sm:px-6 md:px-4 hover:shadow-lg hover:scale-[1.03]"
     >
-      <div className="relative h-64 overflow-hidden">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-forest-dark/80 to-transparent" />
-        {icon && (
-          <div className="absolute top-6 right-6 w-14 h-14 bg-primary/90 backdrop-blur-sm rounded-full flex items-center justify-center text-primary-foreground">
-            {icon}
-          </div>
-        )}
-      </div>
-      <div className="p-6">
-        <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-secondary transition-colors">
-          {title}
-        </h3>
-        <p className="text-muted-foreground mb-6 line-clamp-3">{description}</p>
-        {link && (
-          <Button
-            asChild
-            variant="ghost"
-            className="text-primary p-0 h-auto font-semibold group/button"
-          >
-            <Link to={link} className=" text-primary hover:text-secondary">
-             
-                Learn More
-              
-              <ArrowRight
-                size={18}
-                className="ml-2  transition-transform"
-              />
+      <div className="pt-3 mb-2 flex flex-col">
+        <div>
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full mb-2 rounded-sm"
+          />
+        </div>
+        <div className="px-1 pb-1 pt-1 md:px-2 md:pb-2 md:pt-1 flex flex-col">
+          <h3 className="text-2xl font-bold mb-2 text-foreground group-hover:text-secondary transition-colors">
+            {title}
+          </h3>
+          <p className="text-muted-foreground mb-4 line-clamp-3">
+            {description}
+          </p>
+          {link && (
+            <Link
+              to={link}
+              className="text-primary flex items-center hover:underline "
+            >
+              Learn More
+              <ArrowRight size={18} className="ml-2 transition-transform" />
             </Link>
-          </Button>
-        )}
+          )}
+        </div>
       </div>
     </motion.div>
   );

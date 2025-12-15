@@ -5,9 +5,18 @@ import HeroVideo from "@/components/HeroVideo";
 import SectionHeader from "@/components/SectionHeader";
 import ImpactStats from "@/components/ImpactStats";
 import ProgramCard from "@/components/ProgramCard";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
+import CarouselDots from "@/components/ui/CarouselDots";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { works } from "../../types/Work";
+import { useEffect, useRef, useState } from "react";
 
 const Index = () => {
   // Show first 3 works from What We Do
@@ -19,6 +28,28 @@ const Index = () => {
   }));
 
   useTitle("Abdallah Kiromba Foundation");
+
+  // Carousel auto-advance logic
+  const carouselApiRef = useRef<any>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (carouselApiRef.current) {
+        carouselApiRef.current.scrollNext();
+      }
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+  useEffect(() => {
+    if (!carouselApiRef.current) return;
+    const onSelect = () =>
+      setCurrentSlide(carouselApiRef.current.selectedScrollSnap());
+    carouselApiRef.current.on("select", onSelect);
+    onSelect();
+    return () =>
+      carouselApiRef.current && carouselApiRef.current.off("select", onSelect);
+  }, [carouselApiRef.current]);
+
   return (
     <div className="min-h-screen bg-background">
       <main>
@@ -26,9 +57,9 @@ const Index = () => {
         <HeroVideo />
 
         {/* About Us Preview */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+        <section className="py-16 bg-background">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:grid md:grid-cols-2 gap-8 md:gap-12 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -40,7 +71,7 @@ const Index = () => {
                   title="Building a Better Tomorrow"
                   centered={false}
                 />
-                <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-6">
                   <strong className="text-foreground">
                     The Abdallah Kiromba Foundation
                   </strong>{" "}
@@ -58,7 +89,7 @@ const Index = () => {
                   District, and distributing food packages and humanitarian aid,
                   especially during the holy month of Ramadan and Eid Udihiya.
                 </p>
-                <p className="text-muted-foreground text-lg leading-relaxed mb-8">
+                <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8">
                   Foundation officially established in 2024, honors the legacy
                   of our late father{" "}
                   <strong className="text-foreground">Abdallah Kiromba</strong>,
@@ -69,9 +100,12 @@ const Index = () => {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-transparent border-2 border-secondary text-secondary hover:bg-secondary hover:text-white"
+                  className="bg-transparent border-2 border-secondary text-secondary hover:bg-secondary hover:text-white w-full md:w-auto"
                 >
-                  <Link to="/about#vision-mission-values">
+                  <Link
+                    to="/about#vision-mission-values"
+                    className="flex items-center justify-center w-full"
+                  >
                     Learn More About Our Mission
                     <ArrowRight className="ml-2" size={20} />
                   </Link>
@@ -85,11 +119,11 @@ const Index = () => {
                 transition={{ duration: 0.6 }}
                 className="relative"
               >
-                <div className="rounded-2xl overflow-hidden shadow-strong">
+                <div className="rounded-2xl overflow-hidden shadow-strong w-full">
                   <img
                     src="https://live.staticflickr.com/65535/54362268936_088d7927fc_z.jpg"
                     alt="Community education"
-                    className="w-full h-[500px] object-cover"
+                    className="w-full h-56 md:h-[500px] object-cover"
                   />
                 </div>
               </motion.div>
@@ -101,28 +135,49 @@ const Index = () => {
         <ImpactStats />
 
         {/* Programs Section */}
-        <section className="py-20 bg-background">
+        <section className="py-16 bg-background">
           <div className="container mx-auto px-4">
             <SectionHeader
               subtitle="Our Programs"
               title="How We Make a Difference"
               description="Comprehensive programs designed to address the most pressing needs in our communities."
             />
-
-            <div className="flex flex-col items-center">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 -mx-2 w-full justify-center">
-                {programs.map((program, index) => (
-                  <ProgramCard key={index} {...program} index={index} />
-                ))}
-              </div>
-              <div className="flex justify-center mt-8 w-full">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-white w-full max-w-md"
-                >
-                  <Link to="/programs">View More</Link>
-                </Button>
+            <div className="flex flex-col items-center w-full">
+              <div className="w-full flex flex-col items-center">
+                {/* Mobile: Carousel */}
+                <div className="block md:hidden w-full">
+                  <Carousel
+                    opts={{ loop: true }}
+                    setApi={(api) => (carouselApiRef.current = api)}
+                    className="w-full max-w-md mx-auto"
+                  >
+                    <CarouselContent>
+                      {programs.map((program, index) => (
+                        <CarouselItem key={index} className="w-full">
+                          <div className="w-full max-w-md mx-auto">
+                            <ProgramCard {...program} index={index}/>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                  </Carousel>
+                  <CarouselDots
+                    count={3}
+                    current={currentSlide}
+                    onSelect={(i) =>
+                      carouselApiRef.current &&
+                      carouselApiRef.current.scrollTo(i)
+                    }
+                  />
+                </div>
+                {/* Desktop: Grid */}
+                <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl mx-auto px-2 md:px-0">
+                  {programs.map((program, index) => (
+                    <div key={index} className="flex justify-center w-full">
+                      <ProgramCard {...program} index={index} />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
