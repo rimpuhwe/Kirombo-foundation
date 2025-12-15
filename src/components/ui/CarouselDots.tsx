@@ -18,11 +18,11 @@ const CarouselDots: React.FC<CarouselDotsProps> = ({
           key={i}
           aria-label={`Go to slide ${i + 1}`}
           onClick={() => onSelect && onSelect(i)}
-          className={`transition-all rounded-full focus:outline-none w-3 h-3
+          className={`transition-all duration-300 focus:outline-none
             ${
               i === current
-                ? "bg-secondary w-5 h-5"
-                : "bg-background border border-secondary/60 w-3 h-3"
+                ? "bg-orange-500 w-8 h-3 rounded-full"
+                : "bg-background border border-secondary/60 w-3 h-3 rounded-full"
             }`}
         />
       ))}

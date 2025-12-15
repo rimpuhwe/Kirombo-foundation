@@ -32,6 +32,7 @@ const Index = () => {
   // Carousel auto-advance logic
   const carouselApiRef = useRef<any>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  // Auto-advance logic
   useEffect(() => {
     const interval = setInterval(() => {
       if (carouselApiRef.current) {
@@ -40,15 +41,16 @@ const Index = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-  useEffect(() => {
-    if (!carouselApiRef.current) return;
-    const onSelect = () =>
-      setCurrentSlide(carouselApiRef.current.selectedScrollSnap());
-    carouselApiRef.current.on("select", onSelect);
-    onSelect();
-    return () =>
-      carouselApiRef.current && carouselApiRef.current.off("select", onSelect);
-  }, [carouselApiRef.current]);
+
+  // Attach select event handler when Embla API is set
+  const handleSetApi = (api: any) => {
+    carouselApiRef.current = api;
+    if (api) {
+      const onSelect = () => setCurrentSlide(api.selectedScrollSnap());
+      api.on("select", onSelect);
+      onSelect();
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -148,21 +150,21 @@ const Index = () => {
                 <div className="block md:hidden w-full">
                   <Carousel
                     opts={{ loop: true }}
-                    setApi={(api) => (carouselApiRef.current = api)}
+                    setApi={handleSetApi}
                     className="w-full max-w-md mx-auto"
                   >
                     <CarouselContent>
                       {programs.map((program, index) => (
                         <CarouselItem key={index} className="w-full">
                           <div className="w-full max-w-md mx-auto">
-                            <ProgramCard {...program} index={index}/>
+                            <ProgramCard {...program} index={index} />
                           </div>
                         </CarouselItem>
                       ))}
                     </CarouselContent>
                   </Carousel>
                   <CarouselDots
-                    count={3}
+                    count={programs.length}
                     current={currentSlide}
                     onSelect={(i) =>
                       carouselApiRef.current &&
