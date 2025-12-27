@@ -221,7 +221,7 @@ const Index = () => {
             <div className="w-full max-w-5xl mx-auto">
               <div className="hidden md:block">
                 <Carousel
-                  opts={{ loop: true, slidesToScroll: 3, align: 'start' }}
+                  opts={{ loop: true, slidesToScroll: 3, align: "start" }}
                   setApi={handleTestimonialApi}
                   className="w-full"
                 >
@@ -238,7 +238,10 @@ const Index = () => {
                 <CarouselDots
                   count={Math.ceil(testimonials.length / 3)}
                   current={testimonialSlide}
-                  onSelect={i => testimonialApiRef.current && testimonialApiRef.current.scrollTo(i)}
+                  onSelect={(i) =>
+                    testimonialApiRef.current &&
+                    testimonialApiRef.current.scrollTo(i)
+                  }
                 />
               </div>
               <div className="block md:hidden">
@@ -258,7 +261,10 @@ const Index = () => {
                 <CarouselDots
                   count={testimonials.length}
                   current={testimonialSlide}
-                  onSelect={i => testimonialApiRef.current && testimonialApiRef.current.scrollTo(i)}
+                  onSelect={(i) =>
+                    testimonialApiRef.current &&
+                    testimonialApiRef.current.scrollTo(i)
+                  }
                 />
               </div>
             </div>

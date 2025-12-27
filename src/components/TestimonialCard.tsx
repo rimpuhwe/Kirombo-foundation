@@ -1,7 +1,10 @@
 import React from "react";
 import { testimonials } from "./testimonialsData";
 
-const TestimonialCard: React.FC<{ quote: string; author: string }> = ({ quote, author }) => (
+const TestimonialCard: React.FC<{ quote: string; author: string }> = ({
+  quote,
+  author,
+}) => (
   <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col h-full justify-between border border-orange-100">
     <div className="flex-1 flex flex-col justify-center items-center">
       <span className="text-orange-500 text-3xl mb-2">
@@ -11,7 +14,9 @@ const TestimonialCard: React.FC<{ quote: string; author: string }> = ({ quote, a
         {quote}
       </blockquote>
     </div>
-    <span className="block text-right text-sm font-semibold text-orange-600 mt-2">{author}</span>
+    <span className="block text-right text-sm font-semibold text-orange-600 mt-2">
+      {author}
+    </span>
   </div>
 );
 

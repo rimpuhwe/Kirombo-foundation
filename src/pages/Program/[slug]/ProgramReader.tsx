@@ -68,7 +68,8 @@ export default function ProgramReader({ work }: { work: any }) {
                 <h1 className="text-3xl md:text-4xl font-extrabold mb-4 text-orange">
                   {mainWork.title}
                 </h1>
-                {mainWork.slug === "leutrim-hoxha-tailoring-center-empowering-teen-mothers-and-youth" ? (
+                {mainWork.slug ===
+                "leutrim-hoxha-tailoring-center-empowering-teen-mothers-and-youth" ? (
                   <>
                     <div
                       className="prose prose-lg prose-gray max-w-none 
@@ -79,7 +80,11 @@ export default function ProgramReader({ work }: { work: any }) {
                       prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded 
                       prose-blockquote:border-orange-500 prose-blockquote:bg-orange-50 prose-blockquote:rounded-r-lg 
                       space-y-6 prose-mark:bg-orange-200 prose-mark:text-orange-800 prose-mark:px-1 prose-mark:rounded"
-                      dangerouslySetInnerHTML={{ __html: mainWork.fullContent.split("<!-- Testimonials Section -->")[0] }}
+                      dangerouslySetInnerHTML={{
+                        __html: mainWork.fullContent.split(
+                          "<!-- Testimonials Section -->"
+                        )[0],
+                      }}
                     />
                     <TestimonialCarousel />
                   </>
