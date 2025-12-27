@@ -18,6 +18,9 @@ import { ArrowRight } from "lucide-react";
 import { works } from "../../types/Work";
 import { useEffect, useRef, useState } from "react";
 
+import TestimonialCard from "@/components/TestimonialCard";
+import { testimonials } from "@/components/testimonialsData";
+
 const Index = () => {
   // Show first 3 works from What We Do
   const programs = works.slice(0, 3).map((work) => ({
@@ -47,6 +50,26 @@ const Index = () => {
     carouselApiRef.current = api;
     if (api) {
       const onSelect = () => setCurrentSlide(api.selectedScrollSnap());
+      api.on("select", onSelect);
+      onSelect();
+    }
+  };
+
+  // Testimonial carousel logic
+  const testimonialApiRef = useRef<any>(null);
+  const [testimonialSlide, setTestimonialSlide] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (testimonialApiRef.current) {
+        testimonialApiRef.current.scrollNext();
+      }
+    }, 50000); // 50 seconds
+    return () => clearInterval(interval);
+  }, []);
+  const handleTestimonialApi = (api: any) => {
+    testimonialApiRef.current = api;
+    if (api) {
+      const onSelect = () => setTestimonialSlide(api.selectedScrollSnap());
       api.on("select", onSelect);
       onSelect();
     }
@@ -180,6 +203,63 @@ const Index = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="py-16 bg-orange-50">
+          <div className="container mx-auto px-4">
+            <SectionHeader
+              subtitle="Testimonials"
+              title="Voices from the Program"
+              description="Hear directly from those whose lives have been transformed."
+              centered
+            />
+            {/* Desktop: 3 at a time, Mobile: 1 at a time */}
+            <div className="w-full max-w-5xl mx-auto">
+              <div className="hidden md:block">
+                <Carousel
+                  opts={{ loop: true, slidesToScroll: 3, align: 'start' }}
+                  setApi={handleTestimonialApi}
+                  className="w-full"
+                >
+                  <CarouselContent>
+                    {testimonials.map((t, idx) => (
+                      <CarouselItem key={idx} className="md:basis-1/3 px-2">
+                        <TestimonialCard quote={t.quote} author={t.author} />
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious />
+                  <CarouselNext />
+                </Carousel>
+                <CarouselDots
+                  count={Math.ceil(testimonials.length / 3)}
+                  current={testimonialSlide}
+                  onSelect={i => testimonialApiRef.current && testimonialApiRef.current.scrollTo(i)}
+                />
+              </div>
+              <div className="block md:hidden">
+                <Carousel
+                  opts={{ loop: true }}
+                  setApi={handleTestimonialApi}
+                  className="w-full"
+                >
+                  <CarouselContent>
+                    {testimonials.map((t, idx) => (
+                      <CarouselItem key={idx} className="w-full px-1">
+                        <TestimonialCard quote={t.quote} author={t.author} />
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                </Carousel>
+                <CarouselDots
+                  count={testimonials.length}
+                  current={testimonialSlide}
+                  onSelect={i => testimonialApiRef.current && testimonialApiRef.current.scrollTo(i)}
+                />
               </div>
             </div>
           </div>

@@ -344,8 +344,10 @@ export const works = [
 
       <div class="testimonial-slider">
         <article class="testimonial-card">
+          
           <blockquote>
-            “Through this tailoring program, I can now take small jobs from my neighbors and sew clothes 
+            <i class="fa fa-quote-left" aria-hidden="true"></i>
+            Through this tailoring program, I can now take small jobs from my neighbors and sew clothes 
             for my baby. This skill has given me hope and confidence that I can support my child.”
           </blockquote>
           <span class="author">— Saphina Nyirahatangimana, 22</span>
@@ -353,6 +355,7 @@ export const works = [
 
         <article class="testimonial-card">
           <blockquote>
+           <i class="fa fa-quote-left" aria-hidden="true"></i>
             “I can now make baby clothes, school uniforms, and simple dresses. I am deeply grateful 
             because I could not afford vocational training on my own.”
           </blockquote>
@@ -361,6 +364,7 @@ export const works = [
 
         <article class="testimonial-card">
           <blockquote>
+            <i class="fa fa-quote-left" aria-hidden="true"></i>
             “Learning how to cut and sew clothes has changed my life. With materials and tools, I can 
             start my own tailoring business and support my family.”
           </blockquote>
@@ -369,6 +373,7 @@ export const works = [
 
         <article class="testimonial-card">
           <blockquote>
+            <i class="fa fa-quote-left" aria-hidden="true"></i>
             “Balancing childcare and training is not easy, but I have learned how to use the sewing 
             machine and make clothes. More support would help us learn even better.”
           </blockquote>
@@ -377,6 +382,7 @@ export const works = [
 
         <article class="testimonial-card">
           <blockquote>
+            <i class="fa fa-quote-left" aria-hidden="true"></i>
             “I no longer buy clothes from the market because I can now make my own. I hope to continue 
             learning embroidery and design.”
           </blockquote>
@@ -385,6 +391,7 @@ export const works = [
 
         <article class="testimonial-card">
           <blockquote>
+            <i class="fa fa-quote-left" aria-hidden="true"></i>
             “This opportunity means everything to me. These skills will help me earn an income and 
             change my life for the better.”
           </blockquote>

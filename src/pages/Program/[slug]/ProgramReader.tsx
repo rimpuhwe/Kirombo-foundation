@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { works } from "../../../../types/Work";
+import TestimonialCarousel from "@/components/TestimonialCarousel";
 import { useState, useEffect } from "react";
 
 export default function ProgramReader({ work }: { work: any }) {
@@ -67,17 +68,34 @@ export default function ProgramReader({ work }: { work: any }) {
                 <h1 className="text-3xl md:text-4xl font-extrabold mb-4 text-orange">
                   {mainWork.title}
                 </h1>
-                <div
-                  className="prose prose-lg prose-gray max-w-none 
-                  prose-headings:text-gray-900 prose-headings:font-bold 
-                  prose-p:text-gray-700 prose-p:leading-relaxed 
-                  prose-a:text-orange-500 prose-a:no-underline hover:prose-a:underline 
-                  prose-strong:text-gray-900 
-                  prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded 
-                  prose-blockquote:border-orange-500 prose-blockquote:bg-orange-50 prose-blockquote:rounded-r-lg 
-                  space-y-6 prose-mark:bg-orange-200 prose-mark:text-orange-800 prose-mark:px-1 prose-mark:rounded"
-                  dangerouslySetInnerHTML={{ __html: mainWork.fullContent }}
-                />
+                {mainWork.slug === "leutrim-hoxha-tailoring-center-empowering-teen-mothers-and-youth" ? (
+                  <>
+                    <div
+                      className="prose prose-lg prose-gray max-w-none 
+                      prose-headings:text-gray-900 prose-headings:font-bold 
+                      prose-p:text-gray-700 prose-p:leading-relaxed 
+                      prose-a:text-orange-500 prose-a:no-underline hover:prose-a:underline 
+                      prose-strong:text-gray-900 
+                      prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded 
+                      prose-blockquote:border-orange-500 prose-blockquote:bg-orange-50 prose-blockquote:rounded-r-lg 
+                      space-y-6 prose-mark:bg-orange-200 prose-mark:text-orange-800 prose-mark:px-1 prose-mark:rounded"
+                      dangerouslySetInnerHTML={{ __html: mainWork.fullContent.split("<!-- Testimonials Section -->")[0] }}
+                    />
+                    <TestimonialCarousel />
+                  </>
+                ) : (
+                  <div
+                    className="prose prose-lg prose-gray max-w-none 
+                    prose-headings:text-gray-900 prose-headings:font-bold 
+                    prose-p:text-gray-700 prose-p:leading-relaxed 
+                    prose-a:text-orange-500 prose-a:no-underline hover:prose-a:underline 
+                    prose-strong:text-gray-900 
+                    prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded 
+                    prose-blockquote:border-orange-500 prose-blockquote:bg-orange-50 prose-blockquote:rounded-r-lg 
+                    space-y-6 prose-mark:bg-orange-200 prose-mark:text-orange-800 prose-mark:px-1 prose-mark:rounded"
+                    dangerouslySetInnerHTML={{ __html: mainWork.fullContent }}
+                  />
+                )}
 
                 {/* Related Works */}
                 <div className="mt-12">
