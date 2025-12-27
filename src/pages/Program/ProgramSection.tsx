@@ -16,17 +16,12 @@ export default function ProgramSection() {
   const navigate = useNavigate();
   const { slug } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
-  const [WorkPerPage, setWorkPerPage] = useState(6);
+  const [WorkPerPage, setWorkPerPage] = useState(99);
   const [selectedWork, setSelectedWork] = useState(null);
 
+  // Show all works on one page (remove pagination limit)
   useEffect(() => {
-    const updatePerPage = () => {
-      if (window.innerWidth < 768) setWorkPerPage(6);
-      else setWorkPerPage(6);
-    };
-    updatePerPage();
-    window.addEventListener("resize", updatePerPage);
-    return () => window.removeEventListener("resize", updatePerPage);
+    setWorkPerPage(99);
   }, []);
 
   // Sync selectedWork with slug param
@@ -57,36 +52,6 @@ export default function ProgramSection() {
     if (page >= 1 && page <= totalPages) setCurrentPage(page);
   };
 
-  const getPageNumbers = () => {
-    const pages: (number | string)[] = [];
-    if (totalPages <= 7) {
-      for (let i = 1; i <= totalPages; i++) pages.push(i);
-    } else {
-      if (currentPage <= 4) pages.push(1, 2, 3, 4, 5, "...", totalPages);
-      else if (currentPage > totalPages - 4)
-        pages.push(
-          1,
-          "...",
-          totalPages - 4,
-          totalPages - 3,
-          totalPages - 2,
-          totalPages - 1,
-          totalPages
-        );
-      else
-        pages.push(
-          1,
-          "...",
-          currentPage - 1,
-          currentPage,
-          currentPage + 1,
-          "...",
-          totalPages
-        );
-    }
-    return pages;
-  };
-
   const handleReadMore = (works: any) => {
     setSelectedWork(works);
     navigate(`/programs/${works.slug}`, { replace: false });
@@ -99,7 +64,6 @@ export default function ProgramSection() {
 
   return (
     <>
-      
       {selectedWork ? (
         <div className="w-full max-w-7xl mx-auto px-4 py-8">
           <Button onClick={handleBack} className="mb-6" variant="outline">
@@ -214,7 +178,6 @@ export default function ProgramSection() {
           </motion.div>
         </>
       )}
-      
     </>
   );
 }

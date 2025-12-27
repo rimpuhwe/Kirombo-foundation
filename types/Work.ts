@@ -300,4 +300,119 @@ export const works = [
       ],
     },
   },
+  {
+  slug: "leutrim-hoxha-tailoring-center-empowering-teen-mothers-and-youth",
+  title: "Tailoring & Skills Development",
+  img: "https://res-console.cloudinary.com/dcgmi6w24/thumbnails/v1/image/upload/v1766824110/MTc2QTM1MDJfZHBubzUw/drilldown",
+  content:
+    "Empowering teen mothers and vulnerable youth with practical tailoring skills to restore dignity, build confidence, and promote self-reliance.",
+  fullContent: `
+    <p>
+      The <strong>Leutrim Hoxha Tailoring Center</strong>, located in Simbwa, Kabarore Sector, has been 
+      operational for over two years, serving teen mothers and vulnerable youth facing social and 
+      economic barriers. The center provides hands-on vocational training designed to restore dignity, 
+      build confidence, and open pathways toward sustainable self-reliance.
+    </p>
+
+    <img 
+      src="https://res.cloudinary.com/dcgmi6w24/image/upload/v1766824569/176A3471_jdzm8s.jpg" 
+      alt="Teen learning tailoring skills at the Leutrim Hoxha Tailoring Center" 
+    />
+
+    <p>
+      Participants acquire essential tailoring skills including body measurement, fabric cutting, 
+      garment sewing, and operation of manual and electric sewing machines. Many beneficiaries now 
+      produce baby clothes, school uniforms, skirts, shirts, and simple dresses, significantly 
+      reducing household expenses while creating opportunities for income generation.
+    </p>
+
+    <img 
+      src="https://res.cloudinary.com/dcgmi6w24/image/upload/v1766824677/176A3866_2_o26j5x.jpg" 
+      alt="Garments produced by trainees at the tailoring center" 
+    />
+
+    <p>
+      Beyond technical skills, the program restores hope and social confidence. Several participants 
+      have already begun taking small tailoring jobs within their communities. While challenges remain 
+      — including access to advanced tools, childcare support, and trainer capacity — the demand and 
+      impact of the program are evident.
+    </p>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+      <h3>Voices from the Program</h3>
+
+      <div class="testimonial-slider">
+        <article class="testimonial-card">
+          <blockquote>
+            “Through this tailoring program, I can now take small jobs from my neighbors and sew clothes 
+            for my baby. This skill has given me hope and confidence that I can support my child.”
+          </blockquote>
+          <span class="author">— Saphina Nyirahatangimana, 22</span>
+        </article>
+
+        <article class="testimonial-card">
+          <blockquote>
+            “I can now make baby clothes, school uniforms, and simple dresses. I am deeply grateful 
+            because I could not afford vocational training on my own.”
+          </blockquote>
+          <span class="author">— Philideus Uwamurera, 21</span>
+        </article>
+
+        <article class="testimonial-card">
+          <blockquote>
+            “Learning how to cut and sew clothes has changed my life. With materials and tools, I can 
+            start my own tailoring business and support my family.”
+          </blockquote>
+          <span class="author">— Violet Niyomujeri, 21</span>
+        </article>
+
+        <article class="testimonial-card">
+          <blockquote>
+            “Balancing childcare and training is not easy, but I have learned how to use the sewing 
+            machine and make clothes. More support would help us learn even better.”
+          </blockquote>
+          <span class="author">— Honolyne Uwingeneye</span>
+        </article>
+
+        <article class="testimonial-card">
+          <blockquote>
+            “I no longer buy clothes from the market because I can now make my own. I hope to continue 
+            learning embroidery and design.”
+          </blockquote>
+          <span class="author">— Izibidukwiye</span>
+        </article>
+
+        <article class="testimonial-card">
+          <blockquote>
+            “This opportunity means everything to me. These skills will help me earn an income and 
+            change my life for the better.”
+          </blockquote>
+          <span class="author">— Diane Kabanyana, 22</span>
+        </article>
+      </div>
+    </section>
+  `,
+  seo: {
+    metaTitle:
+      "Tailoring & Skills Development Program | Abdallah Kiromba Foundation",
+    metaDescription:
+      "Empowering teen mothers and vulnerable youth in Rwanda through vocational tailoring skills that promote dignity, confidence, and self-reliance.",
+    keywords:
+      "Abdallah Kiromba Foundation, tailoring center, vocational training, teen mothers empowerment, youth skills development, Rwanda livelihoods",
+    tags: [
+      "Abdallah Kiromba Foundation",
+      "Tailoring Program",
+      "Skills Development",
+      "Teen Mothers",
+      "Youth Empowerment",
+      "Vocational Training",
+      "Livelihood Support",
+      "Community Development",
+      "Self-Reliance",
+      "Rwanda"
+    ],
+  },
+}
+
 ];
