@@ -337,6 +337,11 @@ export const works = [
       — including access to advanced tools, childcare support, and trainer capacity — the demand and 
       impact of the program are evident.
     </p>
+    <img 
+      src="https://res.cloudinary.com/dcgmi6w24/image/upload/v1766951012/WhatsApp_Image_2025-12-14_at_7.41.19_AM_med7aj.jpg" 
+      alt="staring the tailoring center program" 
+    />
+
 
     <!-- Testimonials Section -->
     <section class="testimonials">
