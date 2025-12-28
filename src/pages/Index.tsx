@@ -207,69 +207,6 @@ const Index = () => {
             </div>
           </div>
         </section>
-
-        {/* Testimonials Section */}
-        <section className="py-16 bg-orange-50">
-          <div className="container mx-auto px-4">
-            <SectionHeader
-              subtitle="Testimonials"
-              title="Voices from the Program"
-              description="Hear directly from those whose lives have been transformed."
-              centered
-            />
-            {/* Desktop: 3 at a time, Mobile: 1 at a time */}
-            <div className="w-full max-w-5xl mx-auto">
-              <div className="hidden md:block">
-                <Carousel
-                  opts={{ loop: true, slidesToScroll: 3, align: "start" }}
-                  setApi={handleTestimonialApi}
-                  className="w-full"
-                >
-                  <CarouselContent>
-                    {testimonials.map((t, idx) => (
-                      <CarouselItem key={idx} className="md:basis-1/3 px-2">
-                        <TestimonialCard quote={t.quote} author={t.author} />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious />
-                  <CarouselNext />
-                </Carousel>
-                <CarouselDots
-                  count={Math.ceil(testimonials.length / 3)}
-                  current={testimonialSlide}
-                  onSelect={(i) =>
-                    testimonialApiRef.current &&
-                    testimonialApiRef.current.scrollTo(i)
-                  }
-                />
-              </div>
-              <div className="block md:hidden">
-                <Carousel
-                  opts={{ loop: true }}
-                  setApi={handleTestimonialApi}
-                  className="w-full"
-                >
-                  <CarouselContent>
-                    {testimonials.map((t, idx) => (
-                      <CarouselItem key={idx} className="w-full px-1">
-                        <TestimonialCard quote={t.quote} author={t.author} />
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                </Carousel>
-                <CarouselDots
-                  count={testimonials.length}
-                  current={testimonialSlide}
-                  onSelect={(i) =>
-                    testimonialApiRef.current &&
-                    testimonialApiRef.current.scrollTo(i)
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
     </div>
   );

@@ -46,7 +46,7 @@ All colors MUST be HSL.
     
     /* Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(var(--forest-dark)) 0%, hsl(var(--deep-green)) 100%);
-    --gradient-overlay: linear-gradient(to bottom, rgba(13, 42, 13, 0.8), rgba(11, 107, 20, 0.9));
+    --gradient-overlay: linear-gradient(to bottom, rgba(13, 42, 13, 0.6), rgba(11, 107, 20, 0.7));
     
     /* Shadows */
     --shadow-soft: 0 4px 20px -4px hsl(var(--forest-dark) / 0.1);

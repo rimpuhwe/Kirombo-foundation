@@ -56,26 +56,34 @@ const HeroVideo = () => {
               <Button
                 asChild
                 size="lg"
-                className="bg-secondary hover:bg-secondary/90 text-white text-lg px-8 py-6 h-auto shadow-strong"
+                className="w-full md:w-[260px] px-8 py-5 bg-[#F68B1E] text-white font-semibold border-2 border-[#F68B1E] hover:bg-[#e07a13] hover:border-[#e07a13] transition-all"
               >
-                <Link to="#">
+                <Link
+                  to="#"
+                  className="flex items-center justify-center w-full"
+                >
                   Donate Now
-                  <ArrowRight className="ml-2" size={20} />
+                  <ArrowRight className="ml-3" size={20} />
                 </Link>
               </Button>
               <Button
                 asChild
                 size="lg"
-                variant="outline"
-                className="bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-sm text-lg px-8 py-6 h-auto"
+                className="w-full md:w-[260px] px-8 py-5 bg-white/30 text-white font-semibold border-2 border-white transition-all"
+                style={{ backgroundColor: "rgba(255,255,255,0.3)" }}
               >
-                <Link to="/about/vision-mission">Learn More</Link>
+                <Link
+                  to="/about/vision-mission"
+                  className="flex items-center justify-center w-full"
+                >
+                  Learn More
+                  <ArrowRight className="ml-3" size={20} />
+                </Link>
               </Button>
             </motion.div>
           </motion.div>
         </div>
       </div>
- 
     </section>
   );
 };
