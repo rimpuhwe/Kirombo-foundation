@@ -59,10 +59,10 @@ const HeroVideo = () => {
                 className="w-full md:w-[260px] px-8 py-5 bg-[#F68B1E] text-white font-semibold border-2 border-[#F68B1E] hover:bg-[#e07a13] hover:border-[#e07a13] transition-all"
               >
                 <Link
-                  to="#"
+                  to="/programs"
                   className="flex items-center justify-center w-full"
                 >
-                  Donate Now
+                  See How Impact Is Made
                   <ArrowRight className="ml-3" size={20} />
                 </Link>
               </Button>
@@ -73,10 +73,10 @@ const HeroVideo = () => {
                 style={{ backgroundColor: "rgba(255,255,255,0.3)" }}
               >
                 <Link
-                  to="/about/vision-mission"
+                  to="/press"
                   className="flex items-center justify-center w-full"
                 >
-                  Learn More
+                  Follow Our Journey
                   <ArrowRight className="ml-3" size={20} />
                 </Link>
               </Button>
