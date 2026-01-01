@@ -13,7 +13,7 @@ export default function Page({ slug }) {
     return <div>Program Not Found</div>;
   }
 
-  const workUrl = `https://www.igirerwanda.org/program/${work.slug}`;
+  const workUrl = `https://www.abdallahKirombafoundation.com/${work.slug}`;
   const imageUrl = work.img.startsWith("http")
     ? work.img
     : `https://www.abdallahKirombafoundation.com${work.img}`;

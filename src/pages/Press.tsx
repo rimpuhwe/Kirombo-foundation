@@ -3,7 +3,7 @@ import { Calendar, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { useTitle } from "@/hooks/useTitle";
-import { link } from "fs";
+import { Helmet } from "react-helmet";
 
 const Press = () => {
   useTitle("Latest News | Abdallah Kiromba Foundation");
@@ -51,87 +51,123 @@ const Press = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <main className="pt-20">
-        {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-primary to-deep-green text-white">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="max-w-4xl mx-auto text-center"
-            >
-              <h1 className="text-5xl md:text-6xl font-bold mb-6">
-                Press Room
-              </h1>
-              <p className="text-2xl text-white/90">
-                Latest news, activities, and updates from the Abdallah Kiromba
-                Foundation
-              </p>
-            </motion.div>
-          </div>
-        </section>
+    <>
+      <Helmet>
+        <title>Latest News | Abdallah Kiromba Foundation</title>
+        <meta
+          name="description"
+          content="Stay updated with the latest news, activities, and press releases from the Abdallah Kiromba Foundation. Learn about our impact and initiatives."
+        />
+        <meta
+          property="og:title"
+          content="Press & Media"
+        />
+        <meta
+          property="og:description"
+          content="Latest news, press releases, and media coverage about the foundation."
+        />
+        
+        <meta
+          property="og:url"
+          content="https://www.abdallahkirombafoundation.com/press"
+        />
+        <meta property="og:type" content="website" />
 
-        {/* News Grid */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="grid gap-8">
-                {newsItems.map((news, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-medium transition-all border border-border"
-                  >
-                    <div className="grid md:grid-cols-3 gap-6 p-6">
-                      {/* Video Thumbnail */}
-                      <div className="md:col-span-1">
-                        <div className="relative aspect-video bg-muted rounded-xl overflow-hidden group cursor-pointer">
-                          <div className="absolute inset-0 bg-primary/80 flex items-center justify-center group-hover:bg-primary/70 transition-colors">
-                            <img src={news.image} alt={news.title} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Press & Media | Abdallah Kiromba Foundation"
+        />
+        <meta
+          name="twitter:description"
+          content="Latest news, press releases, and media coverage about the foundation."
+        />
+       
+      </Helmet>
+
+
+      <div className="min-h-screen bg-background">
+        <main className="pt-20">
+          {/* Hero Section */}
+          <section className="py-20 bg-gradient-to-br from-primary to-deep-green text-white">
+            <div className="container mx-auto px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="max-w-4xl mx-auto text-center"
+              >
+                <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                  Press Room
+                </h1>
+                <p className="text-2xl text-white/90">
+                  Latest news, activities, and updates from the Abdallah Kiromba
+                  Foundation
+                </p>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* News Grid */}
+          <section className="py-20">
+            <div className="container mx-auto px-4">
+              <div className="max-w-6xl mx-auto">
+                <div className="grid gap-8">
+                  {newsItems.map((news, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      className="bg-card rounded-2xl overflow-hidden shadow-soft hover:shadow-medium transition-all border border-border"
+                    >
+                      <div className="grid md:grid-cols-3 gap-6 p-6">
+                        {/* Video Thumbnail */}
+                        <div className="md:col-span-1">
+                          <div className="relative aspect-video bg-muted rounded-xl overflow-hidden group cursor-pointer">
+                            <div className="absolute inset-0 bg-primary/80 flex items-center justify-center group-hover:bg-primary/70 transition-colors">
+                              <img src={news.image} alt={news.title} />
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      {/* Speech Details */}
-                      <div className="md:col-span-2">
-                        <h3 className="text-2xl font-bold mb-3 text-foreground  transition-colors">
-                          {news.title}
-                        </h3>
+                        {/* Speech Details */}
+                        <div className="md:col-span-2">
+                          <h3 className="text-2xl font-bold mb-3 text-foreground  transition-colors">
+                            {news.title}
+                          </h3>
 
-                        <div className="flex flex-wrap gap-4 mb-4 text-sm text-muted-foreground">
-                          <div className="flex items-center gap-2">
-                            <Calendar size={16} className="text-primary" />
-                            <span>{news.date}</span>
+                          <div className="flex flex-wrap gap-4 mb-4 text-sm text-muted-foreground">
+                            <div className="flex items-center gap-2">
+                              <Calendar size={16} className="text-primary" />
+                              <span>{news.date}</span>
+                            </div>
                           </div>
+
+                          <p className="text-muted-foreground mb-6">
+                            {news.description}
+                          </p>
+
+                          <a
+                            href={news.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-secondary transition-colors duration-200 cursor-pointer font-semibold hover:underline"
+                          >
+                            Read Full Story <ArrowRight className="w-4 h-4" />
+                          </a>
                         </div>
-
-                        <p className="text-muted-foreground mb-6">
-                          {news.description}
-                        </p>
-
-                        <a
-                          href={news.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-secondary transition-colors duration-200 cursor-pointer font-semibold hover:underline"
-                        >
-                          Read Full Story <ArrowRight className="w-4 h-4" />
-                        </a>
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      </main>
-    </div>
+          </section>
+        </main>
+      </div>
+    </>
   );
 };
 

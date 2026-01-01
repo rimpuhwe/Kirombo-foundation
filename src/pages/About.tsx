@@ -9,6 +9,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { useTitle } from "@/hooks/useTitle";
+import { Helmet } from "react-helmet";
 
 interface TeamMember {
   name: string;
@@ -126,350 +127,393 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section id="hero" className="relative h-[500px] mt-20">
-        <div className="absolute inset-0">
-          <img
-            src="https://live.staticflickr.com/65535/54924254124_d01799935a_z.jpg"
-            alt="Kirombo foundation community gathering"
-            className="w-full h-full object-cover"
-            loading="eager"
-          />
-          <div className="absolute inset-0 bg-black/40" />
-        </div>
-        <div className="relative container mx-auto px-4 h-full flex flex-col justify-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <p className="text-white/90 text-lg mb-4 font-medium">About Us</p>
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              WHO WE ARE
-            </h1>
-          </motion.div>
-        </div>
-      </section>
+    <>
+      <Helmet>
+        <title>About Us | Abdallah Kiromba Foundation</title>
+        <meta
+          name="description"
+          content="Who we are at Abdallah Kiromba Foundation, our mission, vision, values, and the dedicated team behind our work."
+        />
+        <meta
+          property="og:title"
+          content="About Us | Abdallah Kiromba Foundation"
+        />
+        <meta
+          property="og:description"
+          content="Our mission, vision, and values driving community impact in Rwanda."
+        />
+        <meta
+          property="og:image"
+          content="https://live.staticflickr.com/65535/54924254124_d01799935a_z.jpg"
+        />
+        <meta
+          property="og:url"
+          content="https://www.abdallahkirombafoundation.com/about"
+        />
+        <meta property="og:type" content="website" />
 
-      {/* Sticky Sub Navigation (Who We Are sublinks) - Only show on desktop */}
-      <div className="hidden md:block sticky top-20 z-40 bg-forest-dark shadow-lg">
-        <div className="container mx-auto px-4">
-          <nav className="flex overflow-x-auto">
-            {[
-              { id: "introduction", label: "INTRODUCTION" },
-              {
-                id: "vision-mission-values",
-                label: "VISION ,MISSION & VALUES",
-              },
-              { id: "board", label: "MANAGEMENT TEAM" },
-              { id: "partners", label: "CORE PARTNERS" },
-            ].map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`px-6 py-4 text-sm font-semibold whitespace-nowrap transition-colors ${
-                  activeSection === item.id
-                    ? "text-orange-500 border-b-2 border-orange-500"
-                    : "text-white/80 hover:text-white"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </nav>
-        </div>
-      </div>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="About Us | Abdallah Kiromba Foundation"
+        />
+        <meta
+          name="twitter:description"
+          content="Our mission, vision, and values driving community impact in Rwanda."
+        />
+        <meta
+          name="twitter:image"
+          content="https://live.staticflickr.com/65535/54924254124_d01799935a_z.jpg"
+        />
+      </Helmet>
 
-      {/* Introduction Section */}
-      <section
-        id="introduction"
-        className="min-h-screen flex items-center bg-transparent scroll-mt-[64px] px-6 md:px-12 py-8"
-      >
-        <div className="container mx-auto px-2 md:px-6">
-          <div className="max-w-6xl mx-auto">
-            {/* On mobile, show heading and description first, then image. On desktop, use grid layout. */}
-            <div className="flex flex-col md:grid md:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="order-1 md:order-none w-full"
-              >
-                <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-                  The Heart Behind the Foundation
-                </h2>
-                <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
-                  <p>
-                    The Abdallah Kiromba Foundation was officially established
-                    in 2024 as a common benefit foundation to primarily continue
-                    the legacy of our late father, Abdallah Kiromba, through
-                    social work as a way of his{" "}
-                    <span className="text-secondary">
-                      <b>“Sadaqah Jariyah”</b>
-                    </span>{" "}
-                    by supporting communities in various capacities around
-                    Rwanda, as well as the region
-                  </p>
-                  <p>
-                    Our main goals are to enhance{" "}
-                    <strong className="text-foreground">
-                      Social economic development (SED) programs,
-                      health and well-being, Education and Orphan care, Islamic sessional giving,
-                      Water wells, Livelihood, tailoring skills, life skill trainings, and other related
-                      initiatives.
-                    </strong>
-                  </p>
-                  <p>
-                    By carrying forward Abdallah Kiromba’s legacy of generosity,
-                    we aim not only to respond to immediate needs but also to
-                    foster long-term growth, dignity, and resilience across
-                    communities. Through every project and initiative, we remain
-                    committed to uplifting lives and building a brighter future
-                    for generations to come.
-                  </p>
-                </div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="order-2 md:order-none w-full"
-              >
-                <img
-                  src="https://live.staticflickr.com/65535/54362667675_b318505cd9_z.jpg"
-                  alt="Group of muslim community"
-                  className="rounded-lg shadow-elegant w-full h-[300px] md:h-[500px] object-cover md:px-0 px-0"
-                  style={{ paddingLeft: 0, paddingRight: 0 }}
-                />
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Vision, Mission, Values Section */}
-      <section
-        id="vision-mission-values"
-        className="w-full min-h-screen flex items-center bg-[#f5f5f5a8] text-black scroll-mt-[64px] px-6 md:px-12 py-8 "
-      >
-        <div className="flex flex-col md:flex-row items-start justify-between gap-12 max-w-7xl mx-auto">
-          {/* Left Side - Image */}
-          <div className="w-full md:w-1/2 flex justify-center md:justify-start mt-4">
+      <div className="min-h-screen bg-background">
+        {/* Hero Section */}
+        <section id="hero" className="relative h-[500px] mt-20">
+          <div className="absolute inset-0">
             <img
-              src="https://res.cloudinary.com/dcgmi6w24/image/upload/v1764227923/logo_fbe3pg.png"
-              alt="Abdallah Kiromba Foundation Logo"
-              width={400}
-              height={400}
-              className="max-w-full h-auto object-contain"
+              src="https://live.staticflickr.com/65535/54924254124_d01799935a_z.jpg"
+              alt="Kirombo foundation community gathering"
+              className="w-full h-full object-cover"
+              loading="eager"
             />
+            <div className="absolute inset-0 bg-black/40" />
           </div>
-
-          {/* Right Side - Text & Accordion */}
-          <div className="w-full md:w-1/2 mt-20">
-            <h2 className="text-3xl md:text-4xl font-bold text-orange mb-6">
-              Empowering Communities Through Purpose
-            </h2>
-            <p className="mb-6 text-md md:text-lg text-muted-foreground leading-relaxed">
-              Discover how the Abdallah Kiromba Foundation transforms lives
-              through education, healthcare, orphan care, and sustainable
-              livelihoods. Guided by the spirit of Sadaqah Jariyah, we support
-              orphaned children and vulnerable families across Rwanda, creating
-              lasting opportunities for self-reliance, dignity, and positive
-              social change.
-            </p>
-
-            <Accordion type="multiple" className="w-full ">
-              <AccordionItem value="Our Mission">
-                <AccordionTrigger className="text-primary font-semibold font-sans text-sm md:text-base cursor-pointer transition-colors hover:text-secondary data-[state=open]:text-secondary">
-                  Our Mission
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed text-sm md:text-base">
-                  To promote family livelihoods, unity, and socio-economic
-                  transformation by providing education, healthcare, orphan
-                  care, clean water, and sustainable livelihood support to
-                  orphaned children and vulnerable communities across Rwanda and
-                  beyond, as a lasting act of Sadaqah Jariyah in honor of the
-                  legacy of <i>Abdallah Kiromba</i>.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="Our Vision">
-                <AccordionTrigger className="text-primary font-semibold font-sans text-sm md:text-base cursor-pointer transition-colors hover:text-secondary data-[state=open]:text-secondary">
-                  Our Vision
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed text-sm md:text-base">
-                  A transformed society where orphaned children, vulnerable
-                  youth, and families across Rwanda live with dignity,
-                  self-reliance, good health, education, food security, and
-                  access to clean water empowered to build sustainable
-                  livelihoods and a brighter future for generations to come.
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value="Our Values">
-                <AccordionTrigger className="text-primary font-semibold font-sans text-sm md:text-base cursor-pointer transition-colors hover:text-secondary data-[state=open]:text-secondary">
-                  Our Values
-                </AccordionTrigger>
-                <AccordionContent className="text-foreground font-sans text-sm md:text-base">
-                  <ul className="list-disc pl-6 space-y-2">
-                    <li>
-                      <span className="font-semibold text-foreground">
-                        EDUCATE:
-                      </span>
-                      <span className="ml-2 text-muted-foreground leading-relaxed">
-                        Providing access to quality education and skills
-                        development to empower individuals and transform lives.
-                      </span>
-                    </li>
-                    <li>
-                      <span className="font-semibold text-foreground">
-                        ENGAGE:
-                      </span>
-                      <span className="ml-2 text-muted-foreground leading-relaxed">
-                        Building strong relationships with communities to
-                        understand their needs and create sustainable solutions
-                        together.
-                      </span>
-                    </li>
-                    <li>
-                      <span className="font-semibold text-foreground">
-                        EMPOWER:
-                      </span>
-                      <span className="ml-2 text-muted-foreground leading-relaxed">
-                        Creating opportunities for economic growth and
-                        self-reliance, enabling communities to thrive
-                        independently.
-                      </span>
-                    </li>
-                    <li>
-                      <span className="font-semibold text-foreground">
-                        COLLABORATE
-                      </span>
-                      <span className="ml-2 text-muted-foreground leading-relaxed">
-                        Building strong partnerships to maximize impact and
-                        create opportunities for the community.
-                      </span>
-                    </li>
-                    <li>
-                      <span className="font-semibold text-foreground">
-                        INTEGRITY
-                      </span>
-                      <span className="ml-2 text-muted-foreground leading-relaxed">
-                        Upholding transparency, accountability, and ethical
-                        practices in all our actions.
-                      </span>
-                    </li>
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </div>
-        </div>
-      </section>
-
-      {/* Board Members Section */}
-      <section
-        id="board"
-        className="min-h-screen flex items-center bg-transparent scroll-mt-[64px] px-6 md:px-12 py-8"
-      >
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
+          <div className="relative container mx-auto px-4 h-full flex flex-col justify-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
             >
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center">
-                Management Team
-              </h2>
-              <p className="text-center text-muted-foreground text-lg mb-12 max-w-3xl mx-auto">
-                Meet the dedicated leaders guiding our foundation towards
-                sustainable impact and transforming communities.
-              </p>
+              <p className="text-white/90 text-lg mb-4 font-medium">About Us</p>
+              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+                WHO WE ARE
+              </h1>
             </motion.div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {teamMembers.map((member, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="flex flex-col items-center justify-center text-center"
-                >
-                  <div className="relative mb-4">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-40 h-40 object-cover rounded-full border-4"
-                      style={{
-                        borderColor: "rgba(0,0,0,0.08)",
-                        borderStyle: "solid",
-                        background: "rgba(0,0,0,0.01)",
-                      }}
-                    />
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">
-                    {member.name}
-                  </h3>
-                  <p className="text-secondary font-semibold text-sm mb-4">
-                    {member.title}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Partners Section (Implementing Partners) */}
-      <section
-        id="partners"
-        className="min-h-screen flex items-center bg-[#f5f5f5a8] scroll-mt-[64px] px-6 md:px-12 py-8"
-      >
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center">
-                Implementing Partners
-              </h2>
-              <p className="text-center text-muted-foreground text-lg mb-12 max-w-3xl mx-auto">
-                We deliver impact in partnership with trusted organisations and
-                institutions.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
+        {/* Sticky Sub Navigation (Who We Are sublinks) - Only show on desktop */}
+        <div className="hidden md:block sticky top-20 z-40 bg-forest-dark shadow-lg">
+          <div className="container mx-auto px-4">
+            <nav className="flex overflow-x-auto">
               {[
-                "Partner A",
-                "Partner B",
-                "Partner C",
-                "Partner D",
-                "Partner E",
-                "Partner F",
-              ].map((p, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-center p-6 bg-card rounded-lg border border-border shadow-soft"
+                { id: "introduction", label: "INTRODUCTION" },
+                {
+                  id: "vision-mission-values",
+                  label: "VISION ,MISSION & VALUES",
+                },
+                { id: "board", label: "MANAGEMENT TEAM" },
+                { id: "partners", label: "CORE PARTNERS" },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`px-6 py-4 text-sm font-semibold whitespace-nowrap transition-colors ${
+                    activeSection === item.id
+                      ? "text-orange-500 border-b-2 border-orange-500"
+                      : "text-white/80 hover:text-white"
+                  }`}
                 >
-                  <div className="text-center text-muted-foreground">{p}</div>
-                </div>
+                  {item.label}
+                </button>
               ))}
-            </div>
+            </nav>
           </div>
         </div>
-      </section>
-    </div>
+
+        {/* Introduction Section */}
+        <section
+          id="introduction"
+          className="min-h-screen flex items-center bg-transparent scroll-mt-[64px] px-6 md:px-12 py-8"
+        >
+          <div className="container mx-auto px-2 md:px-6">
+            <div className="max-w-6xl mx-auto">
+              {/* On mobile, show heading and description first, then image. On desktop, use grid layout. */}
+              <div className="flex flex-col md:grid md:grid-cols-2 gap-12 items-center">
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="order-1 md:order-none w-full"
+                >
+                  <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+                    The Heart Behind the Foundation
+                  </h2>
+                  <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
+                    <p>
+                      The Abdallah Kiromba Foundation was officially established
+                      in 2024 as a common benefit foundation to primarily
+                      continue the legacy of our late father, Abdallah Kiromba,
+                      through social work as a way of his{" "}
+                      <span className="text-secondary">
+                        <b>“Sadaqah Jariyah”</b>
+                      </span>{" "}
+                      by supporting communities in various capacities around
+                      Rwanda, as well as the region
+                    </p>
+                    <p>
+                      Our main goals are to enhance{" "}
+                      <strong className="text-foreground">
+                        Social economic development (SED) programs, health and
+                        well-being, Education and Orphan care, Islamic sessional
+                        giving, Water wells, Livelihood, tailoring skills, life
+                        skill trainings, and other related initiatives.
+                      </strong>
+                    </p>
+                    <p>
+                      By carrying forward Abdallah Kiromba’s legacy of
+                      generosity, we aim not only to respond to immediate needs
+                      but also to foster long-term growth, dignity, and
+                      resilience across communities. Through every project and
+                      initiative, we remain committed to uplifting lives and
+                      building a brighter future for generations to come.
+                    </p>
+                  </div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="order-2 md:order-none w-full"
+                >
+                  <img
+                    src="https://live.staticflickr.com/65535/54362667675_b318505cd9_z.jpg"
+                    alt="Group of muslim community"
+                    className="rounded-lg shadow-elegant w-full h-[300px] md:h-[500px] object-cover md:px-0 px-0"
+                    style={{ paddingLeft: 0, paddingRight: 0 }}
+                  />
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Vision, Mission, Values Section */}
+        <section
+          id="vision-mission-values"
+          className="w-full min-h-screen flex items-center bg-[#f5f5f5a8] text-black scroll-mt-[64px] px-6 md:px-12 py-8 "
+        >
+          <div className="flex flex-col md:flex-row items-start justify-between gap-12 max-w-7xl mx-auto">
+            {/* Left Side - Image */}
+            <div className="w-full md:w-1/2 flex justify-center md:justify-start mt-4">
+              <img
+                src="https://res.cloudinary.com/dcgmi6w24/image/upload/v1764227923/logo_fbe3pg.png"
+                alt="Abdallah Kiromba Foundation Logo"
+                width={400}
+                height={400}
+                className="max-w-full h-auto object-contain"
+              />
+            </div>
+
+            {/* Right Side - Text & Accordion */}
+            <div className="w-full md:w-1/2 mt-20">
+              <h2 className="text-3xl md:text-4xl font-bold text-orange mb-6">
+                Empowering Communities Through Purpose
+              </h2>
+              <p className="mb-6 text-md md:text-lg text-muted-foreground leading-relaxed">
+                Discover how the Abdallah Kiromba Foundation transforms lives
+                through education, healthcare, orphan care, and sustainable
+                livelihoods. Guided by the spirit of Sadaqah Jariyah, we support
+                orphaned children and vulnerable families across Rwanda,
+                creating lasting opportunities for self-reliance, dignity, and
+                positive social change.
+              </p>
+
+              <Accordion type="multiple" className="w-full ">
+                <AccordionItem value="Our Mission">
+                  <AccordionTrigger className="text-primary font-semibold font-sans text-sm md:text-base cursor-pointer transition-colors hover:text-secondary data-[state=open]:text-secondary">
+                    Our Mission
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed text-sm md:text-base">
+                    To promote family livelihoods, unity, and socio-economic
+                    transformation by providing education, healthcare, orphan
+                    care, clean water, and sustainable livelihood support to
+                    orphaned children and vulnerable communities across Rwanda
+                    and beyond, as a lasting act of Sadaqah Jariyah in honor of
+                    the legacy of <i>Abdallah Kiromba</i>.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="Our Vision">
+                  <AccordionTrigger className="text-primary font-semibold font-sans text-sm md:text-base cursor-pointer transition-colors hover:text-secondary data-[state=open]:text-secondary">
+                    Our Vision
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed text-sm md:text-base">
+                    A transformed society where orphaned children, vulnerable
+                    youth, and families across Rwanda live with dignity,
+                    self-reliance, good health, education, food security, and
+                    access to clean water empowered to build sustainable
+                    livelihoods and a brighter future for generations to come.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="Our Values">
+                  <AccordionTrigger className="text-primary font-semibold font-sans text-sm md:text-base cursor-pointer transition-colors hover:text-secondary data-[state=open]:text-secondary">
+                    Our Values
+                  </AccordionTrigger>
+                  <AccordionContent className="text-foreground font-sans text-sm md:text-base">
+                    <ul className="list-disc pl-6 space-y-2">
+                      <li>
+                        <span className="font-semibold text-foreground">
+                          EDUCATE:
+                        </span>
+                        <span className="ml-2 text-muted-foreground leading-relaxed">
+                          Providing access to quality education and skills
+                          development to empower individuals and transform
+                          lives.
+                        </span>
+                      </li>
+                      <li>
+                        <span className="font-semibold text-foreground">
+                          ENGAGE:
+                        </span>
+                        <span className="ml-2 text-muted-foreground leading-relaxed">
+                          Building strong relationships with communities to
+                          understand their needs and create sustainable
+                          solutions together.
+                        </span>
+                      </li>
+                      <li>
+                        <span className="font-semibold text-foreground">
+                          EMPOWER:
+                        </span>
+                        <span className="ml-2 text-muted-foreground leading-relaxed">
+                          Creating opportunities for economic growth and
+                          self-reliance, enabling communities to thrive
+                          independently.
+                        </span>
+                      </li>
+                      <li>
+                        <span className="font-semibold text-foreground">
+                          COLLABORATE
+                        </span>
+                        <span className="ml-2 text-muted-foreground leading-relaxed">
+                          Building strong partnerships to maximize impact and
+                          create opportunities for the community.
+                        </span>
+                      </li>
+                      <li>
+                        <span className="font-semibold text-foreground">
+                          INTEGRITY
+                        </span>
+                        <span className="ml-2 text-muted-foreground leading-relaxed">
+                          Upholding transparency, accountability, and ethical
+                          practices in all our actions.
+                        </span>
+                      </li>
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+        </section>
+
+        {/* Board Members Section */}
+        <section
+          id="board"
+          className="min-h-screen flex items-center bg-transparent scroll-mt-[64px] px-6 md:px-12 py-8"
+        >
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center">
+                  Management Team
+                </h2>
+                <p className="text-center text-muted-foreground text-lg mb-12 max-w-3xl mx-auto">
+                  Meet the dedicated leaders guiding our foundation towards
+                  sustainable impact and transforming communities.
+                </p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {teamMembers.map((member, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="flex flex-col items-center justify-center text-center"
+                  >
+                    <div className="relative mb-4">
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="w-40 h-40 object-cover rounded-full border-4"
+                        style={{
+                          borderColor: "rgba(0,0,0,0.08)",
+                          borderStyle: "solid",
+                          background: "rgba(0,0,0,0.01)",
+                        }}
+                      />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">
+                      {member.name}
+                    </h3>
+                    <p className="text-secondary font-semibold text-sm mb-4">
+                      {member.title}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Partners Section (Implementing Partners) */}
+        <section
+          id="partners"
+          className="min-h-screen flex items-center bg-[#f5f5f5a8] scroll-mt-[64px] px-6 md:px-12 py-8"
+        >
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center">
+                  Implementing Partners
+                </h2>
+                <p className="text-center text-muted-foreground text-lg mb-12 max-w-3xl mx-auto">
+                  We deliver impact in partnership with trusted organisations
+                  and institutions.
+                </p>
+              </motion.div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
+                {[
+                  "Partner A",
+                  "Partner B",
+                  "Partner C",
+                  "Partner D",
+                  "Partner E",
+                  "Partner F",
+                ].map((p, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center justify-center p-6 bg-card rounded-lg border border-border shadow-soft"
+                  >
+                    <div className="text-center text-muted-foreground">{p}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
   );
 };
 
