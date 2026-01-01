@@ -49,6 +49,7 @@ export default function Page({ slug }) {
         src={work.img}
         alt={work.title}
         className="object-cover opacity-50 scale-105 transition-transform duration-700 w-full h-full"
+        loading="eager"
       />
       <ProgramReader work={work} />
     </>

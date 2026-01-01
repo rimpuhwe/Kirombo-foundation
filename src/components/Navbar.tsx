@@ -29,6 +29,7 @@ const Navbar = () => {
               src="https://res.cloudinary.com/dcgmi6w24/image/upload/v1764223037/AKF_logo_1_zsspqo.png"
               alt="AKF logo"
               className="h-20 w-auto object-contain"
+              loading="eager"
             />
           </Link>
 
