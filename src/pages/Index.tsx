@@ -26,7 +26,7 @@ const Index = () => {
     link: `/programs/${work.slug}`,
   }));
 
-  useTitle("Abdallah Kiromba Foundation");
+  useTitle("Abdallah Kiromba Foundation | Empowering Communities in Rwanda");
 
   // Carousel auto-advance logic
   const carouselApiRef = useRef<any>(null);
@@ -74,7 +74,7 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Abdallah Kiromba Foundation</title>
+        <title>Abdallah Kiromba Foundation | Empowering Communities in Rwanda</title>
         <meta
           name="description"
           content="the Abdallah Kiromba Foundation is dedicated to supporting orphaned children and vulnerable communities by providing essential services such as education, healthcare, livelihood, skills training, seasonal giving, and clean water."
@@ -132,7 +132,7 @@ const Index = () => {
         </script>
       </Helmet>
 
-      
+
       <div className="min-h-screen bg-background">
         <main>
           {/* Hero Section */}
