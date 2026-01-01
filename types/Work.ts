@@ -303,7 +303,7 @@ export const works = [
   {
   slug: "leutrim-hoxha-tailoring-center-empowering-teen-mothers-and-youth",
   title: "Tailoring & Skills Development",
-  img: "https://res-console.cloudinary.com/dcgmi6w24/thumbnails/v1/image/upload/v1766824110/MTc2QTM1MDJfZHBubzUw/drilldown",
+  img: "https://res.cloudinary.com/dcgmi6w24/image/upload/v1766824110/176A3502_dpno50.jpg",
   content:
     "Empowering teen mothers and vulnerable youth with practical tailoring skills to restore dignity, build confidence, and promote self-reliance.",
   fullContent: `
