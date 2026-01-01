@@ -88,6 +88,7 @@ export default function ProgramSection() {
                     src="https://live.staticflickr.com/65535/54362469544_bfc6d29807_z.jpg"
                     alt="Kirombo foundation community gathering"
                     className="w-full h-full object-cover"
+                    loading="eager"
                   />
                   <div className="absolute inset-0 bg-black/40" />
                 </div>

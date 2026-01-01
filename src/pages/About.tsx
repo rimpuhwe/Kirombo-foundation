@@ -134,6 +134,7 @@ const About = () => {
             src="https://live.staticflickr.com/65535/54924254124_d01799935a_z.jpg"
             alt="Kirombo foundation community gathering"
             className="w-full h-full object-cover"
+            loading="eager"
           />
           <div className="absolute inset-0 bg-black/40" />
         </div>
