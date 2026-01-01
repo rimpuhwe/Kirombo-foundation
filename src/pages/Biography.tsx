@@ -1,7 +1,11 @@
 import SectionHeader from "@/components/SectionHeader";
 import { motion } from "framer-motion";
+import { useTitle } from "@/hooks/useTitle";
 
 const Biography = () => {
+
+  useTitle("Learn About Our Founder | Abdallah Kiromba Foundation");
+
   return (
     <div className="min-h-screen bg-background">
       <main className="pt-20">
