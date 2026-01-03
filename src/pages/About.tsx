@@ -492,22 +492,8 @@ const About = () => {
                 </p>
               </motion.div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
-                {[
-                  "Partner A",
-                  "Partner B",
-                  "Partner C",
-                  "Partner D",
-                  "Partner E",
-                  "Partner F",
-                ].map((p, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center justify-center p-6 bg-card rounded-lg border border-border shadow-soft"
-                  >
-                    <div className="text-center text-muted-foreground">{p}</div>
-                  </div>
-                ))}
+              <div className="flex flex-wrap justify-center gap-8 items-center">
+                <img src="https://res.cloudinary.com/dcgmi6w24/image/upload/v1767430811/Screenshot_2026-01-03_104151_l5s80f.png" alt="Zakat Foundation of America" className=" shadow-xl" />
               </div>
             </div>
           </div>
@@ -515,6 +501,6 @@ const About = () => {
       </div>
     </>
   );
-};
+}
 
 export default About;
