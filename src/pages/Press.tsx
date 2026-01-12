@@ -10,6 +10,16 @@ const Press = () => {
   const newsItems = [
     {
       title:
+        "Before the School Term Began, Hope Arrived",
+      date: "January 2, 2026",
+      category: "National",
+      image: "https://res.cloudinary.com/dcgmi6w24/image/upload/v1768198904/IMG-3_khjmbk.jpg",
+      description:
+        "With the new school term approaching, vulnerable families received the support needed to help their children return to school on time.",
+      link: "https://rwandadispatch.com/charity-support-enables-vulnerable-children-to-stay-in-school/",
+    },
+    {
+      title:
         "Over 100 Orphan Students Receive School Support from Abdallah Kiromba Foundation and Zakat Foundation",
       date: "September 09, 2025",
       category: "National",
