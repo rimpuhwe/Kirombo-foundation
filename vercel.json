@@ -5,6 +5,12 @@
    "redirects": [
     {
       "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "abdallahkirombafoundation.com"
+        }
+      ],
       "destination": "https://www.abdallahkirombafoundation.org/$1",
       "permanent": true
     }
