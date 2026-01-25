@@ -14,4 +14,4 @@ User-agent: *
 Allow: /
 
 
-Sitemap: https://www.abdallahkirombafoundation.com/sitemap.xml
+Sitemap: https://www.abdallahkirombafoundation.org/sitemap.xml
