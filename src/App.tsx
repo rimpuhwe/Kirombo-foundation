@@ -15,6 +15,7 @@ import JoinMission from "./pages/JoinMission";
 import SupportContinue from "./pages/SupportContinue";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
+import AdminPage from "./pages/admin";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
+          <Route path="/admin" element={<AdminPage />} />
           <Route element={<Layout />}>
             <Route path="/" element={<Index />} />
             <Route path="/founder/biography" element={<Biography />} />
