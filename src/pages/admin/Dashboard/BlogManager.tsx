@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import JoditEditor from 'jodit-react';
+import React, { useState, useRef } from "react";
+import JoditEditor from "jodit-react";
 
 interface BlogFormState {
   title: string;
@@ -9,41 +9,72 @@ interface BlogFormState {
 
 const joditConfig: any = {
   height: 500,
-  toolbarButtonSize: 'large',
+  toolbarButtonSize: "large",
   buttons: [
-    'source', '|',
-    'bold', 'italic', 'underline', 'strikethrough', '|',
-    'font', 'fontsize', 'brush', 'paragraph', '|',
-    'ul', 'ol', 'outdent', 'indent', '|',
-    'align', 'lineHeight', '|',
-    'link', 'image', 'video', 'file', 'table', '|',
-    'hr', 'eraser', 'copyformat', '|',
-    'symbol', 'emoji', '|',
-    'undo', 'redo', '|',
-    'find', 'selectall', '|',
-    'preview', 'print', '|',
-    'fullsize',
+    "source",
+    "|",
+    "bold",
+    "italic",
+    "underline",
+    "strikethrough",
+    "|",
+    "font",
+    "fontsize",
+    "brush",
+    "paragraph",
+    "|",
+    "ul",
+    "ol",
+    "outdent",
+    "indent",
+    "|",
+    "align",
+    "lineHeight",
+    "|",
+    "link",
+    "image",
+    "video",
+    "file",
+    "table",
+    "|",
+    "hr",
+    "eraser",
+    "copyformat",
+    "|",
+    "symbol",
+    "emoji",
+    "|",
+    "undo",
+    "redo",
+    "|",
+    "find",
+    "selectall",
+    "|",
+    "preview",
+    "print",
+    "|",
+    "fullsize",
   ],
   uploader: {
-    url: 'http://localhost:8080/api/upload',
-    method: 'POST',
-    format: 'json',
-    filesVariableName: 'files',
+    url: "http://localhost:8080/api/upload",
+    method: "POST",
+    format: "json",
+    filesVariableName: "files",
   },
   image: {
     openOnDblClick: true,
     editSrc: true,
-    width: 'auto',
-    height: 'auto',
+    width: "auto",
+    height: "auto",
   },
   askBeforePasteHTML: false,
   askBeforePasteFromWord: false,
-  defaultActionOnPaste: 'insert_as_html',
+  defaultActionOnPaste: "insert_as_html",
   showCharsCounter: true,
   showWordsCounter: true,
   showXPathInStatusbar: false,
   spellcheck: true,
-  language: 'en',
+  language: "en",
   toolbarAdaptive: false,
   toolbarSticky: false,
   allowResizeX: true,
@@ -52,16 +83,18 @@ const joditConfig: any = {
 
 const BlogManager: React.FC = () => {
   const [form, setForm] = useState<BlogFormState>({
-    title: '',
-    description: '',
-    content: '',
+    title: "",
+    description: "",
+    content: "",
   });
   const [submitting, setSubmitting] = useState(false);
   const editor = useRef<any>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
-    if (name === 'description' && value.length > 200) return;
+    if (name === "description" && value.length > 200) return;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -73,16 +106,16 @@ const BlogManager: React.FC = () => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const res = await fetch('http://localhost:8080/api/posts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("http://localhost:8080/api/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error('Failed to create post');
-      alert('Blog post created!');
-      setForm({ title: '', description: '', content: '' });
+      if (!res.ok) throw new Error("Failed to create post");
+      alert("Blog post created!");
+      setForm({ title: "", description: "", content: "" });
     } catch (err) {
-      alert('Error: ' + (err as Error).message);
+      alert("Error: " + (err as Error).message);
     } finally {
       setSubmitting(false);
     }
@@ -90,17 +123,22 @@ const BlogManager: React.FC = () => {
 
   // Save draft to localStorage
   const handleSaveDraft = () => {
-    const drafts = JSON.parse(localStorage.getItem('blogDrafts') || '[]');
+    const drafts = JSON.parse(localStorage.getItem("blogDrafts") || "[]");
     drafts.push({ ...form, savedAt: new Date().toISOString() });
-    localStorage.setItem('blogDrafts', JSON.stringify(drafts));
-    alert('Draft saved locally!');
+    localStorage.setItem("blogDrafts", JSON.stringify(drafts));
+    alert("Draft saved locally!");
   };
 
   return (
     <div className="max-w-5xl mx-auto p-4">
-      <form onSubmit={handleSubmit} className="space-y-6 bg-white dark:bg-gray-900 rounded-xl shadow p-8">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-6 bg-white dark:bg-gray-900 rounded-xl shadow p-8"
+      >
         <div>
-          <label className="block font-semibold mb-1" htmlFor="title">Title</label>
+          <label className="block font-semibold mb-1" htmlFor="title">
+            Title
+          </label>
           <input
             id="title"
             name="title"
@@ -112,7 +150,9 @@ const BlogManager: React.FC = () => {
           />
         </div>
         <div>
-          <label className="block font-semibold mb-1" htmlFor="description">Short Description</label>
+          <label className="block font-semibold mb-1" htmlFor="description">
+            Short Description
+          </label>
           <textarea
             id="description"
             name="description"
@@ -123,7 +163,9 @@ const BlogManager: React.FC = () => {
             className="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 dark:bg-gray-800 resize-none"
             required
           />
-          <div className="text-xs text-gray-500 text-right">{form.description.length}/200</div>
+          <div className="text-xs text-gray-500 text-right">
+            {form.description.length}/200
+          </div>
         </div>
         <div>
           <label className="block font-semibold mb-1">Content</label>
@@ -142,7 +184,7 @@ const BlogManager: React.FC = () => {
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded shadow disabled:opacity-60"
             disabled={submitting}
           >
-            {submitting ? 'Posting...' : 'Post'}
+            {submitting ? "Posting..." : "Post"}
           </button>
           <button
             type="button"

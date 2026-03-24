@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
-import { Switch } from '@/components/ui/switch';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import React, { useState } from "react";
+import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const Settings = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -15,7 +23,7 @@ const Settings = () => {
   const handleToggleDark = () => {
     setDarkMode((d) => !d);
     // Add your theme switching logic here
-    document.documentElement.classList.toggle('dark');
+    document.documentElement.classList.toggle("dark");
   };
 
   return (
@@ -37,7 +45,9 @@ const Settings = () => {
           </div>
           <Dialog open={profileDialogOpen} onOpenChange={setProfileDialogOpen}>
             <DialogTrigger asChild>
-              <Button variant="secondary" className="w-fit">Edit Profile</Button>
+              <Button variant="secondary" className="w-fit">
+                Edit Profile
+              </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
@@ -52,11 +62,17 @@ const Settings = () => {
                   <Button variant="outline">Change Picture</Button>
                 </div>
                 <Input placeholder="Full Name" defaultValue="John Doe" />
-                <Input placeholder="Email" defaultValue="admin@email.com" disabled />
+                <Input
+                  placeholder="Email"
+                  defaultValue="admin@email.com"
+                  disabled
+                />
               </div>
               <DialogFooter>
                 <DialogClose asChild>
-                  <Button type="button" variant="secondary">Cancel</Button>
+                  <Button type="button" variant="secondary">
+                    Cancel
+                  </Button>
                 </DialogClose>
                 <Button type="submit">Save</Button>
               </DialogFooter>
@@ -68,9 +84,14 @@ const Settings = () => {
           <h3 className="font-semibold text-lg mb-2">Security</h3>
           <div className="flex flex-col gap-2">
             <span className="text-gray-500 text-sm">Change your password</span>
-            <Dialog open={passwordDialogOpen} onOpenChange={setPasswordDialogOpen}>
+            <Dialog
+              open={passwordDialogOpen}
+              onOpenChange={setPasswordDialogOpen}
+            >
               <DialogTrigger asChild>
-                <Button variant="destructive" className="w-fit">Change Password</Button>
+                <Button variant="destructive" className="w-fit">
+                  Change Password
+                </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
@@ -80,11 +101,16 @@ const Settings = () => {
                   <Input type="password" placeholder="Current Password" />
                   <Input type="password" placeholder="New Password" />
                   <Input type="password" placeholder="Confirm New Password" />
-                  <span className="text-xs text-gray-500">After verification, a reset link will be sent to your registered email.</span>
+                  <span className="text-xs text-gray-500">
+                    After verification, a reset link will be sent to your
+                    registered email.
+                  </span>
                 </div>
                 <DialogFooter>
                   <DialogClose asChild>
-                    <Button type="button" variant="secondary">Cancel</Button>
+                    <Button type="button" variant="secondary">
+                      Cancel
+                    </Button>
                   </DialogClose>
                   <Button type="submit">Send Reset Email</Button>
                 </DialogFooter>
@@ -104,7 +130,9 @@ const Settings = () => {
         <section className="bg-white dark:bg-gray-800 rounded-2xl shadow p-6 flex flex-col gap-4">
           <h3 className="font-semibold text-lg mb-2">Theme</h3>
           <div className="flex items-center justify-between">
-            <span className="text-gray-500 text-sm">Switch between dark and light mode</span>
+            <span className="text-gray-500 text-sm">
+              Switch between dark and light mode
+            </span>
             <Switch checked={darkMode} onCheckedChange={handleToggleDark} />
           </div>
         </section>
