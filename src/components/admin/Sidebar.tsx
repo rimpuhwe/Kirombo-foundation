@@ -1,14 +1,14 @@
 import React from "react";
 
 interface SidebarProps {
-  activeTab: "dashboard" | "blog" | "posts" | "settings";
-  setActiveTab: (tab: "dashboard" | "blog" | "posts" | "settings") => void;
+  activeTab: "overview" | "writing" | "blogs" | "settings";
+  setActiveTab: (tab: "overview" | "writing" | "blogs" | "settings") => void;
 }
 
 const icons = [
   {
-    key: "dashboard",
-    label: "Dashboard",
+    key: "overview",
+    label: "Overview",
     icon: (
       <svg
         width="24"
@@ -26,8 +26,8 @@ const icons = [
     ),
   },
   {
-    key: "blog",
-    label: "Blog",
+    key: "writing",
+    label: "Writing",
     icon: (
       <svg
         width="24"
@@ -44,8 +44,8 @@ const icons = [
     ),
   },
   {
-    key: "posts",
-    label: "Posts",
+    key: "blogs",
+    label: "Blogs",
     icon: (
       <svg
         width="24"
