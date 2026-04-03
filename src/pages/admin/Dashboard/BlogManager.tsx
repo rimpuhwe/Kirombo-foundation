@@ -1,23 +1,94 @@
-import React, { useState } from "react";
-import { useCreatePostMutation, useUpdatePostMutation } from "@/hooks/usePostsQuery";
-import { toast } from "@/components/ui/sonner";
+import React, { useState, useRef } from "react";
+import JoditEditor from "jodit-react";
 
 interface BlogFormState {
   title: string;
   description: string;
   content: string;
-  status: "draft" | "published";
 }
+
+const joditConfig: any = {
+  height: 500,
+  toolbarButtonSize: "large",
+  buttons: [
+    "source",
+    "|",
+    "bold",
+    "italic",
+    "underline",
+    "strikethrough",
+    "|",
+    "font",
+    "fontsize",
+    "brush",
+    "paragraph",
+    "|",
+    "ul",
+    "ol",
+    "outdent",
+    "indent",
+    "|",
+    "align",
+    "lineHeight",
+    "|",
+    "link",
+    "image",
+    "video",
+    "file",
+    "table",
+    "|",
+    "hr",
+    "eraser",
+    "copyformat",
+    "|",
+    "symbol",
+    "emoji",
+    "|",
+    "undo",
+    "redo",
+    "|",
+    "find",
+    "selectall",
+    "|",
+    "preview",
+    "print",
+    "|",
+    "fullsize",
+  ],
+  uploader: {
+    url: "http://localhost:8080/api/upload",
+    method: "POST",
+    format: "json",
+    filesVariableName: "files",
+  },
+  image: {
+    openOnDblClick: true,
+    editSrc: true,
+    width: "auto",
+    height: "auto",
+  },
+  askBeforePasteHTML: false,
+  askBeforePasteFromWord: false,
+  defaultActionOnPaste: "insert_as_html",
+  showCharsCounter: true,
+  showWordsCounter: true,
+  showXPathInStatusbar: false,
+  spellcheck: true,
+  language: "en",
+  toolbarAdaptive: false,
+  toolbarSticky: false,
+  allowResizeX: true,
+  allowResizeY: true,
+};
 
 const BlogManager: React.FC = () => {
   const [form, setForm] = useState<BlogFormState>({
     title: "",
     description: "",
     content: "",
-    status: "draft",
   });
-  const createMutation = useCreatePostMutation();
-  const isSubmitting = createMutation.isPending;
+  const [submitting, setSubmitting] = useState(false);
+  const editor = useRef<any>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -33,44 +104,29 @@ const BlogManager: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.title || !form.description || !form.content) {
-      toast.error("Please fill all fields");
-      return;
-    }
-
+    setSubmitting(true);
     try {
-      await createMutation.mutateAsync({
-        title: form.title,
-        description: form.description,
-        content: form.content,
-        status: form.status,
+      const res = await fetch("http://localhost:8080/api/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
-      toast.success(`Blog post ${form.status === "published" ? "published" : "created"}!`);
-      setForm({ title: "", description: "", content: "", status: "draft" });
+      if (!res.ok) throw new Error("Failed to create post");
+      alert("Blog post created!");
+      setForm({ title: "", description: "", content: "" });
     } catch (err) {
-      toast.error("Error: " + (err as Error).message);
+      alert("Error: " + (err as Error).message);
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  // Save as draft
-  const handleSaveDraft = async () => {
-    if (!form.title || !form.description || !form.content) {
-      toast.error("Please fill all fields");
-      return;
-    }
-
-    try {
-      await createMutation.mutateAsync({
-        title: form.title,
-        description: form.description,
-        content: form.content,
-        status: "draft",
-      });
-      toast.success("Draft saved!");
-      setForm({ title: "", description: "", content: "", status: "draft" });
-    } catch (err) {
-      toast.error("Error saving draft: " + (err as Error).message);
-    }
+  // Save draft to localStorage
+  const handleSaveDraft = () => {
+    const drafts = JSON.parse(localStorage.getItem("blogDrafts") || "[]");
+    drafts.push({ ...form, savedAt: new Date().toISOString() });
+    localStorage.setItem("blogDrafts", JSON.stringify(drafts));
+    alert("Draft saved locally!");
   };
 
   return (
@@ -113,22 +169,22 @@ const BlogManager: React.FC = () => {
         </div>
         <div>
           <label className="block font-semibold mb-1">Content</label>
-          <textarea
-            name="content"
+          <JoditEditor
+            ref={editor}
             value={form.content}
-            onChange={(e) => handleContentChange(e.target.value)}
-            rows={12}
-            className="w-full border rounded px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 dark:bg-gray-800 resize-vertical"
-            placeholder="Write your blog content here..."
+            config={joditConfig}
+            tabIndex={1}
+            onBlur={handleContentChange}
+            onChange={handleContentChange}
           />
         </div>
         <div className="flex gap-4 pt-2">
           <button
             type="submit"
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded shadow disabled:opacity-60"
-            disabled={isSubmitting}
+            disabled={submitting}
           >
-            {isSubmitting ? "Posting..." : "Post"}
+            {submitting ? "Posting..." : "Post"}
           </button>
           <button
             type="button"
@@ -139,6 +195,21 @@ const BlogManager: React.FC = () => {
           </button>
         </div>
       </form>
+      <style>{`
+        .jodit-wysiwyg p, .jodit-wysiwyg div {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: flex-start;
+        }
+        .jodit-wysiwyg img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 8px;
+          margin-right: 8px;
+          margin-bottom: 8px;
+          display: inline-block;
+        }
+      `}</style>
     </div>
   );
 };
