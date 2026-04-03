@@ -1,5 +1,4 @@
-import React, { useState, useRef } from "react";
-import JoditEditor from "jodit-react";
+import React, { useState } from "react";
 import { useCreatePostMutation, useUpdatePostMutation } from "@/hooks/usePostsQuery";
 import { toast } from "@/components/ui/sonner";
 
@@ -10,74 +9,6 @@ interface BlogFormState {
   status: "draft" | "published";
 }
 
-const joditConfig: any = {
-  height: 500,
-  toolbarButtonSize: "large",
-  buttons: [
-    "source",
-    "|",
-    "bold",
-    "italic",
-    "underline",
-    "strikethrough",
-    "|",
-    "font",
-    "fontsize",
-    "brush",
-    "paragraph",
-    "|",
-    "ul",
-    "ol",
-    "outdent",
-    "indent",
-    "|",
-    "align",
-    "lineHeight",
-    "|",
-    "link",
-    "image",
-    "video",
-    "file",
-    "table",
-    "|",
-    "hr",
-    "eraser",
-    "copyformat",
-    "|",
-    "symbol",
-    "emoji",
-    "|",
-    "undo",
-    "redo",
-    "|",
-    "find",
-    "selectall",
-    "|",
-    "preview",
-    "print",
-    "|",
-    "fullsize",
-  ],
-  image: {
-    openOnDblClick: true,
-    editSrc: true,
-    width: "auto",
-    height: "auto",
-  },
-  askBeforePasteHTML: false,
-  askBeforePasteFromWord: false,
-  defaultActionOnPaste: "insert_as_html",
-  showCharsCounter: true,
-  showWordsCounter: true,
-  showXPathInStatusbar: false,
-  spellcheck: true,
-  language: "en",
-  toolbarAdaptive: false,
-  toolbarSticky: false,
-  allowResizeX: true,
-  allowResizeY: true,
-};
-
 const BlogManager: React.FC = () => {
   const [form, setForm] = useState<BlogFormState>({
     title: "",
@@ -85,10 +16,8 @@ const BlogManager: React.FC = () => {
     content: "",
     status: "draft",
   });
-  const editor = useRef<any>(null);
   const createMutation = useCreatePostMutation();
-  const updateMutation = useUpdatePostMutation();
-  const isSubmitting = createMutation.isPending || updateMutation.isPending;
+  const isSubmitting = createMutation.isPending;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -184,13 +113,13 @@ const BlogManager: React.FC = () => {
         </div>
         <div>
           <label className="block font-semibold mb-1">Content</label>
-          <JoditEditor
-            ref={editor}
+          <textarea
+            name="content"
             value={form.content}
-            config={joditConfig}
-            tabIndex={1}
-            onBlur={handleContentChange}
-            onChange={handleContentChange}
+            onChange={(e) => handleContentChange(e.target.value)}
+            rows={12}
+            className="w-full border rounded px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 dark:bg-gray-800 resize-vertical"
+            placeholder="Write your blog content here..."
           />
         </div>
         <div className="flex gap-4 pt-2">
@@ -210,21 +139,6 @@ const BlogManager: React.FC = () => {
           </button>
         </div>
       </form>
-      <style>{`
-        .jodit-wysiwyg p, .jodit-wysiwyg div {
-          display: flex;
-          flex-wrap: wrap;
-          align-items: flex-start;
-        }
-        .jodit-wysiwyg img {
-          max-width: 100%;
-          height: auto;
-          border-radius: 8px;
-          margin-right: 8px;
-          margin-bottom: 8px;
-          display: inline-block;
-        }
-      `}</style>
     </div>
   );
 };
