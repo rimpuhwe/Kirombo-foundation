@@ -1,18 +1,61 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useStatsQuery, useDailyStatsQuery } from "@/hooks/useStatsQuery";
+import { useActivityLogQuery } from "@/hooks/usePostsQuery";
+import { subscribeToStats, subscribeToActivities } from "@/services/websocket";
+import {
+  LineChart,
+  Line,
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 interface Stats {
   blogClicks: number;
   monthlyOpens: number;
   likes: number;
   comments: number;
+  publishedPosts?: number;
+  draftPosts?: number;
 }
+
+const StatCard = ({
+  label,
+  value,
+  loading,
+}: {
+  label: string;
+  value: number | string;
+  loading: boolean;
+}) => (
+  <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 flex flex-col items-center min-h-[120px]">
+    {loading ? (
+      <Skeleton className="w-12 h-8 mb-2" />
+    ) : (
+      <span className="text-3xl font-bold text-blue-600">{value}</span>
+    )}
+    <span className="text-gray-500 dark:text-gray-400 mt-2 text-sm font-medium">{label}</span>
+  </div>
+);
 
 const DashboardHome = () => {
   const [dateTime, setDateTime] = useState<string>("");
   const [stats, setStats] = useState<Stats | null>(null);
-  const [loading, setLoading] = useState(true);
-  const wsRef = useRef<WebSocket | null>(null);
+  const [recentActivities, setRecentActivities] = useState<any[]>([]);
+  const [dateRange, setDateRange] = useState<"7" | "30" | "90">("30");
+
+  const { data: queryStats, isLoading: statsLoading } = useStatsQuery();
+  const { data: dailyStats = [], isLoading: dailyLoading } = useDailyStatsQuery();
+  const { data: activityLog = [], isLoading: activityLoading } = useActivityLogQuery();
 
   // Update date/time every second
   useEffect(() => {
@@ -25,78 +68,186 @@ const DashboardHome = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // WebSocket for real-time stats
+  // Set initial stats from query
   useEffect(() => {
-    setLoading(true);
-    // Replace with your WebSocket endpoint
-    const ws = new window.WebSocket("wss://your-websocket-endpoint");
-    wsRef.current = ws;
-    ws.onopen = () => {
-      ws.send(JSON.stringify({ type: "subscribe", topic: "blog-stats" }));
-    };
-    ws.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        if (data.type === "blog-stats") {
-          setStats(data.payload);
-          setLoading(false);
-        }
-      } catch {}
-    };
-    ws.onerror = () => setLoading(false);
-    ws.onclose = () => {};
+    if (queryStats) {
+      setStats(queryStats);
+    }
+  }, [queryStats]);
+
+  // WebSocket subscriptions
+  useEffect(() => {
+    const unsubscribeStats = subscribeToStats((data) => {
+      if (data.payload) {
+        setStats(data.payload);
+      }
+    });
+
+    const unsubscribeActivities = subscribeToActivities((activity) => {
+      setRecentActivities((prev) => [activity, ...prev.slice(0, 9)]);
+    });
+
     return () => {
-      ws.close();
+      unsubscribeStats();
+      unsubscribeActivities();
     };
   }, []);
 
+  // Filter daily stats based on date range
+  const filteredDailyStats = useCallback(() => {
+    const days = parseInt(dateRange);
+    return dailyStats.slice(0, days).reverse();
+  }, [dailyStats, dateRange]);
+
+  // Prepare pie chart data for draft vs published
+  const pieData = [
+    { name: "Published", value: stats?.publishedPosts || 0, fill: "#10b981" },
+    { name: "Draft", value: stats?.draftPosts || 0, fill: "#f59e0b" },
+  ];
+
+  const COLORS = ["#10b981", "#f59e0b", "#3b82f6", "#ef4444"];
+
   return (
-    <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
-        <span id="current-date-time" className="text-lg text-gray-500">
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-bold">Dashboard</h1>
+        <span className="text-lg text-gray-500 dark:text-gray-400">
           {dateTime || <Skeleton className="w-32 h-6" />}
         </span>
       </div>
+
+      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* Blog Clicks */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 flex flex-col items-center min-h-[120px]">
-          {loading ? (
-            <Skeleton className="w-12 h-8 mb-2" />
+        <StatCard
+          label="Total Views"
+          value={stats?.blogClicks ?? 0}
+          loading={statsLoading}
+        />
+        <StatCard
+          label="Total Posts"
+          value={stats?.monthlyOpens ?? 0}
+          loading={statsLoading}
+        />
+        <StatCard label="Likes" value={stats?.likes ?? 0} loading={statsLoading} />
+        <StatCard
+          label="Comments"
+          value={stats?.comments ?? 0}
+          loading={statsLoading}
+        />
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Line Chart - Posts Over Time */}
+        <div className="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold">Posts Created (Last {dateRange} Days)</h2>
+            <select
+              value={dateRange}
+              onChange={(e) => setDateRange(e.target.value as "7" | "30" | "90")}
+              className="border rounded px-3 py-1 text-sm dark:bg-gray-700 dark:border-gray-600"
+            >
+              <option value="7">Last 7 Days</option>
+              <option value="30">Last 30 Days</option>
+              <option value="90">Last 90 Days</option>
+            </select>
+          </div>
+          {dailyLoading ? (
+            <Skeleton className="h-64 w-full" />
           ) : (
-            <span className="text-3xl font-bold">{stats?.blogClicks ?? 0}</span>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={filteredDailyStats()}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="created"
+                  stroke="#3b82f6"
+                  name="Created"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="published"
+                  stroke="#10b981"
+                  name="Published"
+                />
+              </LineChart>
+            </ResponsiveContainer>
           )}
-          <span className="text-gray-500 mt-2">Blog Clicks</span>
         </div>
-        {/* Monthly Opens */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 flex flex-col items-center min-h-[120px]">
-          {loading ? (
-            <Skeleton className="w-12 h-8 mb-2" />
+
+        {/* Pie Chart - Draft vs Published */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+          <h2 className="text-xl font-bold mb-4">Post Status Distribution</h2>
+          {statsLoading ? (
+            <Skeleton className="h-64 w-full" />
           ) : (
-            <span className="text-3xl font-bold">
-              {stats?.monthlyOpens ?? 0}
-            </span>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, value }) => `${name}: ${value}`}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {pieData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
           )}
-          <span className="text-gray-500 mt-2">Monthly Opens</span>
         </div>
-        {/* Likes */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 flex flex-col items-center min-h-[120px]">
-          {loading ? (
-            <Skeleton className="w-12 h-8 mb-2" />
-          ) : (
-            <span className="text-3xl font-bold">{stats?.likes ?? 0}</span>
-          )}
-          <span className="text-gray-500 mt-2">Likes</span>
-        </div>
-        {/* Comments */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 flex flex-col items-center min-h-[120px]">
-          {loading ? (
-            <Skeleton className="w-12 h-8 mb-2" />
-          ) : (
-            <span className="text-3xl font-bold">{stats?.comments ?? 0}</span>
-          )}
-          <span className="text-gray-500 mt-2">Comments</span>
-        </div>
+      </div>
+
+      {/* Recent Activity */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+        <h2 className="text-xl font-bold mb-4">Recent Activity</h2>
+        {activityLoading ? (
+          <div className="space-y-2">
+            <Skeleton className="h-10 w-full" />
+            <Skeleton className="h-10 w-full" />
+            <Skeleton className="h-10 w-full" />
+          </div>
+        ) : (
+          <div className="space-y-3 max-h-96 overflow-y-auto">
+            {recentActivities.length === 0 && activityLog.length === 0 ? (
+              <p className="text-gray-500 dark:text-gray-400 text-center py-4">
+                No recent activity
+              </p>
+            ) : (
+              (recentActivities.length > 0 ? recentActivities : activityLog)
+                .slice(0, 10)
+                .map((activity, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-4 py-2 border-b dark:border-gray-700 last:border-0"
+                  >
+                    <div className="flex-1">
+                      <p className="font-medium text-gray-800 dark:text-gray-100">
+                        {activity.message || activity.type}
+                      </p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        {new Date(activity.createdAt).toLocaleString()}
+                      </p>
+                    </div>
+                    <span className="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200 rounded">
+                      {activity.type}
+                    </span>
+                  </div>
+                ))
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

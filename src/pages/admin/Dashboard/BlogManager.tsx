@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
 import JoditEditor from "jodit-react";
+import { useCreatePostMutation, useUpdatePostMutation } from "@/hooks/usePostsQuery";
+import { sonner } from "@/components/ui/sonner";
 
 interface BlogFormState {
   title: string;
   description: string;
   content: string;
+  status: "draft" | "published";
 }
 
 const joditConfig: any = {
@@ -55,12 +58,6 @@ const joditConfig: any = {
     "|",
     "fullsize",
   ],
-  uploader: {
-    url: "http://localhost:8080/api/upload",
-    method: "POST",
-    format: "json",
-    filesVariableName: "files",
-  },
   image: {
     openOnDblClick: true,
     editSrc: true,
@@ -86,9 +83,12 @@ const BlogManager: React.FC = () => {
     title: "",
     description: "",
     content: "",
+    status: "draft",
   });
-  const [submitting, setSubmitting] = useState(false);
   const editor = useRef<any>(null);
+  const createMutation = useCreatePostMutation();
+  const updateMutation = useUpdatePostMutation();
+  const isSubmitting = createMutation.isPending || updateMutation.isPending;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -104,29 +104,44 @@ const BlogManager: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitting(true);
+    if (!form.title || !form.description || !form.content) {
+      sonner.error("Please fill all fields");
+      return;
+    }
+
     try {
-      const res = await fetch("http://localhost:8080/api/posts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+      await createMutation.mutateAsync({
+        title: form.title,
+        description: form.description,
+        content: form.content,
+        status: form.status,
       });
-      if (!res.ok) throw new Error("Failed to create post");
-      alert("Blog post created!");
-      setForm({ title: "", description: "", content: "" });
+      sonner.success(`Blog post ${form.status === "published" ? "published" : "created"}!`);
+      setForm({ title: "", description: "", content: "", status: "draft" });
     } catch (err) {
-      alert("Error: " + (err as Error).message);
-    } finally {
-      setSubmitting(false);
+      sonner.error("Error: " + (err as Error).message);
     }
   };
 
-  // Save draft to localStorage
-  const handleSaveDraft = () => {
-    const drafts = JSON.parse(localStorage.getItem("blogDrafts") || "[]");
-    drafts.push({ ...form, savedAt: new Date().toISOString() });
-    localStorage.setItem("blogDrafts", JSON.stringify(drafts));
-    alert("Draft saved locally!");
+  // Save as draft
+  const handleSaveDraft = async () => {
+    if (!form.title || !form.description || !form.content) {
+      sonner.error("Please fill all fields");
+      return;
+    }
+
+    try {
+      await createMutation.mutateAsync({
+        title: form.title,
+        description: form.description,
+        content: form.content,
+        status: "draft",
+      });
+      sonner.success("Draft saved!");
+      setForm({ title: "", description: "", content: "", status: "draft" });
+    } catch (err) {
+      sonner.error("Error saving draft: " + (err as Error).message);
+    }
   };
 
   return (
