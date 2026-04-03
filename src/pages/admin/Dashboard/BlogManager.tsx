@@ -104,6 +104,14 @@ const BlogManager: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.title.trim()) {
+      alert("Title is required");
+      return;
+    }
+    if (!form.content.trim()) {
+      alert("Content is required");
+      return;
+    }
     setSubmitting(true);
     try {
       const res = await fetch("http://localhost:8080/api/posts", {
@@ -111,8 +119,8 @@ const BlogManager: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      if (!res.ok) throw new Error("Failed to create post");
-      alert("Blog post created!");
+      if (!res.ok) throw new Error("Failed to publish post");
+      alert("Blog post published successfully!");
       setForm({ title: "", description: "", content: "" });
     } catch (err) {
       alert("Error: " + (err as Error).message);
@@ -123,10 +131,14 @@ const BlogManager: React.FC = () => {
 
   // Save draft to localStorage
   const handleSaveDraft = () => {
+    if (!form.title.trim()) {
+      alert("Title is required to save draft");
+      return;
+    }
     const drafts = JSON.parse(localStorage.getItem("blogDrafts") || "[]");
     drafts.push({ ...form, savedAt: new Date().toISOString() });
     localStorage.setItem("blogDrafts", JSON.stringify(drafts));
-    alert("Draft saved locally!");
+    alert("Draft saved successfully!");
   };
 
   return (
@@ -184,14 +196,14 @@ const BlogManager: React.FC = () => {
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded shadow disabled:opacity-60"
             disabled={submitting}
           >
-            {submitting ? "Posting..." : "Post"}
+            {submitting ? "Publishing..." : "Publish Post"}
           </button>
           <button
             type="button"
             className="bg-gray-400 hover:bg-gray-500 text-white font-semibold px-6 py-2 rounded shadow"
             onClick={handleSaveDraft}
           >
-            Save to Draft
+            Save as Draft
           </button>
         </div>
       </form>
