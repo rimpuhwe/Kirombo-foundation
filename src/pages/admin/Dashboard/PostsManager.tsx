@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Calendar, ArrowRight, Edit2, Trash2 } from "lucide-react";
 import PostContentPage from "./PostContentPage";
 import { usePostsQuery, useDeletePostMutation } from "@/hooks/usePostsQuery";
-import { sonner } from "@/components/ui/sonner";
+import { toast } from "@/components/ui/sonner";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -152,9 +152,9 @@ const PostsManager: React.FC = () => {
   const handleDelete = async (postId: number) => {
     try {
       await deleteMutation.mutateAsync(postId);
-      sonner.success("Post deleted successfully");
+      toast.success("Post deleted successfully");
     } catch (err) {
-      sonner.error("Failed to delete post");
+      toast.error("Failed to delete post");
     }
   };
 

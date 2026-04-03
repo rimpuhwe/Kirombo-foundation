@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import JoditEditor from "jodit-react";
 import { useCreatePostMutation, useUpdatePostMutation } from "@/hooks/usePostsQuery";
-import { sonner } from "@/components/ui/sonner";
+import { toast } from "@/components/ui/sonner";
 
 interface BlogFormState {
   title: string;
@@ -105,7 +105,7 @@ const BlogManager: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.title || !form.description || !form.content) {
-      sonner.error("Please fill all fields");
+      toast.error("Please fill all fields");
       return;
     }
 
@@ -116,17 +116,17 @@ const BlogManager: React.FC = () => {
         content: form.content,
         status: form.status,
       });
-      sonner.success(`Blog post ${form.status === "published" ? "published" : "created"}!`);
+      toast.success(`Blog post ${form.status === "published" ? "published" : "created"}!`);
       setForm({ title: "", description: "", content: "", status: "draft" });
     } catch (err) {
-      sonner.error("Error: " + (err as Error).message);
+      toast.error("Error: " + (err as Error).message);
     }
   };
 
   // Save as draft
   const handleSaveDraft = async () => {
     if (!form.title || !form.description || !form.content) {
-      sonner.error("Please fill all fields");
+      toast.error("Please fill all fields");
       return;
     }
 
@@ -137,10 +137,10 @@ const BlogManager: React.FC = () => {
         content: form.content,
         status: "draft",
       });
-      sonner.success("Draft saved!");
+      toast.success("Draft saved!");
       setForm({ title: "", description: "", content: "", status: "draft" });
     } catch (err) {
-      sonner.error("Error saving draft: " + (err as Error).message);
+      toast.error("Error saving draft: " + (err as Error).message);
     }
   };
 
@@ -197,9 +197,9 @@ const BlogManager: React.FC = () => {
           <button
             type="submit"
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded shadow disabled:opacity-60"
-            disabled={submitting}
+            disabled={isSubmitting}
           >
-            {submitting ? "Posting..." : "Post"}
+            {isSubmitting ? "Posting..." : "Post"}
           </button>
           <button
             type="button"
