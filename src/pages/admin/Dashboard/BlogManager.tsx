@@ -1,10 +1,12 @@
 import React, { useState, useRef } from "react";
 import JoditEditor from "jodit-react";
+import { useCreatePost } from "@/hooks/useData";
 
 interface BlogFormState {
   title: string;
   description: string;
   content: string;
+  status: "draft" | "published";
 }
 
 const joditConfig: any = {
@@ -86,8 +88,9 @@ const BlogManager: React.FC = () => {
     title: "",
     description: "",
     content: "",
+    status: "published",
   });
-  const [submitting, setSubmitting] = useState(false);
+  const { create, loading: submitting, error } = useCreatePost();
   const editor = useRef<any>(null);
 
   const handleChange = (
@@ -112,33 +115,38 @@ const BlogManager: React.FC = () => {
       alert("Content is required");
       return;
     }
-    setSubmitting(true);
     try {
-      const res = await fetch("http://localhost:8080/api/posts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+      await create({
+        title: form.title,
+        description: form.description,
+        content: form.content,
+        status: "published",
       });
-      if (!res.ok) throw new Error("Failed to publish post");
       alert("Blog post published successfully!");
-      setForm({ title: "", description: "", content: "" });
+      setForm({ title: "", description: "", content: "", status: "published" });
     } catch (err) {
       alert("Error: " + (err as Error).message);
-    } finally {
-      setSubmitting(false);
     }
   };
 
-  // Save draft to localStorage
-  const handleSaveDraft = () => {
+  // Save draft to backend
+  const handleSaveDraft = async () => {
     if (!form.title.trim()) {
       alert("Title is required to save draft");
       return;
     }
-    const drafts = JSON.parse(localStorage.getItem("blogDrafts") || "[]");
-    drafts.push({ ...form, savedAt: new Date().toISOString() });
-    localStorage.setItem("blogDrafts", JSON.stringify(drafts));
-    alert("Draft saved successfully!");
+    try {
+      await create({
+        title: form.title,
+        description: form.description,
+        content: form.content,
+        status: "draft",
+      });
+      alert("Draft saved successfully!");
+      setForm({ title: "", description: "", content: "", status: "published" });
+    } catch (err) {
+      alert("Error saving draft: " + (err as Error).message);
+    }
   };
 
   return (
