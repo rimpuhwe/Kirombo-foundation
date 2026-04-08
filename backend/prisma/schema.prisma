@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id        String     @id @default(uuid())
+  title     String     @db.VarChar(255)
+  description String   @db.Text
+  content   String     @db.Text
+  status    PostStatus @default(DRAFT)
+  views     Int        @default(0)
+  likes     Int        @default(0)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  activities Activity[]
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Activity {
+  id        String         @id @default(uuid())
+  type      ActivityType
+  message   String         @db.Text
+  postId    String?
+  post      Post?          @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime       @default(now())
+
+  @@index([postId])
+  @@index([createdAt])
+  @@index([type])
+}
+
+enum ActivityType {
+  CREATE
+  UPDATE
+  PUBLISH
+  VIEW
+  LIKE
+  DELETE
+}
