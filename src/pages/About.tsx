@@ -17,6 +17,82 @@ interface TeamMember {
   image: string;
 }
 
+const RWANDA_COAT =
+  "https://tohoza.com/wp-content/uploads/classified-listing/2022/10/Government-of-Rwanda-Cabinet-of-Rwanda-Ministries-in-Rwanda-Coat-Of-Arms-Of-Rwanda-1-768x839.jpg.webp";
+
+const partners = [
+  {
+    name: "Zakat Foundation of America",
+    logo: "https://i.yaqeeninstitute.org/?src=2023/05/image-9.png",
+  },
+  {
+    name: "Gatsibo District\n(Kabarore Sector)",
+    logo: RWANDA_COAT,
+  },
+  {
+    name: "Musanze District\n(Kinigi Sector)",
+    logo: RWANDA_COAT,
+  },
+];
+
+const PartnersCarousel = () => {
+  const [paused, setPaused] = useState(false);
+  // Duplicate the list so the seamless loop works:
+  // the animation moves exactly -50% (one full set), then resets invisibly.
+  const track = [...partners, ...partners];
+
+  return (
+    <>
+      <style>{`
+        @keyframes partners-marquee {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+        .partners-track {
+          animation: partners-marquee 24s linear infinite;
+        }
+        .partners-track.paused {
+          animation-play-state: paused;
+        }
+      `}</style>
+
+      <div
+        className="relative overflow-hidden w-full"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        {/* Left fade */}
+        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-r from-[#f5f5f5] to-transparent" />
+        {/* Right fade */}
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-20 z-10 bg-gradient-to-l from-[#f5f5f5] to-transparent" />
+
+        <div
+          className={`partners-track flex gap-10 w-max${paused ? " paused" : ""}`}
+        >
+          {track.map((partner, i) => (
+            <div
+              key={i}
+              className="flex flex-col items-center w-72 shrink-0 select-none"
+            >
+              <div className="w-72 h-48 flex items-center justify-center p-6">
+                <img
+                  src={partner.logo}
+                  alt={partner.name.replace("\n", " ")}
+                  className="max-h-40 max-w-full object-contain"
+                  draggable={false}
+                />
+              </div>
+              <p className="text-base text-center mt-2 text-muted-foreground font-semibold leading-snug whitespace-pre-line">
+                {partner.name}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
+
 const About = () => {
   const [activeSection, setActiveSection] = useState("introduction");
   const location = useLocation();
@@ -473,9 +549,9 @@ const About = () => {
         {/* Partners Section (Implementing Partners) */}
         <section
           id="partners"
-          className="min-h-screen flex items-center bg-[#f5f5f5a8] scroll-mt-[64px] px-6 md:px-12 py-8"
+          className="min-h-screen flex items-center bg-[#f5f5f5a8] scroll-mt-[64px] px-6 md:px-12 py-16"
         >
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 w-full">
             <div className="max-w-6xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -486,15 +562,13 @@ const About = () => {
                 <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center">
                   Implementing Partners
                 </h2>
-                <p className="text-center text-muted-foreground text-lg mb-12 max-w-3xl mx-auto">
+                <p className="text-center text-muted-foreground text-lg mb-16 max-w-3xl mx-auto">
                   We deliver impact in partnership with trusted organisations
-                  and institutions.
+                  and institutions across Rwanda and beyond.
                 </p>
               </motion.div>
 
-              <div className="flex flex-wrap justify-center gap-8 items-center">
-                <img src="https://res.cloudinary.com/dcgmi6w24/image/upload/v1767430811/Screenshot_2026-01-03_104151_l5s80f.png" alt="Zakat Foundation of America" className=" shadow-xl" />
-              </div>
+              <PartnersCarousel />
             </div>
           </div>
         </section>
