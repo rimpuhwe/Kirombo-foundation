@@ -7,15 +7,17 @@ export class PostService {
     title: string;
     description: string;
     content: string;
+    coverImage?: string;
+    category?: string;
     status: PostStatus;
   }) {
-    const sanitizedContent = sanitizeHtml(data.content);
-
     const post = await prisma.post.create({
       data: {
         title: data.title.trim(),
         description: data.description.trim(),
-        content: sanitizedContent,
+        content: sanitizeHtml(data.content),
+        coverImage: data.coverImage || null,
+        category: data.category?.trim() || null,
         status: data.status,
       },
     });
@@ -32,29 +34,21 @@ export class PostService {
 
     if (filters?.startDate || filters?.endDate) {
       where.createdAt = {};
-      if (filters.startDate) {
-        where.createdAt.gte = filters.startDate;
-      }
-      if (filters.endDate) {
-        where.createdAt.lte = filters.endDate;
-      }
+      if (filters.startDate) where.createdAt.gte = filters.startDate;
+      if (filters.endDate) where.createdAt.lte = filters.endDate;
     }
 
-    const posts = await prisma.post.findMany({
+    return prisma.post.findMany({
       where,
       orderBy: { createdAt: "desc" },
     });
-
-    return posts;
   }
 
   async getPostById(id: string) {
-    const post = await prisma.post.findUnique({
+    return prisma.post.findUnique({
       where: { id },
       include: { activities: true },
     });
-
-    return post;
   }
 
   async updatePost(
@@ -63,48 +57,39 @@ export class PostService {
       title?: string;
       description?: string;
       content?: string;
+      coverImage?: string | null;
+      category?: string | null;
       status?: PostStatus;
     }
   ) {
     const updateData: any = {};
 
-    if (data.title) updateData.title = data.title.trim();
-    if (data.description) updateData.description = data.description.trim();
-    if (data.content) updateData.content = sanitizeHtml(data.content);
-    if (data.status) updateData.status = data.status;
+    if (data.title !== undefined) updateData.title = data.title.trim();
+    if (data.description !== undefined) updateData.description = data.description.trim();
+    if (data.content !== undefined) updateData.content = sanitizeHtml(data.content);
+    if (data.status !== undefined) updateData.status = data.status;
+    if ("coverImage" in data) updateData.coverImage = data.coverImage ?? null;
+    if ("category" in data) updateData.category = data.category?.trim() ?? null;
 
-    const post = await prisma.post.update({
-      where: { id },
-      data: updateData,
-    });
-
-    return post;
+    return prisma.post.update({ where: { id }, data: updateData });
   }
 
   async deletePost(id: string) {
-    const post = await prisma.post.delete({
-      where: { id },
-    });
-
-    return post;
+    return prisma.post.delete({ where: { id } });
   }
 
   async incrementViews(id: string) {
-    const post = await prisma.post.update({
+    return prisma.post.update({
       where: { id },
       data: { views: { increment: 1 } },
     });
-
-    return post;
   }
 
   async incrementLikes(id: string) {
-    const post = await prisma.post.update({
+    return prisma.post.update({
       where: { id },
       data: { likes: { increment: 1 } },
     });
-
-    return post;
   }
 }
 

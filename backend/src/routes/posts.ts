@@ -9,7 +9,7 @@ const router = Router();
 // Create post
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const { title, description, content, status } = req.body;
+    const { title, description, content, coverImage, category, status } = req.body;
 
     const validation = validatePost({ title, description, content, status });
     if (!validation.isValid) {
@@ -20,6 +20,8 @@ router.post("/", async (req: Request, res: Response) => {
       title,
       description,
       content,
+      coverImage: coverImage || undefined,
+      category: category || undefined,
       status: status || "DRAFT",
     });
 
@@ -80,9 +82,8 @@ router.get("/:id", async (req: Request, res: Response) => {
 router.put("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { title, description, content, status } = req.body;
+    const { title, description, content, coverImage, category, status } = req.body;
 
-    // Validate
     const validation = validatePost({ title, description, content, status });
     if (!validation.isValid) {
       return res.status(400).json({ error: validation.errors });
@@ -92,6 +93,8 @@ router.put("/:id", async (req: Request, res: Response) => {
       title,
       description,
       content,
+      coverImage: coverImage !== undefined ? coverImage : undefined,
+      category: category !== undefined ? category : undefined,
       status,
     });
 
@@ -124,10 +127,11 @@ router.delete("/:id", async (req: Request, res: Response) => {
 
     await PostService.deletePost(id);
 
+    // postId is omitted — the post no longer exists and referencing it
+    // would fail the FK constraint.
     const activity = await ActivityService.logActivity({
       type: "DELETE",
       message: `Deleted post: "${post.title}"`,
-      postId: post.id,
     });
 
     const ws = getWebSocketService();

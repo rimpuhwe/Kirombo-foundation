@@ -7,7 +7,7 @@ export interface AsyncState<T> {
   error: Error | null;
 }
 
-export function usePosts() {
+export function usePosts(status?: "DRAFT" | "PUBLISHED") {
   const [state, setState] = useState<AsyncState<Post[]>>({
     data: null,
     loading: true,
@@ -17,7 +17,7 @@ export function usePosts() {
   const fetch = useCallback(async () => {
     setState((prev) => ({ ...prev, loading: true }));
     try {
-      const data = await apiClient.getPosts();
+      const data = await apiClient.getPosts(status);
       setState({ data, loading: false, error: null });
     } catch (error) {
       setState({
@@ -26,7 +26,7 @@ export function usePosts() {
         error: error instanceof Error ? error : new Error("Unknown error"),
       });
     }
-  }, []);
+  }, [status]);
 
   useEffect(() => {
     fetch();
@@ -35,14 +35,15 @@ export function usePosts() {
   return { ...state, refetch: fetch };
 }
 
-export function usePost(id: number) {
+export function usePost(id: string) {
   const [state, setState] = useState<AsyncState<Post>>({
     data: null,
-    loading: true,
+    loading: false,
     error: null,
   });
 
   const fetch = useCallback(async () => {
+    if (!id) return;
     setState((prev) => ({ ...prev, loading: true }));
     try {
       const data = await apiClient.getPost(id);
@@ -71,7 +72,7 @@ export function useCreatePost() {
   });
 
   const create = useCallback(
-    async (postData: Omit<Post, "id" | "createdAt" | "updatedAt">) => {
+    async (postData: Omit<Post, "id" | "createdAt" | "updatedAt" | "views" | "likes">) => {
       setState((prev) => ({ ...prev, loading: true }));
       try {
         const data = await apiClient.createPost(postData);
@@ -79,11 +80,7 @@ export function useCreatePost() {
         return data;
       } catch (error) {
         const err = error instanceof Error ? error : new Error("Unknown error");
-        setState({
-          data: null,
-          loading: false,
-          error: err,
-        });
+        setState({ data: null, loading: false, error: err });
         throw err;
       }
     },
@@ -93,7 +90,7 @@ export function useCreatePost() {
   return { ...state, create };
 }
 
-export function useUpdatePost(id: number) {
+export function useUpdatePost(id: string) {
   const [state, setState] = useState<AsyncState<Post>>({
     data: null,
     loading: false,
@@ -101,7 +98,7 @@ export function useUpdatePost(id: number) {
   });
 
   const update = useCallback(
-    async (postData: Partial<Omit<Post, "id" | "createdAt" | "updatedAt">>) => {
+    async (postData: Partial<Omit<Post, "id" | "createdAt" | "updatedAt" | "views" | "likes">>) => {
       setState((prev) => ({ ...prev, loading: true }));
       try {
         const data = await apiClient.updatePost(id, postData);
@@ -109,11 +106,7 @@ export function useUpdatePost(id: number) {
         return data;
       } catch (error) {
         const err = error instanceof Error ? error : new Error("Unknown error");
-        setState({
-          data: null,
-          loading: false,
-          error: err,
-        });
+        setState({ data: null, loading: false, error: err });
         throw err;
       }
     },
@@ -129,7 +122,7 @@ export function useDeletePost() {
     error: null as Error | null,
   });
 
-  const deletePost = useCallback(async (id: number) => {
+  const deletePost = useCallback(async (id: string) => {
     setState((prev) => ({ ...prev, loading: true }));
     try {
       await apiClient.deletePost(id);

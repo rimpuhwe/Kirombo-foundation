@@ -8,18 +8,21 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+
 }
 
 model Post {
-  id        String     @id @default(uuid())
-  title     String     @db.VarChar(255)
-  description String   @db.Text
-  content   String     @db.Text
-  status    PostStatus @default(DRAFT)
-  views     Int        @default(0)
-  likes     Int        @default(0)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id          String     @id @default(uuid())
+  title       String     @db.VarChar(255)
+  description String     @db.Text
+  content     String     @db.Text
+  coverImage  String?    @db.Text
+  category    String?    @db.VarChar(100)
+  status      PostStatus @default(DRAFT)
+  views       Int        @default(0)
+  likes       Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 
   activities Activity[]
 

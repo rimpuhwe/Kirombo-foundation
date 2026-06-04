@@ -9,6 +9,7 @@ import prisma from "./lib/db.js";
 import postsRouter from "./routes/posts.js";
 import statsRouter from "./routes/stats.js";
 import activitiesRouter from "./routes/activities.js";
+import uploadRouter from "./routes/upload.js";
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ app.get("/health", (req: Request, res: Response) => {
 app.use("/api/posts", postsRouter);
 app.use("/api/stats", statsRouter);
 app.use("/api/activities", activitiesRouter);
+app.use("/api/upload", uploadRouter);
 
 // Global error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

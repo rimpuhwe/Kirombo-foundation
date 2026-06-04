@@ -23,6 +23,14 @@ export const validatePost = (data: any) => {
     errors.status = "Status must be either DRAFT or PUBLISHED";
   }
 
+  if (data.coverImage && typeof data.coverImage !== "string") {
+    errors.coverImage = "Cover image must be a URL string";
+  }
+
+  if (data.category && typeof data.category !== "string") {
+    errors.category = "Category must be a string";
+  }
+
   return { isValid: Object.keys(errors).length === 0, errors };
 };
 
@@ -58,7 +66,7 @@ export const sanitizeHtml = (html: string): string => {
       code: [],
       pre: [],
     },
-    stripIgnoredTag: true,
-    stripLeakage: true,
+    stripIgnoreTag: true,
+    stripIgnoreTagBody: ["script"],
   });
 };
