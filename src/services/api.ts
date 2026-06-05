@@ -55,6 +55,9 @@ class ApiClient {
       "Content-Type": "application/json",
     };
 
+    const token = localStorage.getItem("akf_admin_token");
+    if (token) headers["Authorization"] = `Bearer ${token}`;
+
     const options: RequestInit = { method, headers };
 
     if (data && (method === "POST" || method === "PUT")) {
@@ -113,8 +116,13 @@ class ApiClient {
     const formData = new FormData();
     formData.append("files", file);
 
+    const headers: Record<string, string> = {};
+    const token = localStorage.getItem("akf_admin_token");
+    if (token) headers["Authorization"] = `Bearer ${token}`;
+
     const response = await fetch(`${this.baseUrl}/upload`, {
       method: "POST",
+      headers,
       body: formData,
     });
 
@@ -123,6 +131,11 @@ class ApiClient {
     const files: string[] = result?.data?.files ?? result?.files ?? [];
     if (!files.length) throw new Error("No URL returned from upload");
     return files[0];
+  }
+
+  // Auth API
+  async login(email: string, password: string): Promise<{ token: string; admin: { id: string; name: string; email: string } }> {
+    return this.request("POST", "/auth/login", { email, password });
   }
 
   // Stats API

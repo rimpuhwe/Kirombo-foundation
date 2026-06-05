@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import JoditEditor from "jodit-react";
 import { useCreatePost, useUpdatePost } from "@/hooks/useData";
 import { apiClient, API_BASE_URL, Post } from "@/services/api";
@@ -40,7 +40,7 @@ const BlogManager: React.FC<BlogManagerProps> = ({ editingPostId, onDone }) => {
   const { update, loading: updating } = useUpdatePost(editingPostId ?? "");
   const submitting = creating || updating;
 
-  const joditConfig = {
+  const joditConfig = useMemo(() => ({
     height: 520,
     toolbarButtonSize: "large" as const,
     buttons: [
@@ -59,6 +59,9 @@ const BlogManager: React.FC<BlogManagerProps> = ({ editingPostId, onDone }) => {
       url: `${API_BASE_URL}/upload`,
       format: "json",
       filesVariableName: () => "files",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("akf_admin_token") ?? ""}`,
+      },
       process: (resp: any) => ({
         files: resp?.data?.files ?? resp?.files ?? [],
         path: resp?.data?.path ?? "",
@@ -78,7 +81,7 @@ const BlogManager: React.FC<BlogManagerProps> = ({ editingPostId, onDone }) => {
     language: "en",
     toolbarAdaptive: false,
     toolbarSticky: true,
-  };
+  }), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Load existing post when editing
   useEffect(() => {

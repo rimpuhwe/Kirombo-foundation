@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,19 +12,32 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 
 const Settings = () => {
+  const { admin, logout } = useAuth();
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
   const [profileDialogOpen, setProfileDialogOpen] = useState(false);
   const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
   const [notifEnabled, setNotifEnabled] = useState(true);
 
-  // Toggle dark mode (replace with your theme logic)
+  const initials = admin?.name
+    ? admin.name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2)
+    : "AD";
+
   const handleToggleDark = () => {
     setDarkMode((d) => !d);
-    // Add your theme switching logic here
     document.documentElement.classList.toggle("dark");
+  };
+
+  const handleLogout = () => {
+    logout();
+    toast.success("Signed out successfully");
+    navigate("/admin/login", { replace: true });
   };
 
   return (
@@ -39,13 +53,14 @@ const Settings = () => {
           {/* Profile Info */}
           <div className="flex items-center gap-6 pb-6 border-b border-gray-200 dark:border-gray-700">
             <Avatar className="w-20 h-20">
-              <AvatarImage src="/placeholder-profile.png" alt="Profile" />
-              <AvatarFallback className="text-xl">JD</AvatarFallback>
+              <AvatarFallback className="text-xl bg-primary text-white">{initials}</AvatarFallback>
             </Avatar>
             <div className="flex-1">
-              <h3 className="font-semibold text-lg text-gray-900 dark:text-white">John Doe</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">admin@email.com</p>
-              <p className="text-gray-500 text-xs mt-1">Member since Jan 2024</p>
+              <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
+                {admin?.name ?? "—"}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">{admin?.email ?? "—"}</p>
+              <p className="text-gray-500 text-xs mt-1">Administrator</p>
             </div>
             <Dialog open={profileDialogOpen} onOpenChange={setProfileDialogOpen}>
               <DialogTrigger asChild>
@@ -191,6 +206,22 @@ const Settings = () => {
               <Switch />
             </div>
           </div>
+        </section>
+
+        {/* Sign out */}
+        <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-red-100 dark:border-red-900/30 p-8">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Sign Out</h2>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
+            You are signed in as <span className="font-medium text-gray-700 dark:text-gray-300">{admin?.email}</span>.
+            Signing out will end your session.
+          </p>
+          <button
+            onClick={handleLogout}
+            className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+            Sign out
+          </button>
         </section>
       </div>
     </div>

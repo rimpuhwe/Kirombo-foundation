@@ -10,6 +10,8 @@ import postsRouter from "./routes/posts.js";
 import statsRouter from "./routes/stats.js";
 import activitiesRouter from "./routes/activities.js";
 import uploadRouter from "./routes/upload.js";
+import authRouter from "./routes/auth.js";
+import { requireAuth } from "./middleware/auth.js";
 
 dotenv.config();
 
@@ -44,10 +46,11 @@ app.get("/health", (req: Request, res: Response) => {
 });
 
 // API Routes
+app.use("/api/auth", authRouter);
 app.use("/api/posts", postsRouter);
-app.use("/api/stats", statsRouter);
-app.use("/api/activities", activitiesRouter);
-app.use("/api/upload", uploadRouter);
+app.use("/api/stats", requireAuth, statsRouter);
+app.use("/api/activities", requireAuth, activitiesRouter);
+app.use("/api/upload", requireAuth, uploadRouter);
 
 // Global error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

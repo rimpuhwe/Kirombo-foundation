@@ -3,11 +3,12 @@ import PostService from "../services/PostService.js";
 import ActivityService from "../services/ActivityService.js";
 import { validatePost } from "../lib/validation.js";
 import { getWebSocketService } from "../services/WebSocketService.js";
+import { requireAuth } from "../middleware/auth.js";
 
 const router = Router();
 
 // Create post
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", requireAuth, async (req: Request, res: Response) => {
   try {
     const { title, description, content, coverImage, category, status } = req.body;
 
@@ -79,7 +80,7 @@ router.get("/:id", async (req: Request, res: Response) => {
 });
 
 // Update post
-router.put("/:id", async (req: Request, res: Response) => {
+router.put("/:id", requireAuth, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { title, description, content, coverImage, category, status } = req.body;
@@ -116,7 +117,7 @@ router.put("/:id", async (req: Request, res: Response) => {
 });
 
 // Delete post
-router.delete("/:id", async (req: Request, res: Response) => {
+router.delete("/:id", requireAuth, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 

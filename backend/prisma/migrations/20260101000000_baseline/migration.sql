@@ -10,6 +10,8 @@ CREATE TABLE "Post" (
     "title" VARCHAR(255) NOT NULL,
     "description" TEXT NOT NULL,
     "content" TEXT NOT NULL,
+    "coverImage" TEXT,
+    "category" VARCHAR(100),
     "status" "PostStatus" NOT NULL DEFAULT 'DRAFT',
     "views" INTEGER NOT NULL DEFAULT 0,
     "likes" INTEGER NOT NULL DEFAULT 0,
