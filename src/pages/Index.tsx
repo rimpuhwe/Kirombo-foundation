@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/carousel";
 import CarouselDots from "@/components/ui/CarouselDots";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BadgeCheck, ShieldCheck, ExternalLink } from "lucide-react";
 import { works } from "../../types/Work";
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
@@ -264,6 +264,89 @@ const Index = () => {
                     ))}
                   </div>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Certifications & Awards */}
+          <section className="py-24 relative overflow-hidden">
+            <div className="container mx-auto px-4">
+              {/* Heading */}
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-14"
+              >
+                <span className="inline-flex items-center gap-2 text-secondary font-semibold text-sm uppercase tracking-widest mb-3">
+                  <BadgeCheck className="w-4 h-4" />
+                  Official Recognition
+                </span>
+                <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+                  Certifications &amp; Awards
+                </h2>
+                <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                  Independently verified and internationally recognised.
+                </p>
+              </motion.div>
+
+              {/* Content */}
+              <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+                {/* Certificate image */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.65 }}
+                  className="flex justify-center"
+                >
+                  <a
+                    href="https://www.ngosource.org/about-equivalency-determination-on-file-badge"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block"
+                    title="Verify our NGOsource Equivalency Determination"
+                  >
+                    <img
+                      src="https://public.boxcloud.com/api/2.0/internal_files/1538547383706/versions/1690003401306/representations/png_paged_2048x2048/content/1.png?access_token=1!4W5HLOLOh-LstIMpNp6V_PDeLTpBmyRb7ELLRt8duwTplY_ZoOTDRN2bn0R50eMtGRyitxuPtndMiTYDaGJVC8uADDLNhVVL5Crq8F9TwiSBr8xiJeoHJKRIwKHXIgAxCgOKD6I5eCLG5Dbq6Euhy4HKsX3zslAi_urCjwMKCuhGMlcZ081M5YJYUCs4V79Shfur5AcP32rl9TrBX1qOraPXZTkW7P2DDrnoN2pd6At2XCnLcbMGcdGr2Rw_r3j1vU5vdSnQ1ZyAn21rMkAWlAj3tfxQErIs2CG1g4AP1s-5P3W9fWyIR99g1o4TAbLm7TRct74rsAfXypPBh-iTExJIJIRU3vveQloeUXHqVTW8ZdzwNWrwg3rU06Ns8V369d4j54wONXbGzf9eUSzPu6Qc4yNvjsvJ5gYYHkEGk3D-Gi3j9sMKZ3bAefY3cNUdgLMYABYVEKibaI01GH_3AIrDkeNZN-cqEwNyiaBEINIS5uFkDhKH5eYjcZwzj13Zn1BHidUHC2WmkN63ieZLcfabm0U-Y08LFvfI5cD4GKRVptGoZlq8nRQgO6KlggAh47MfLNmU0Qu9GS66teHel7EYv-WfXbU28YWPX8ZQw7SgiAhyc9WZJp8q3ubQD6MChqg20dsN5Err98oBrIxrwuMaIdFYi0PCw-jGltKjm0GT5C0.&shared_link=https%3A%2F%2Ftechsoup.app.box.com%2Fv%2FNGOsourceFileBadgeImage&box_client_name=box-content-preview&box_client_version=3.41.0"
+                      alt="NGOsource Equivalency Determination Certificate"
+                      className="w-full max-w-2xl object-contain drop-shadow-xl group-hover:scale-[1.02] transition-transform duration-500"
+                    />
+                    <p className="text-center text-muted-foreground/60 text-xs mt-3 flex items-center justify-center gap-1 group-hover:text-secondary transition-colors">
+                      <ExternalLink className="w-3 h-3" /> Click to verify
+                    </p>
+                  </a>
+                </motion.div>
+
+                {/* Text */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.65, delay: 0.1 }}
+                >
+                  <div className="inline-flex items-center gap-2 bg-secondary/10 border border-secondary/20 text-secondary rounded-full px-4 py-1.5 text-sm font-semibold mb-6">
+                    <ShieldCheck className="w-4 h-4" />
+                    NGOsource Certified
+                  </div>
+
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">
+                    Internationally Recognised<br />Non-Governmental Organisation
+                  </h3>
+
+                  <p className="text-muted-foreground text-base leading-relaxed">
+                    The Abdallah Kiromba Foundation has been awarded an{" "}
+                    <span className="text-foreground font-semibold">
+                      Equivalency Determination
+                    </span>{" "}
+                    by NGOsource, an independent verification service endorsed
+                    by leading US philanthropic institutions confirming we meet
+                    the standards equivalent to a US public charity under
+                    Section 501(c)(3).
+                  </p>
+                </motion.div>
               </div>
             </div>
           </section>
