@@ -4,7 +4,7 @@ import { Calendar, ArrowRight, RefreshCw } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Skeleton } from "@/components/ui/skeleton";
-import { apiClient, Post } from "@/services/api";
+import { listPublishedArticles, type ArticleSummary } from "@/lib/articles";
 
 // Static external press items kept for media coverage section
 const staticItems = [
@@ -72,16 +72,14 @@ function PostCardSkeleton() {
 }
 
 const Press = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<ArticleSummary[]>([]);
   const [loading, setLoading] = useState(true);
-  const [lastFetched, setLastFetched] = useState<Date | null>(null);
 
   const fetchPosts = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await apiClient.getPosts("PUBLISHED");
+      const data = await listPublishedArticles();
       setPosts(data);
-      setLastFetched(new Date());
     } catch {
       // silently keep whatever we had
     } finally {
@@ -161,9 +159,9 @@ const Press = () => {
                               {/* Image */}
                               <div className="md:col-span-1">
                                 <div className="relative aspect-video bg-muted rounded-xl overflow-hidden">
-                                  {post.coverImage ? (
+                                  {post.cover_image_url ? (
                                     <img
-                                      src={post.coverImage}
+                                      src={post.cover_image_url}
                                       alt={post.title}
                                       className="object-cover w-full h-full"
                                     />
@@ -189,21 +187,23 @@ const Press = () => {
                                 <h3 className="text-2xl font-bold mb-3 text-foreground">
                                   {post.title}
                                 </h3>
-                                <div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground">
-                                  <Calendar size={14} className="text-primary" />
-                                  <span>
-                                    {new Date(post.createdAt).toLocaleDateString("en-GB", {
-                                      day: "2-digit",
-                                      month: "long",
-                                      year: "numeric",
-                                    })}
-                                  </span>
-                                </div>
+                                {post.published_at && (
+                                  <div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground">
+                                    <Calendar size={14} className="text-primary" />
+                                    <span>
+                                      {new Date(post.published_at).toLocaleDateString("en-GB", {
+                                        day: "2-digit",
+                                        month: "long",
+                                        year: "numeric",
+                                      })}
+                                    </span>
+                                  </div>
+                                )}
                                 <p className="text-muted-foreground mb-6 line-clamp-3">
-                                  {post.description}
+                                  {post.excerpt}
                                 </p>
                                 <Link
-                                  to={`/press/${post.id}`}
+                                  to={`/press/${post.slug}`}
                                   className="inline-flex items-center gap-1 text-secondary font-semibold hover:underline transition-colors"
                                 >
                                   Read Full Story <ArrowRight className="w-4 h-4" />
