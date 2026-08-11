@@ -12,21 +12,24 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { LogOut } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { LogOut, Loader2 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 
 const Settings = () => {
-  const { admin, logout } = useAuth();
+  const { profile, logout } = useAuth();
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
   const [profileDialogOpen, setProfileDialogOpen] = useState(false);
   const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
   const [notifEnabled, setNotifEnabled] = useState(true);
+  const [passwordForm, setPasswordForm] = useState({ password: "", confirm: "" });
+  const [changingPassword, setChangingPassword] = useState(false);
 
-  const initials = admin?.name
-    ? admin.name.split(" ").map((w) => w[0]).join("").toUpperCase().slice(0, 2)
+  const initials = profile?.name
+    ? profile.name.split(" ").map((w: string) => w[0]).join("").toUpperCase().slice(0, 2)
     : "AD";
 
   const handleToggleDark = () => {
@@ -34,10 +37,34 @@ const Settings = () => {
     document.documentElement.classList.toggle("dark");
   };
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     toast.success("Signed out successfully");
     navigate("/admin/login", { replace: true });
+  };
+
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordForm.password.length < 8) {
+      toast.error("New password must be at least 8 characters");
+      return;
+    }
+    if (passwordForm.password !== passwordForm.confirm) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    setChangingPassword(true);
+    try {
+      const { error } = await supabase.auth.updateUser({ password: passwordForm.password });
+      if (error) throw error;
+      toast.success("Password updated");
+      setPasswordForm({ password: "", confirm: "" });
+      setPasswordDialogOpen(false);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not update password");
+    } finally {
+      setChangingPassword(false);
+    }
   };
 
   return (
@@ -57,10 +84,10 @@ const Settings = () => {
             </Avatar>
             <div className="flex-1">
               <h3 className="font-semibold text-lg text-gray-900 dark:text-white">
-                {admin?.name ?? "—"}
+                {profile?.name ?? "—"}
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">{admin?.email ?? "—"}</p>
-              <p className="text-gray-500 text-xs mt-1">Administrator</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">{profile?.email ?? "—"}</p>
+              <p className="text-gray-500 text-xs mt-1 capitalize">{profile?.role ?? "—"}</p>
             </div>
             <Dialog open={profileDialogOpen} onOpenChange={setProfileDialogOpen}>
               <DialogTrigger asChild>
@@ -107,7 +134,13 @@ const Settings = () => {
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Security</h3>
             <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">Manage your password and security settings</p>
-            <Dialog open={passwordDialogOpen} onOpenChange={setPasswordDialogOpen}>
+            <Dialog
+              open={passwordDialogOpen}
+              onOpenChange={(open) => {
+                setPasswordDialogOpen(open);
+                if (!open) setPasswordForm({ password: "", confirm: "" });
+              }}
+            >
               <DialogTrigger asChild>
                 <Button variant="outline">Change Password</Button>
               </DialogTrigger>
@@ -115,28 +148,43 @@ const Settings = () => {
                 <DialogHeader>
                   <DialogTitle>Change Password</DialogTitle>
                 </DialogHeader>
-                <div className="flex flex-col gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Current Password</label>
-                    <Input type="password" placeholder="Current Password" className="mt-1" />
-                  </div>
+                <form onSubmit={handleChangePassword} className="flex flex-col gap-4">
                   <div>
                     <label className="text-sm font-medium text-gray-700 dark:text-gray-300">New Password</label>
-                    <Input type="password" placeholder="New Password" className="mt-1" />
+                    <Input
+                      type="password"
+                      placeholder="New Password"
+                      className="mt-1"
+                      value={passwordForm.password}
+                      onChange={(e) => setPasswordForm((f) => ({ ...f, password: e.target.value }))}
+                      required
+                      minLength={8}
+                    />
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Confirm New Password</label>
-                    <Input type="password" placeholder="Confirm New Password" className="mt-1" />
+                    <Input
+                      type="password"
+                      placeholder="Confirm New Password"
+                      className="mt-1"
+                      value={passwordForm.confirm}
+                      onChange={(e) => setPasswordForm((f) => ({ ...f, confirm: e.target.value }))}
+                      required
+                      minLength={8}
+                    />
                   </div>
-                </div>
-                <DialogFooter>
-                  <DialogClose asChild>
-                    <Button type="button" variant="secondary">
-                      Cancel
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button type="button" variant="secondary" disabled={changingPassword}>
+                        Cancel
+                      </Button>
+                    </DialogClose>
+                    <Button type="submit" disabled={changingPassword}>
+                      {changingPassword && <Loader2 className="w-4 h-4 animate-spin mr-2" />}
+                      Update Password
                     </Button>
-                  </DialogClose>
-                  <Button type="submit">Update Password</Button>
-                </DialogFooter>
+                  </DialogFooter>
+                </form>
               </DialogContent>
             </Dialog>
           </div>
@@ -212,7 +260,7 @@ const Settings = () => {
         <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-red-100 dark:border-red-900/30 p-8">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Sign Out</h2>
           <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
-            You are signed in as <span className="font-medium text-gray-700 dark:text-gray-300">{admin?.email}</span>.
+            You are signed in as <span className="font-medium text-gray-700 dark:text-gray-300">{profile?.email}</span>.
             Signing out will end your session.
           </p>
           <button

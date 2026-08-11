@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Loader2, Eye, EyeOff, Lock, Mail } from "lucide-react";
-import { useAuth } from "@/contexts/AuthContext";
-import { apiClient } from "@/services/api";
+import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 
 const Login: React.FC = () => {
-  const { login } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
@@ -21,11 +19,30 @@ const Login: React.FC = () => {
     }
     setLoading(true);
     try {
-      const { token, admin } = await apiClient.login(form.email, form.password);
-      login(token, admin);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: form.email,
+        password: form.password,
+      });
+      if (error || !data.session) {
+        toast.error("Invalid email or password");
+        return;
+      }
+
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("id", data.session.user.id)
+        .maybeSingle();
+
+      if (!profile) {
+        toast.error("This account is not authorized to access the admin portal");
+        await supabase.auth.signOut();
+        return;
+      }
+
       navigate("/admin", { replace: true });
-    } catch (err) {
-      toast.error("Invalid email or password");
+    } catch {
+      toast.error("Something went wrong signing in. Please try again.");
     } finally {
       setLoading(false);
     }

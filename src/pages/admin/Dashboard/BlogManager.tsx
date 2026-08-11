@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
-import JoditEditor from "jodit-react";
-import { useCreatePost, useUpdatePost } from "@/hooks/useData";
-import { apiClient, API_BASE_URL, Post } from "@/services/api";
+import React, { useEffect, useState } from "react";
 import { ImagePlus, X, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import Editor from "@/components/editor/Editor";
+import { useArticle, useCreateArticle, useUpdateArticle } from "@/hooks/useArticles";
+import { generateSlug, type ArticleStatus } from "@/lib/articles";
+import { uploadImage } from "@/lib/cloudinary";
 
 interface BlogManagerProps {
   editingPostId?: string | null;
@@ -12,135 +13,107 @@ interface BlogManagerProps {
 
 interface FormState {
   title: string;
-  description: string;
+  slug: string;
+  excerpt: string;
   content: string;
   coverImage: string;
   category: string;
-  status: "draft" | "published";
 }
 
 const EMPTY_FORM: FormState = {
   title: "",
-  description: "",
+  slug: "",
+  excerpt: "",
   content: "",
   coverImage: "",
   category: "",
-  status: "published",
 };
 
 const BlogManager: React.FC<BlogManagerProps> = ({ editingPostId, onDone }) => {
   const isEditing = Boolean(editingPostId);
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
+  const [slugEdited, setSlugEdited] = useState(false);
   const [coverPreview, setCoverPreview] = useState<string>("");
   const [coverUploading, setCoverUploading] = useState(false);
-  const [loadingPost, setLoadingPost] = useState(false);
-  const editor = useRef<any>(null);
 
-  const { create, loading: creating } = useCreatePost();
-  const { update, loading: updating } = useUpdatePost(editingPostId ?? "");
+  const { data: existingArticle, loading: loadingPost } = useArticle(editingPostId);
+  const { create, loading: creating } = useCreateArticle();
+  const { update, loading: updating } = useUpdateArticle(editingPostId ?? "");
   const submitting = creating || updating;
 
-  const joditConfig = useMemo(() => ({
-    height: 520,
-    toolbarButtonSize: "large" as const,
-    buttons: [
-      "source", "|",
-      "bold", "italic", "underline", "strikethrough", "|",
-      "font", "fontsize", "brush", "paragraph", "|",
-      "ul", "ol", "outdent", "indent", "|",
-      "align", "lineHeight", "|",
-      "link", "image", "video", "table", "|",
-      "hr", "eraser", "copyformat", "|",
-      "undo", "redo", "|",
-      "find", "|",
-      "preview", "fullsize",
-    ],
-    uploader: {
-      url: `${API_BASE_URL}/upload`,
-      format: "json",
-      filesVariableName: () => "files",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("akf_admin_token") ?? ""}`,
-      },
-      process: (resp: any) => ({
-        files: resp?.data?.files ?? resp?.files ?? [],
-        path: resp?.data?.path ?? "",
-        baseurl: resp?.data?.baseurl ?? "",
-        error: resp?.success === false ? 1 : 0,
-        msg: resp?.error ?? "",
-      }),
-    },
-    image: { openOnDblClick: true, editSrc: true },
-    askBeforePasteHTML: false,
-    askBeforePasteFromWord: false,
-    defaultActionOnPaste: "insert_as_html",
-    showCharsCounter: true,
-    showWordsCounter: true,
-    showXPathInStatusbar: false,
-    spellcheck: true,
-    language: "en",
-    toolbarAdaptive: false,
-    toolbarSticky: true,
-  }), []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Load existing post when editing
   useEffect(() => {
     if (!editingPostId) {
       setForm(EMPTY_FORM);
       setCoverPreview("");
+      setSlugEdited(false);
       return;
     }
+    if (existingArticle) {
+      setForm({
+        title: existingArticle.title,
+        slug: existingArticle.slug,
+        excerpt: existingArticle.excerpt,
+        content:
+          typeof existingArticle.content === "string"
+            ? existingArticle.content
+            : JSON.stringify(existingArticle.content),
+        coverImage: existingArticle.cover_image_url ?? "",
+        category: existingArticle.category ?? "",
+      });
+      setCoverPreview(existingArticle.cover_image_url ?? "");
+      setSlugEdited(true);
+    }
+  }, [editingPostId, existingArticle]);
 
-    setLoadingPost(true);
-    apiClient.getPost(editingPostId)
-      .then((post: Post) => {
-        setForm({
-          title: post.title,
-          description: post.description,
-          content: post.content,
-          coverImage: post.coverImage ?? "",
-          category: post.category ?? "",
-          status: post.status,
-        });
-        if (post.coverImage) setCoverPreview(post.coverImage);
-      })
-      .catch(() => toast.error("Failed to load post for editing"))
-      .finally(() => setLoadingPost(false));
-  }, [editingPostId]);
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const title = e.target.value;
+    setForm((prev) => ({
+      ...prev,
+      title,
+      slug: slugEdited ? prev.slug : generateSlug(title),
+    }));
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    if (name === "description" && value.length > 200) return;
+    if (name === "excerpt" && value.length > 200) return;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleContentChange = useCallback((value: string) => {
-    setForm((prev) => ({ ...prev, content: value }));
-  }, []);
-
-  // Read live content from the editor DOM — bypasses the stale-state problem
-  // when the submit button is clicked while focus is still inside Jodit.
-  const getLiveContent = (): string => {
-    const editorValue = (editor.current as any)?.value;
-    return typeof editorValue === "string" && editorValue ? editorValue : form.content;
+  const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSlugEdited(true);
+    setForm((prev) => ({ ...prev, slug: generateSlug(e.target.value) }));
   };
 
-  const isContentEmpty = (html: string) =>
-    !html || !html.replace(/<[^>]*>/g, "").trim();
+  const handleEditorChange = (json: string) => {
+    setForm((prev) => ({ ...prev, content: json }));
+  };
+
+  const isContentEmpty = (json: string) => {
+    if (!json) return true;
+    try {
+      const parsed = JSON.parse(json);
+      const children = parsed?.root?.children ?? [];
+      return children.length === 0 || (children.length === 1 && !children[0].children?.length);
+    } catch {
+      return true;
+    }
+  };
 
   const handleCoverImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    e.target.value = "";
     if (!file) return;
 
     setCoverPreview(URL.createObjectURL(file));
     setCoverUploading(true);
     try {
-      const url = await apiClient.uploadImage(file);
+      const url = await uploadImage(file);
       setForm((prev) => ({ ...prev, coverImage: url }));
       setCoverPreview(url);
       toast.success("Cover image uploaded");
-    } catch {
-      toast.error("Cover image upload failed");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Cover image upload failed");
       setCoverPreview("");
       setForm((prev) => ({ ...prev, coverImage: "" }));
     } finally {
@@ -153,58 +126,59 @@ const BlogManager: React.FC<BlogManagerProps> = ({ editingPostId, onDone }) => {
     setCoverPreview("");
   };
 
-  const validate = (content: string) => {
+  const validate = () => {
     if (!form.title.trim()) { toast.error("Title is required"); return false; }
-    if (!form.description.trim()) { toast.error("Description is required"); return false; }
-    if (isContentEmpty(content)) { toast.error("Content is required"); return false; }
+    if (!form.slug.trim()) { toast.error("Slug is required"); return false; }
+    if (!form.excerpt.trim()) { toast.error("Excerpt is required"); return false; }
+    if (isContentEmpty(form.content)) { toast.error("Content is required"); return false; }
     return true;
   };
 
-  const buildPayload = (status: "draft" | "published", content: string) => ({
-    title: form.title,
-    description: form.description,
-    content,
-    coverImage: form.coverImage || null,
-    category: form.category || null,
-    status,
+  const buildInput = () => ({
+    title: form.title.trim(),
+    slug: form.slug.trim(),
+    excerpt: form.excerpt.trim(),
+    content: JSON.parse(form.content),
+    cover_image_url: form.coverImage || null,
+    inline_images: extractInlineImages(form.content),
+    category: form.category.trim() || null,
   });
 
-  const handlePublish = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const content = getLiveContent();
-    if (!validate(content)) return;
-    try {
-      if (isEditing) {
-        await update(buildPayload("published", content));
-        toast.success("Post updated and published!");
-      } else {
-        await create(buildPayload("published", content));
-        toast.success("Post published successfully!");
-        setForm(EMPTY_FORM);
-        setCoverPreview("");
-      }
-      onDone?.();
-    } catch (err) {
-      toast.error((err as Error).message);
+  const submit = async (status: ArticleStatus, e?: React.FormEvent) => {
+    e?.preventDefault();
+    if (status === "published" && !validate()) return;
+    if (status === "draft" && !form.title.trim()) {
+      toast.error("Title is required to save a draft");
+      return;
     }
-  };
+    if (isContentEmpty(form.content)) {
+      toast.error("Content is required");
+      return;
+    }
+    if (!form.slug.trim()) {
+      toast.error("Slug is required");
+      return;
+    }
 
-  const handleSaveDraft = async () => {
-    const content = getLiveContent();
-    if (!form.title.trim()) { toast.error("Title is required to save draft"); return; }
     try {
+      const input = buildInput();
       if (isEditing) {
-        await update(buildPayload("draft", content));
-        toast.success("Post saved as draft!");
+        await update(input, status);
+        toast.success(status === "published" ? "Article updated and published!" : "Article saved as draft!");
       } else {
-        await create(buildPayload("draft", content));
-        toast.success("Draft saved!");
+        await create(input, status);
+        toast.success(status === "published" ? "Article published successfully!" : "Draft saved!");
         setForm(EMPTY_FORM);
         setCoverPreview("");
       }
       onDone?.();
     } catch (err) {
-      toast.error((err as Error).message);
+      const message = err instanceof Error ? err.message : "Something went wrong";
+      if (message.toLowerCase().includes("duplicate") || message.toLowerCase().includes("unique")) {
+        toast.error("That slug is already in use. Please choose a different one.");
+      } else {
+        toast.error(message);
+      }
     }
   };
 
@@ -218,14 +192,13 @@ const BlogManager: React.FC<BlogManagerProps> = ({ editingPostId, onDone }) => {
 
   return (
     <div className="max-w-5xl mx-auto">
-      {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            {isEditing ? "Edit Post" : "Write New Post"}
+            {isEditing ? "Edit Article" : "Write New Article"}
           </h1>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-            {isEditing ? "Update your existing post" : "Craft and publish your next story"}
+            {isEditing ? "Update your existing article" : "Craft and publish your next story"}
           </p>
         </div>
         {isEditing && onDone && (
@@ -234,41 +207,48 @@ const BlogManager: React.FC<BlogManagerProps> = ({ editingPostId, onDone }) => {
             onClick={onDone}
             className="text-sm text-gray-500 hover:text-gray-800 dark:hover:text-white underline"
           >
-            ← Back to posts
+            ← Back to articles
           </button>
         )}
       </div>
 
-      <form onSubmit={handlePublish} className="space-y-6">
-        {/* Two-column layout: main editor + sidebar */}
+      <form onSubmit={(e) => submit("published", e)} className="space-y-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-          {/* Main editor column */}
           <div className="lg:col-span-2 space-y-5">
-            {/* Title */}
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5">
-              <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                Title *
-              </label>
+              <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Title *</label>
               <input
                 name="title"
                 type="text"
                 value={form.title}
-                onChange={handleChange}
-                placeholder="Enter post title..."
+                onChange={handleTitleChange}
+                placeholder="Enter article title..."
                 className="w-full text-xl font-medium border-0 bg-transparent focus:outline-none focus:ring-0 text-gray-900 dark:text-white placeholder-gray-400"
                 required
               />
             </div>
 
-            {/* Description */}
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5">
+              <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Slug *</label>
+              <div className="flex items-center gap-1 text-sm text-gray-400 mb-1">/press/</div>
+              <input
+                name="slug"
+                type="text"
+                value={form.slug}
+                onChange={handleSlugChange}
+                placeholder="article-url-slug"
+                className="w-full font-mono text-sm border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                required
+              />
+            </div>
+
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5">
               <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                Short Description *
+                Excerpt *
               </label>
               <textarea
-                name="description"
-                value={form.description}
+                name="excerpt"
+                value={form.excerpt}
                 onChange={handleChange}
                 maxLength={200}
                 rows={3}
@@ -276,39 +256,27 @@ const BlogManager: React.FC<BlogManagerProps> = ({ editingPostId, onDone }) => {
                 className="w-full border-0 bg-transparent focus:outline-none focus:ring-0 resize-none text-gray-700 dark:text-gray-300 placeholder-gray-400"
                 required
               />
-              <div className="text-xs text-gray-400 text-right mt-1">
-                {form.description.length}/200
-              </div>
+              <div className="text-xs text-gray-400 text-right mt-1">{form.excerpt.length}/200</div>
             </div>
 
-            {/* Jodit Editor */}
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
               <div className="px-5 pt-5 pb-2">
-                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                  Content *
-                </label>
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">Content *</label>
                 <p className="text-xs text-gray-400 mt-0.5">
                   Use the toolbar to add formatting, images, links, and more
                 </p>
               </div>
-              {/* key forces a full remount when switching posts so Jodit
-                  picks up the new value prop rather than sticking to its
-                  internally cached content from the previous post. */}
-              <JoditEditor
-                key={editingPostId ?? "new"}
-                ref={editor}
-                value={form.content}
-                config={joditConfig}
-                tabIndex={1}
-                onBlur={handleContentChange}
-                onChange={handleContentChange}
-              />
+              <div className="p-5 pt-2">
+                <Editor
+                  key={editingPostId ?? "new"}
+                  initialContent={isEditing ? form.content || undefined : undefined}
+                  onChange={handleEditorChange}
+                />
+              </div>
             </div>
           </div>
 
-          {/* Sidebar */}
           <div className="space-y-5">
-            {/* Publish box */}
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5">
               <h3 className="font-semibold text-gray-800 dark:text-white mb-4">Publish</h3>
               <div className="space-y-3">
@@ -318,12 +286,12 @@ const BlogManager: React.FC<BlogManagerProps> = ({ editingPostId, onDone }) => {
                   className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-colors"
                 >
                   {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-                  {isEditing ? "Update & Publish" : "Publish Post"}
+                  {isEditing ? "Update & Publish" : "Publish Article"}
                 </button>
                 <button
                   type="button"
                   disabled={submitting || coverUploading}
-                  onClick={handleSaveDraft}
+                  onClick={() => submit("draft")}
                   className="w-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 disabled:opacity-60 text-gray-700 dark:text-gray-300 font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-colors"
                 >
                   {isEditing ? "Save Changes as Draft" : "Save as Draft"}
@@ -331,11 +299,8 @@ const BlogManager: React.FC<BlogManagerProps> = ({ editingPostId, onDone }) => {
               </div>
             </div>
 
-            {/* Category */}
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5">
-              <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                Category
-              </label>
+              <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">Category</label>
               <input
                 name="category"
                 type="text"
@@ -346,7 +311,6 @@ const BlogManager: React.FC<BlogManagerProps> = ({ editingPostId, onDone }) => {
               />
             </div>
 
-            {/* Cover Image */}
             <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-5">
               <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
                 Cover Image
@@ -354,11 +318,7 @@ const BlogManager: React.FC<BlogManagerProps> = ({ editingPostId, onDone }) => {
 
               {coverPreview ? (
                 <div className="relative">
-                  <img
-                    src={coverPreview}
-                    alt="Cover preview"
-                    className="w-full aspect-video object-cover rounded-lg"
-                  />
+                  <img src={coverPreview} alt="Cover preview" className="w-full aspect-video object-cover rounded-lg" />
                   <button
                     type="button"
                     onClick={removeCoverImage}
@@ -392,18 +352,30 @@ const BlogManager: React.FC<BlogManagerProps> = ({ editingPostId, onDone }) => {
           </div>
         </div>
       </form>
-
-      <style>{`
-        .jodit-wysiwyg img {
-          max-width: 100%;
-          height: auto;
-          border-radius: 8px;
-          margin: 8px 0;
-          display: block;
-        }
-      `}</style>
     </div>
   );
 };
+
+interface LexicalNodeJson {
+  type?: string;
+  src?: string;
+  children?: LexicalNodeJson[];
+}
+
+function extractInlineImages(editorStateJson: string): string[] {
+  try {
+    const parsed = JSON.parse(editorStateJson) as { root: LexicalNodeJson };
+    const urls: string[] = [];
+    const walk = (node: LexicalNodeJson | undefined) => {
+      if (!node) return;
+      if (node.type === "image" && typeof node.src === "string") urls.push(node.src);
+      (node.children ?? []).forEach(walk);
+    };
+    walk(parsed.root);
+    return urls;
+  } catch {
+    return [];
+  }
+}
 
 export default BlogManager;

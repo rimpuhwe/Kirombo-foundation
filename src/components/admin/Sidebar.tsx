@@ -1,11 +1,14 @@
 import React from "react";
 
+export type AdminTab = "overview" | "writing" | "blogs" | "writers" | "settings";
+
 interface SidebarProps {
-  activeTab: "overview" | "writing" | "blogs" | "settings";
-  setActiveTab: (tab: "overview" | "writing" | "blogs" | "settings") => void;
+  activeTab: AdminTab;
+  setActiveTab: (tab: AdminTab) => void;
+  isAdmin: boolean;
 }
 
-const icons = [
+const icons: Array<{ key: AdminTab; label: string; icon: React.ReactNode; adminOnly?: boolean }> = [
   {
     key: "overview",
     label: "Overview",
@@ -45,7 +48,7 @@ const icons = [
   },
   {
     key: "blogs",
-    label: "Blogs",
+    label: "Articles",
     icon: (
       <svg
         width="24"
@@ -57,6 +60,26 @@ const icons = [
       >
         <rect x="4" y="4" width="16" height="16" rx="2" />
         <path d="M8 8h8M8 12h8M8 16h4" />
+      </svg>
+    ),
+  },
+  {
+    key: "writers",
+    label: "Writers",
+    adminOnly: true,
+    icon: (
+      <svg
+        width="24"
+        height="24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+      >
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
       </svg>
     ),
   },
@@ -79,10 +102,12 @@ const icons = [
   },
 ];
 
-const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isAdmin }) => {
+  const visibleIcons = icons.filter((item) => !item.adminOnly || isAdmin);
+
   return (
     <aside
-      className="fixed left-8 top-10 h-[380px] z-50 flex flex-col items-center justify-center gap-6 bg-white/40 dark:bg-gray-900/40 border border-white/30 dark:border-gray-700/40 backdrop-blur-xl rounded-3xl shadow-2xl w-24"
+      className="fixed left-8 top-10 z-50 flex flex-col items-center justify-center gap-6 py-6 bg-white/40 dark:bg-gray-900/40 border border-white/30 dark:border-gray-700/40 backdrop-blur-xl rounded-3xl shadow-2xl w-24"
       style={{
         borderTopLeftRadius: 36,
         borderBottomLeftRadius: 36,
@@ -90,11 +115,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
       }}
     >
       <div className="flex flex-col gap-8 w-full items-center">
-        {icons.map(({ key, label, icon }) => (
+        {visibleIcons.map(({ key, label, icon }) => (
           <button
             key={key}
             className={`group relative flex flex-col items-center w-12 h-12 justify-center rounded-2xl transition-all duration-200 ${activeTab === key ? "bg-blue-500/90 text-white shadow-lg" : "hover:bg-blue-100/70 dark:hover:bg-gray-700/70 text-gray-700 dark:text-gray-300"}`}
-            onClick={() => setActiveTab(key as any)}
+            onClick={() => setActiveTab(key)}
             style={{
               boxShadow:
                 activeTab === key
