@@ -310,7 +310,7 @@ const Index = () => {
                     title="Verify our NGOsource Equivalency Determination"
                   >
                     <img
-                      src="https://public.boxcloud.com/api/2.0/internal_files/1538547383706/versions/1690003401306/representations/png_paged_2048x2048/content/1.png?access_token=1!4W5HLOLOh-LstIMpNp6V_PDeLTpBmyRb7ELLRt8duwTplY_ZoOTDRN2bn0R50eMtGRyitxuPtndMiTYDaGJVC8uADDLNhVVL5Crq8F9TwiSBr8xiJeoHJKRIwKHXIgAxCgOKD6I5eCLG5Dbq6Euhy4HKsX3zslAi_urCjwMKCuhGMlcZ081M5YJYUCs4V79Shfur5AcP32rl9TrBX1qOraPXZTkW7P2DDrnoN2pd6At2XCnLcbMGcdGr2Rw_r3j1vU5vdSnQ1ZyAn21rMkAWlAj3tfxQErIs2CG1g4AP1s-5P3W9fWyIR99g1o4TAbLm7TRct74rsAfXypPBh-iTExJIJIRU3vveQloeUXHqVTW8ZdzwNWrwg3rU06Ns8V369d4j54wONXbGzf9eUSzPu6Qc4yNvjsvJ5gYYHkEGk3D-Gi3j9sMKZ3bAefY3cNUdgLMYABYVEKibaI01GH_3AIrDkeNZN-cqEwNyiaBEINIS5uFkDhKH5eYjcZwzj13Zn1BHidUHC2WmkN63ieZLcfabm0U-Y08LFvfI5cD4GKRVptGoZlq8nRQgO6KlggAh47MfLNmU0Qu9GS66teHel7EYv-WfXbU28YWPX8ZQw7SgiAhyc9WZJp8q3ubQD6MChqg20dsN5Err98oBrIxrwuMaIdFYi0PCw-jGltKjm0GT5C0.&shared_link=https%3A%2F%2Ftechsoup.app.box.com%2Fv%2FNGOsourceFileBadgeImage&box_client_name=box-content-preview&box_client_version=3.41.0"
+                      src="https://res.cloudinary.com/c1ciyyll/image/upload/v1786536518/NGOsource_ED_on_File_Image.png"
                       alt="NGOsource Equivalency Determination Certificate"
                       className="w-full max-w-2xl object-contain drop-shadow-xl group-hover:scale-[1.02] transition-transform duration-500"
                     />
