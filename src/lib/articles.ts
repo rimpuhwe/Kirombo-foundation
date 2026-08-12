@@ -89,15 +89,48 @@ export async function getPublishedArticleBySlug(slug: string): Promise<Article |
   return data as unknown as Article | null;
 }
 
-/** Listing-page query — only the columns the Press Room cards need, never the full Lexical content. */
-export async function listPublishedArticles(): Promise<ArticleSummary[]> {
-  const { data, error } = await supabase
+export interface ArticlesPage {
+  articles: ArticleSummary[];
+  currentPage: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
+/**
+ * Listing-page query — only the columns the Press Room cards need, never the
+ * full Lexical content. Paginated and ordered by creation date (newest
+ * first) so ordering is stable and independent of frontend array order, and
+ * so it stays correct as the table grows to hundreds/thousands of rows
+ * (uses `range()` rather than fetching everything and slicing client-side).
+ */
+export async function listPublishedArticlesPage(page: number, pageSize = 5): Promise<ArticlesPage> {
+  const currentPage = Math.max(1, Math.floor(page) || 1);
+  const from = (currentPage - 1) * pageSize;
+  const to = from + pageSize - 1;
+
+  const { data, error, count } = await supabase
     .from("articles")
-    .select("id, title, slug, excerpt, cover_image_url, category, published_at")
+    .select("id, title, slug, excerpt, cover_image_url, category, published_at", { count: "exact" })
     .eq("status", "published")
-    .order("published_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .range(from, to);
   if (error) fail("Loading press room articles", error);
-  return (data ?? []) as ArticleSummary[];
+
+  const totalCount = count ?? 0;
+  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
+
+  return {
+    articles: (data ?? []) as ArticleSummary[],
+    currentPage,
+    pageSize,
+    totalCount,
+    totalPages,
+    hasNextPage: currentPage < totalPages,
+    hasPreviousPage: currentPage > 1,
+  };
 }
 
 export async function createArticle(
