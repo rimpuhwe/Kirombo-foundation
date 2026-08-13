@@ -26,7 +26,7 @@ function base64Encode(value: string): string {
 // A branded 1200x630 canvas (foundation green, logo padded/centered) used
 // only when an article has no cover image at all.
 export const FALLBACK_SOCIAL_IMAGE =
-  "https://res.cloudinary.com/dcgmi6w24/image/upload/w_1200,h_630,c_pad,b_rgb:0f766e,q_auto,f_auto/logo_fbe3pg.png";
+  "https://res.cloudinary.com/dcgmi6w24/image/upload/w_1200,h_630,c_pad,b_rgb:0f766e,q_auto,f_jpg/logo_fbe3pg.png";
 
 const CLOUDINARY_URL_PATTERN =
   /^https:\/\/res\.cloudinary\.com\/([^/]+)\/image\/upload\/(?:v\d+\/)?(.+)\.[a-zA-Z0-9]+(?:\?.*)?$/;
@@ -70,7 +70,12 @@ export function buildArticleSocialImageUrl(coverImageUrl: string | null | undefi
     // Foundation logo watermark, sized, then placed top-left, subtly.
     `l_fetch:${encodedLogo},w_150,o_92`,
     "fl_layer_apply,g_north_west,x_36,y_36",
-    "f_auto,q_auto",
+    // A fixed format (not f_auto) so every crawler gets the same,
+    // universally-supported JPEG rather than Cloudinary negotiating
+    // WebP/AVIF based on the request's Accept header — some crawlers
+    // (WhatsApp's in particular) are inconsistent about handling that
+    // negotiation and can silently drop the image.
+    "f_jpg,q_auto",
   ].join("/");
 
   return `https://res.cloudinary.com/${cloudName}/image/upload/${transformations}/${publicId}`;
