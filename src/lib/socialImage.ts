@@ -31,27 +31,16 @@ export const FALLBACK_SOCIAL_IMAGE =
 const CLOUDINARY_URL_PATTERN =
   /^https:\/\/res\.cloudinary\.com\/([^/]+)\/image\/upload\/(?:v\d+\/)?(.+)\.[a-zA-Z0-9]+(?:\?.*)?$/;
 
-function truncateForOverlay(title: string, maxLength = 70): string {
-  if (title.length <= maxLength) return title;
-  return `${title.slice(0, maxLength - 1).trimEnd()}…`;
-}
-
-// Cloudinary splits transformation URLs on raw "," and "/" *before*
-// percent-decoding, so a plain encodeURIComponent (which turns "," into
-// "%2C" and "/" into "%2F") still 400s. Verified directly against
-// Cloudinary: double-encoding ("," -> "%252C") is what actually survives.
-function encodeOverlayText(text: string): string {
-  return encodeURIComponent(text).replace(/%2C/g, "%252C").replace(/%2F/g, "%252F");
-}
-
 /**
  * Builds a portrait-editorial-style social card (1200x630 — a landscape
  * canvas every platform's crawler accepts) from an article's Cloudinary
  * cover image: blurred fill background, the sharp cover image inset and
- * centered, the article title overlaid near the bottom on a contrast box,
- * and a subtle logo watermark top-left. Falls back to a branded canvas
- * when there's no cover image, or to the raw cover URL if it isn't a
- * Cloudinary asset (so a preview still shows *something* rather than
+ * centered, and a subtle logo watermark top-left. The title itself isn't
+ * baked into the image — every platform already renders og:title as text
+ * next to the card, so a second copy burned into the photo (behind a
+ * translucent box) just covered the picture. Falls back to a branded
+ * canvas when there's no cover image, or to the raw cover URL if it isn't
+ * a Cloudinary asset (so a preview still shows *something* rather than
  * breaking).
  *
  * Each overlay is TWO chained transformation segments: one for the
@@ -62,7 +51,7 @@ function encodeOverlayText(text: string): string {
  * instructions instead, so every overlay silently lands center — verified
  * directly against Cloudinary by comparing both forms.
  */
-export function buildArticleSocialImageUrl(coverImageUrl: string | null | undefined, title: string): string {
+export function buildArticleSocialImageUrl(coverImageUrl: string | null | undefined): string {
   if (!coverImageUrl) return FALLBACK_SOCIAL_IMAGE;
 
   const match = coverImageUrl.match(CLOUDINARY_URL_PATTERN);
@@ -70,7 +59,6 @@ export function buildArticleSocialImageUrl(coverImageUrl: string | null | undefi
 
   const [, cloudName, publicId] = match;
   const overlayId = publicId.replace(/\//g, ":");
-  const encodedTitle = encodeOverlayText(truncateForOverlay(title));
   const encodedLogo = base64Encode(LOGO_URL);
 
   const transformations = [
@@ -79,9 +67,6 @@ export function buildArticleSocialImageUrl(coverImageUrl: string | null | undefi
     // The sharp cover image, portrait-fitted, then centered on top.
     `l_${overlayId},w_820,h_630,c_fill,g_auto`,
     "fl_layer_apply,g_center",
-    // Article title, styled, then bottom-anchored with a contrast box.
-    `l_text:Arial_54_bold:${encodedTitle},co_white,b_rgb:00000099,w_1040,c_fit`,
-    "fl_layer_apply,g_south,y_60",
     // Foundation logo watermark, sized, then placed top-left, subtly.
     `l_fetch:${encodedLogo},w_150,o_92`,
     "fl_layer_apply,g_north_west,x_36,y_36",
