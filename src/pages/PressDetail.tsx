@@ -18,6 +18,7 @@ import { Helmet } from "react-helmet";
 import { toast } from "sonner";
 import ArticleRenderer from "@/components/editor/ArticleRenderer";
 import { getPublishedArticleBySlug, incrementArticleLikes, incrementArticleViews, type Article } from "@/lib/articles";
+import { buildArticleSocialImageUrl } from "@/lib/socialImage";
 
 const PressDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -45,6 +46,33 @@ const PressDetail = () => {
       .catch(() => setNotFound(true))
       .finally(() => setLoading(false));
   }, [slug]);
+
+  useEffect(() => {
+    if (!post) return;
+    // react-helmet only manages <meta>/<link> tags it renders itself — it
+    // can't remove the generic og:*/twitter:*/description tags baked
+    // directly into index.html's static <head>. Left alone, both sets
+    // would sit in the DOM at once. Social crawlers never see this (they
+    // get middleware.ts's standalone HTML, not this rendered page), but
+    // any JS-executing consumer reading the live DOM would see two
+    // conflicting og:image tags. Strip the static ones once this page's
+    // own Helmet tags are in place, leaving only the per-article values.
+    const managed = [
+      'meta[name="description"]',
+      'meta[property="og:title"]',
+      'meta[property="og:description"]',
+      'meta[property="og:image"]',
+      'meta[property="og:url"]',
+      'meta[property="og:type"]',
+      'meta[property="og:site_name"]',
+      'meta[name="twitter:card"]',
+      'meta[name="twitter:title"]',
+      'meta[name="twitter:description"]',
+      'meta[name="twitter:image"]',
+    ];
+    const stale = document.head.querySelectorAll(managed.map((s) => `${s}:not([data-react-helmet])`).join(", "));
+    stale.forEach((tag) => tag.remove());
+  }, [post]);
 
   const handleLike = async () => {
     if (!post || liked) return;
@@ -96,6 +124,8 @@ const PressDetail = () => {
     );
   }
 
+  const socialImageUrl = buildArticleSocialImageUrl(post.cover_image_url, post.title);
+
   const shareLinks = [
     {
       label: "Facebook",
@@ -124,10 +154,21 @@ const PressDetail = () => {
       <Helmet>
         <title>{post.title} | Abdallah Kiromba Foundation</title>
         <meta name="description" content={post.excerpt} />
+        <link rel="canonical" href={shareUrl} />
+
+        <meta property="og:type" content="article" />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
-        {post.cover_image_url && <meta property="og:image" content={post.cover_image_url} />}
-        <meta property="og:type" content="article" />
+        <meta property="og:image" content={socialImageUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:url" content={shareUrl} />
+        <meta property="og:site_name" content="Abdallah Kiromba Foundation" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={post.excerpt} />
+        <meta name="twitter:image" content={socialImageUrl} />
       </Helmet>
 
       <div className="min-h-screen bg-background pt-20">
