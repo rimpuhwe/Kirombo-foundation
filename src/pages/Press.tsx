@@ -4,7 +4,32 @@ import { Calendar, ArrowRight, RefreshCw } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Skeleton } from "@/components/ui/skeleton";
-import { listPublishedArticles, type ArticleSummary } from "@/lib/articles";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { listPublishedArticlesPage, type ArticleSummary } from "@/lib/articles";
+
+const PAGE_SIZE = 5;
+
+/** Windowed page-number list with ellipses, e.g. [1, "ellipsis", 4, 5, 6, "ellipsis", 42]. */
+function getPageNumbers(current: number, total: number): (number | "ellipsis")[] {
+  const delta = 1;
+  const left = Math.max(2, current - delta);
+  const right = Math.min(total - 1, current + delta);
+
+  const pages: (number | "ellipsis")[] = [1];
+  if (left > 2) pages.push("ellipsis");
+  for (let i = left; i <= right; i++) pages.push(i);
+  if (right < total - 1) pages.push("ellipsis");
+  if (total > 1) pages.push(total);
+  return pages;
+}
 
 // Static external press items kept for media coverage section
 const staticItems = [
@@ -74,25 +99,43 @@ function PostCardSkeleton() {
 const Press = () => {
   const [posts, setPosts] = useState<ArticleSummary[]>([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const fetchPosts = useCallback(async () => {
+  const fetchPosts = useCallback(async (targetPage: number) => {
     try {
       setLoading(true);
-      const data = await listPublishedArticles();
-      setPosts(data);
+      const result = await listPublishedArticlesPage(targetPage, PAGE_SIZE);
+      // The page we asked for no longer exists (e.g. articles were removed
+      // since the last fetch) — clamp back to the new last page instead of
+      // showing an empty page.
+      if (result.articles.length === 0 && targetPage > result.totalPages) {
+        setPage(result.totalPages);
+        return;
+      }
+      setPosts(result.articles);
+      setTotalPages(result.totalPages);
     } catch {
-      // silently keep whatever we had
+      // silently keep whatever we had — pagination failure shouldn't break the page
     } finally {
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    fetchPosts();
+    fetchPosts(page);
     // Refresh every 60 seconds so newly published posts appear automatically
-    const interval = setInterval(fetchPosts, 60_000);
+    const interval = setInterval(() => fetchPosts(page), 60_000);
     return () => clearInterval(interval);
-  }, [fetchPosts]);
+  }, [fetchPosts, page]);
+
+  const goToPage = useCallback(
+    (newPage: number) => {
+      if (loading || newPage < 1 || newPage > totalPages || newPage === page) return;
+      setPage(newPage);
+    },
+    [loading, page, totalPages]
+  );
 
   return (
     <>
@@ -135,7 +178,7 @@ const Press = () => {
                   <div className="flex items-center justify-between mb-8">
                     <h2 className="text-2xl font-bold text-foreground">Latest Updates</h2>
                     <button
-                      onClick={fetchPosts}
+                      onClick={() => fetchPosts(page)}
                       className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
                       <RefreshCw className="w-4 h-4" />
@@ -213,6 +256,59 @@ const Press = () => {
                           </motion.div>
                         ))}
                   </div>
+
+                  {!loading && totalPages > 1 && (
+                    <Pagination className="mt-10">
+                      <PaginationContent>
+                        <PaginationItem>
+                          <PaginationPrevious
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              goToPage(page - 1);
+                            }}
+                            aria-disabled={page === 1}
+                            tabIndex={page === 1 ? -1 : undefined}
+                            className={page === 1 ? "pointer-events-none opacity-50" : undefined}
+                          />
+                        </PaginationItem>
+
+                        {getPageNumbers(page, totalPages).map((p, idx) =>
+                          p === "ellipsis" ? (
+                            <PaginationItem key={`ellipsis-${idx}`}>
+                              <PaginationEllipsis />
+                            </PaginationItem>
+                          ) : (
+                            <PaginationItem key={p}>
+                              <PaginationLink
+                                href="#"
+                                isActive={p === page}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  goToPage(p);
+                                }}
+                              >
+                                {p}
+                              </PaginationLink>
+                            </PaginationItem>
+                          )
+                        )}
+
+                        <PaginationItem>
+                          <PaginationNext
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              goToPage(page + 1);
+                            }}
+                            aria-disabled={page === totalPages}
+                            tabIndex={page === totalPages ? -1 : undefined}
+                            className={page === totalPages ? "pointer-events-none opacity-50" : undefined}
+                          />
+                        </PaginationItem>
+                      </PaginationContent>
+                    </Pagination>
+                  )}
                 </div>
               </div>
             </section>

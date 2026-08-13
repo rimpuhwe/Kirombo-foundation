@@ -30,9 +30,18 @@ const partners = [
     logo: RWANDA_COAT,
   },
   {
+   name: "NGOsource ED",
+   logo: "https://res.cloudinary.com/c1ciyyll/image/upload/v1786536518/NGOsource_ED_on_File_Image.png", 
+  },
+  {
     name: "Musanze District\n(Kinigi Sector)",
     logo: RWANDA_COAT,
   },
+  {
+    name: "",
+    logo: "https://www.nesa.gov.rw/fileadmin/user_upload/NESA/Background_Images/nesalogo.png",
+  },
+  
 ];
 
 const PartnersCarousel = () => {
@@ -560,7 +569,7 @@ const About = () => {
                 transition={{ duration: 0.6 }}
               >
                 <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-center">
-                  Implementing Partners
+                  Our Partners
                 </h2>
                 <p className="text-center text-muted-foreground text-lg mb-16 max-w-3xl mx-auto">
                   We deliver impact in partnership with trusted organisations
