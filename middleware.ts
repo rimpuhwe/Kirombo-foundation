@@ -67,7 +67,7 @@ function escapeHtml(value: string): string {
 function renderCrawlerHtml(article: ArticleMeta, pageUrl: string): string {
   const title = article.title;
   const description = article.excerpt;
-  const image = buildArticleSocialImageUrl(article.cover_image_url, title) || FALLBACK_SOCIAL_IMAGE;
+  const image = buildArticleSocialImageUrl(article.cover_image_url) || FALLBACK_SOCIAL_IMAGE;
 
   const t = escapeHtml(title);
   const d = escapeHtml(description);

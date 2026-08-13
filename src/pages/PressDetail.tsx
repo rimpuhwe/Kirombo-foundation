@@ -124,7 +124,7 @@ const PressDetail = () => {
     );
   }
 
-  const socialImageUrl = buildArticleSocialImageUrl(post.cover_image_url, post.title);
+  const socialImageUrl = buildArticleSocialImageUrl(post.cover_image_url);
 
   const shareLinks = [
     {
