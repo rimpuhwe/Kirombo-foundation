@@ -7,9 +7,10 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@/components/ui/accordion";
-import { useTitle } from "@/hooks/useTitle";
+} from "@/shared/components/ui/accordion";
+import { useTitle } from "@/shared/hooks/useTitle";
 import { Helmet } from "react-helmet";
+import FeaturedGallery from "@/components/gallery/FeaturedGallery";
 
 interface TeamMember {
   name: string;
@@ -581,6 +582,7 @@ const About = () => {
             </div>
           </div>
         </section>
+        <FeaturedGallery />
       </div>
     </>
   );

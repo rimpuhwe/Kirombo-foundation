@@ -26,7 +26,7 @@ import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { ListNode, ListItemNode } from "@lexical/list";
 import { LinkNode, AutoLinkNode } from "@lexical/link";
 import { HorizontalRuleNode } from "@lexical/react/LexicalHorizontalRuleNode";
-import { ImageNode } from "../src/components/editor/nodes/ImageNode";
+import { ImageNode } from "../src/features/press/editor/nodes/ImageNode";
 
 const OLD_DATABASE_URL = process.env.OLD_DATABASE_URL;
 const SUPABASE_URL = process.env.SUPABASE_URL;

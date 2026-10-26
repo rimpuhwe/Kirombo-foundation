@@ -1,6 +1,6 @@
-import SectionHeader from "@/components/SectionHeader";
+import SectionHeader from "@/shared/components/SectionHeader";
 import { motion } from "framer-motion";
-import { useTitle } from "@/hooks/useTitle";
+import { useTitle } from "@/shared/hooks/useTitle";
 import { Helmet } from "react-helmet";
 
 const Biography = () => {
